@@ -317,10 +317,11 @@ def save_model(args, user_map, item_map, row_factor, col_factor):
   np.save(os.path.join(model_dir, 'item'), item_map)
   np.save(os.path.join(model_dir, 'row'), row_factor)
   np.save(os.path.join(model_dir, 'col'), col_factor)
-  np.savetxt(os.path.join(model_dir, 'user.csv'), user_map, delimiter=",")
-  np.savetxt(os.path.join(model_dir, 'item.csv'), item_map, delimiter=",")
-  np.savetxt(os.path.join(model_dir, 'row.csv'), row_factor, delimiter=",")
-  np.savetxt(os.path.join(model_dir, 'col.csv'), col_factor, delimiter=",")
+  pd.DataFrame(user_map).to_csv(os.path.join(model_dir, 'user.csv'),header=None)
+  pd.DataFrame(item_map).to_csv(os.path.join(model_dir, 'item.csv'),header=None)
+  pd.DataFrame(row_factor).to_csv(os.path.join(model_dir, 'row.csv'),header=None)
+  pd.DataFrame(col_factor).to_csv(os.path.join(model_dir, 'col.csv'),header=None)
+
 
   if gs_model_dir:
     sh.gsutil('cp', '-r', os.path.join(model_dir, '*'), gs_model_dir)
