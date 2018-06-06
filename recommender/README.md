@@ -39,7 +39,7 @@ algorithm in TensorFlow.  Components include:
 		git clone https://github.com/precocity/gcp-retail-workshop-2018.git 
 
 
-### Extract Data from BigQuery
+## Extract Data from BigQuery
 
 This tutorial leverages a recently releasted Google Analytics data set from Google Merchandise Store...
 
@@ -50,10 +50,33 @@ This tutorial leverages a recently releasted Google Analytics data set from Goog
 
 2. Create a dataset :
 
+		cd gcp-retail-workshop-2018/recommender
 		bq mk GA360_MerchStore
-		bq query --replace=true --destination_table= GA360_MerchStore.implicit_feedback "`cat ./recommender/implicit_feedback_query.sql`"
+		bq query --replace=true --destination_table=GA360_MerchStore.implicit_feedback "`cat implicit_feedback_query.sql`"
 3. Extract newly created table into CSV into GCS BUCKET
 
 		TRAIN_FILE=$BUCKET/data/recommendation_events.csv
-		bq extract GA360_MerchStore.implicit_feedback $TRAIN_FILE	
+		bq extract GA360_MerchStore.implicit_feedback $TRAIN_FILE
+		
+## Train Recommender using Cloud ML Engine
+I'll need to add a lot more here
+
+1. Setup some ENV variables & change directory
+
+		JOBNAME=wals_$(date -u +%y%m%d_%H%M%S)
+		REGION=us-east1
+		ARGS="--data-type web_views --train-files ${TRAIN_FILE} --verbose-logging $@"
+		cd wals_ml_engine
+2. Execute Cloud MLE command
+
+		gcloud ml-engine jobs submit training ${JOBNAME} \
+		 --region $REGION \
+		 --scale-tier=CUSTOM \
+		 --job-dir=$BUCKET \
+		 --module-name trainer.task \
+		 --package-path trainer \
+		 --config trainer/config/config_train.json \
+		 -- \
+		 ${ARGS}
+			
 
