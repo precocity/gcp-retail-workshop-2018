@@ -16,8 +16,8 @@ Expected Time: TBD
   * `gcloud config set account [your-email-address]`
   * `gcloud auth login`
     * Select `Y` upon prompt.
-    * Ctrl + Click on the URL that's displayed on the console to open it in the browser.
-    * Choose / Login to the Google Account in the browser (or alternatively copy-paste the entire URL in the browser).
+    * Ctrl + Click on the URL that's displayed on the console to open it in the browser (or alternatively copy-paste the entire URL in the browser).
+    * Choose / Login to the Google Account in the browser.
     * Click Allow.
     * Copy the auth code displayed in the browser and paste it in the console window.
     * On successful verification you should see a message: "You are now logged in as [your-email-address]".
