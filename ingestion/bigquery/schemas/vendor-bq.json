@@ -1,0 +1,22 @@
+[
+  {
+    "mode": "NULLABLE",
+    "name": "vendor_id",
+    "type": "INTEGER"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "vendor_name",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "created_timestamp",
+    "type": "TIMESTAMP"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "updated_timestamp",
+    "type": "TIMESTAMP"
+  }
+]

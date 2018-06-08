@@ -1,0 +1,77 @@
+[
+  {
+    "mode": "NULLABLE",
+    "name": "store_id",
+    "type": "INTEGER"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "store_num",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "store_name",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "store_address_line_1",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "store_address_line_2",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "store_city",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "store_state",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "store_postal_code",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "store_country",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "latitude",
+    "type": "FLOAT64"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "longitude",
+    "type": "FLOAT64"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "open_date",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "close_date",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "created_timestamp",
+    "type": "TIMESTAMP"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "updated_timestamp",
+    "type": "TIMESTAMP"
+  }
+]

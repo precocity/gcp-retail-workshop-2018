@@ -1,0 +1,82 @@
+[
+  {
+    "mode": "NULLABLE",
+    "name": "item_id",
+    "type": "INTEGER"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "vendor_id",
+    "type": "INTEGER"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "division_id",
+    "type": "INTEGER"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "department_id",
+    "type": "INTEGER"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "classification_id",
+    "type": "INTEGER"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "sub_classification_id",
+    "type": "INTEGER"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "style_id",
+    "type": "INTEGER"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "sku",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "color",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "size",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "short_description",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "long_description",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "image_url",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "current_price",
+    "type": "FLOAT64"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "created_timestamp",
+    "type": "TIMESTAMP"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "updated_timestamp",
+    "type": "TIMESTAMP"
+  }
+]

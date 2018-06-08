@@ -1,0 +1,37 @@
+[
+  {
+    "mode": "NULLABLE",
+    "name": "employee_relationship_id",
+    "type": "INTEGER"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "customer_id",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "employee_id",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "relationship_type",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "relationship_start_date",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "created_timestamp",
+    "type": "TIMESTAMP"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "updated_timestamp",
+    "type": "TIMESTAMP"
+  }
+]

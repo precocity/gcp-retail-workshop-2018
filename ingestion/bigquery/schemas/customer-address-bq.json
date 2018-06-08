@@ -1,0 +1,52 @@
+[
+  {
+    "mode": "NULLABLE",
+    "name": "address_id",
+    "type": "INTEGER"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "customer_id",
+    "type": "INTEGER"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "address_line_1",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "address_line_2",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "city",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "state",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "postal_code",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "country",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "created_timestamp",
+    "type": "TIMESTAMP"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "updated_timestamp",
+    "type": "TIMESTAMP"
+  }
+]

@@ -1,0 +1,122 @@
+[
+  {
+    "mode": "NULLABLE",
+    "name": "customer_id",
+    "type": "INTEGER"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "customer_number",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "last_name",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "first_name",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "alternate_lastName",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "salutation",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "birth_date",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "gender",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "marital_status",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "anniversary",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "primary_email",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "secondary_email",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "primary_phone",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "primary_phone_type",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "secondary_phone",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "secondary_phone_type",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "employee_flag",
+    "type": "BOOLEAN"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "social_handle_1",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "social_handle_1_type",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "social_handle_2",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "social_handle_2_type",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "household_id",
+    "type": "INTEGER"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "created_timestamp",
+    "type": "TIMESTAMP"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "updated_timestamp",
+    "type": "TIMESTAMP"
+  }
+]

@@ -1,0 +1,57 @@
+[
+  {
+    "mode": "NULLABLE",
+    "name": "customer_loyalty_id",
+    "type": "INTEGER"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "loyalty_number",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "loyalty_join_date",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "loyalty_lifetime_points",
+    "type": "INTEGER"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "loyalty_available_points",
+    "type": "INTEGER"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "loyalty_level",
+    "type": "INTEGER"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "loyalty_level_description",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "loyalty_level_expiration",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "created_timestamp",
+    "type": "TIMESTAMP"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "updated_timestamp",
+    "type": "TIMESTAMP"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "customer_id",
+    "type": "INTEGER"
+  }
+]

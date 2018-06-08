@@ -1,0 +1,52 @@
+[
+  {
+    "mode": "NULLABLE",
+    "name": "employee_id",
+    "type": "INTEGER"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "employee_number",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "employee_first_name",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "employee_last_name",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "employee_type",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "employee_store_id",
+    "type": "INTEGER"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "employee_department_id",
+    "type": "INTEGER"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "employee_level",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "created_timestamp",
+    "type": "TIMESTAMP"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "updated_timestamp",
+    "type": "TIMESTAMP"
+  }
+]
