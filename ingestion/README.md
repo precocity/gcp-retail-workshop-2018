@@ -1,10 +1,10 @@
 # Data Ingestion Hands-On Lab
 ## Overview
-#### Architecture
+### Architecture
 ![Architecture Diagram](assets/RetailWorkshop-DataIngestion-Arch.png)
-#### Data Model
+### Data Model
 [To Be Added]
-#### Dataflow Templates
+### Dataflow Templates
 * [Overview](https://cloud.google.com/dataflow/docs/templates/overview)
 * [Source code](https://github.com/GoogleCloudPlatform/DataflowTemplates)
   - GCS Text to BigQuery
