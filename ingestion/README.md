@@ -72,6 +72,7 @@ mvn compile exec:java \
 --runner=DataflowRunner"
 ```
 You should see a "Build Successful" message upon successful deployment of the Dataflow job.
+
 4. Build & deploy the Pub/Sub -> BigQuery Dataflow job:
 ```
 mvn compile exec:java \
@@ -85,6 +86,7 @@ mvn compile exec:java \
 --runner=DataflowRunner"
 ```
 You should see a "Build Successful" message upon successful deployment of the Dataflow job.
+
 5. Build & deploy Pub/Sub -> GCS Text Dataflow job:
 ```
 mvn compile exec:java \
@@ -98,7 +100,9 @@ mvn compile exec:java \
 --runner=DataflowRunner"
 ```
 You should see a "Build Successful" message upon successful deployment of the Dataflow job.
+
 6. At this point all the required Dataflow jobs are deployed to GCS and you can verify by navigating to your bucket and the respective folders.
+
 7. Next step is to deploy application specific logic (parsing & transformations) that is required by the Dataflow jobs. There is helper script that copies the application specific code to GCS. Execute the following:
 ```
 cd ~/gcp-retail-workshop-2018/ingestion
