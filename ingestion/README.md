@@ -12,11 +12,11 @@
   - Pub/Sub to Datastore
 
 ## Hands-On
-#### Pre-Requisites
+### Pre-Requisites
 * Completed the [setup](../setup/README.md) process.
 * `cd gcp-retail-workshop-2018/ingestion`
 
-#### Creating BigQuery Tables
+### Creating BigQuery Tables
 Let's create one BigQuery table using the `bq` command and create the rest in the same manner using a helper script.
 1. Create a dataset using the command below, be sure to replace the project-name:<br/>
 ```
@@ -38,4 +38,4 @@ sh bigquery/scripts/create-bq-tables.sh [project-name]
 ```
 At this point all the tables will be created in the dataset in BigQuery. You can verify in the BigQuery home page.
 
-#### Batch Load
+### Batch Load
