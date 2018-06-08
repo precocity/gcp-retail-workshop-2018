@@ -1,0 +1,36 @@
+{
+  "BigQuery Schema": [
+    {
+      "name": "customer_favorite_id",
+      "type": "INT64"
+    },
+    {
+      "name": "customer_id",
+      "type": "INT64"
+    },
+    {
+      "name": "vendor_id",
+      "type": "INT64"
+    },
+    {
+      "name": "category_id",
+      "type": "INT64"
+    },
+    {
+      "name": "item_id",
+      "type": "INT64"
+    },
+    {
+      "name": "source",
+      "type": "STRING"
+    },
+    {
+      "name": "created_timestamp",
+      "type": "TIMESTAMP"
+    },
+    {
+      "name": "updated_timestamp",
+      "type": "TIMESTAMP"
+    }
+  ]
+}

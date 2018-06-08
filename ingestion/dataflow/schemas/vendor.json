@@ -1,0 +1,20 @@
+{
+  "BigQuery Schema": [
+    {
+      "name": "vendor_id",
+      "type": "INT64"
+    },
+    {
+      "name": "vendor_name",
+      "type": "STRING"
+    },
+    {
+      "name": "created_timestamp",
+      "type": "TIMESTAMP"
+    },
+    {
+      "name": "updated_timestamp",
+      "type": "TIMESTAMP"
+    }
+  ]
+}

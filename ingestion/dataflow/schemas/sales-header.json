@@ -1,0 +1,64 @@
+{
+  "BigQuery Schema": [
+    {
+      "name": "order_id",
+      "type": "INT64"
+    },
+    {
+      "name": "channel_id",
+      "type": "INT64"
+    },
+    {
+      "name": "customer_id",
+      "type": "INT64"
+    },
+    {
+      "name": "primary_associate_id",
+      "type": "INT64"
+    },
+    {
+      "name": "secondary_associate_id",
+      "type": "INT64"
+    },
+    {
+      "name": "total_amount",
+      "type": "FLOAT64"
+    },
+    {
+      "name": "store_id",
+      "type": "INT64"
+    },
+    {
+      "name": "pos_terminal_id",
+      "type": "STRING"
+    },
+    {
+      "name": "transaction_date",
+      "type": "STRING"
+    },
+    {
+      "name": "transaction_number",
+      "type": "STRING"
+    },
+    {
+      "name": "merchandise_amount",
+      "type": "FLOAT64"
+    },
+    {
+      "name": "tax_amount",
+      "type": "FLOAT64"
+    },
+    {
+      "name": "payment_type",
+      "type": "STRING"
+    },
+    {
+      "name": "created_timestamp",
+      "type": "TIMESTAMP"
+    },
+    {
+      "name": "updated_timestamp",
+      "type": "TIMESTAMP"
+    }
+  ]
+}

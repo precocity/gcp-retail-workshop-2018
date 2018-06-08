@@ -1,0 +1,44 @@
+{
+  "BigQuery Schema": [
+    {
+      "name": "address_id",
+      "type": "INT64"
+    },
+    {
+      "name": "customer_id",
+      "type": "INT64"
+    },
+    {
+      "name": "address_line_1",
+      "type": "STRING"
+    },
+    {
+      "name": "address_line_2",
+      "type": "STRING"
+    },
+    {
+      "name": "city",
+      "type": "STRING"
+    },
+    {
+      "name": "state",
+      "type": "STRING"
+    },
+    {
+      "name": "postal_code",
+      "type": "STRING"
+    },
+    {
+      "name": "country",
+      "type": "STRING"
+    },
+    {
+      "name": "created_timestamp",
+      "type": "TIMESTAMP"
+    },
+    {
+      "name": "updated_timestamp",
+      "type": "TIMESTAMP"
+    }
+  ]
+}

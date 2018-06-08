@@ -1,0 +1,24 @@
+{
+  "BigQuery Schema": [
+    {
+      "name": "style_id",
+      "type": "INT64"
+    },
+    {
+      "name": "sub_classification_id",
+      "type": "INT64"
+    },
+    {
+      "name": "style_name",
+      "type": "STRING"
+    },
+    {
+      "name": "created_timestamp",
+      "type": "TIMESTAMP"
+    },
+    {
+      "name": "updated_timestamp",
+      "type": "TIMESTAMP"
+    }
+  ]
+}

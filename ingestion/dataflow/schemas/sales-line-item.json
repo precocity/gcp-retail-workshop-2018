@@ -1,0 +1,80 @@
+{
+  "BigQuery Schema": [
+    {
+      "name": "line_item_id",
+      "type": "INT64"
+    },
+    {
+      "name": "order_id",
+      "type": "INT64"
+    },
+    {
+      "name": "item_id",
+      "type": "INT64"
+    },
+    {
+      "name": "transaction_type",
+      "type": "STRING"
+    },
+    {
+      "name": "quantity",
+      "type": "INT64"
+    },
+    {
+      "name": "item_price_each",
+      "type": "FLOAT64"
+    },
+    {
+      "name": "item_tax_each",
+      "type": "FLOAT64"
+    },
+    {
+      "name": "markdown_each",
+      "type": "FLOAT64"
+    },
+    {
+      "name": "freight_each",
+      "type": "FLOAT64"
+    },
+    {
+      "name": "duty_each",
+      "type": "FLOAT64"
+    },
+    {
+      "name": "gift_wrap_flag",
+      "type": "BOOLEAN"
+    },
+    {
+      "name": "item_status",
+      "type": "STRING"
+    },
+    {
+      "name": "item_status_as_of_date",
+      "type": "STRING"
+    },
+    {
+      "name": "ship_date",
+      "type": "STRING"
+    },
+    {
+      "name": "promotion_code",
+      "type": "STRING"
+    },
+    {
+      "name": "gift_message",
+      "type": "STRING"
+    },
+    {
+      "name": "gift_registry_number",
+      "type": "BOOLEAN"
+    },
+    {
+      "name": "created_timestamp",
+      "type": "TIMESTAMP"
+    },
+    {
+      "name": "updated_timestamp",
+      "type": "TIMESTAMP"
+    }
+  ]
+}

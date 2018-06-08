@@ -1,0 +1,20 @@
+{
+  "BigQuery Schema": [
+    {
+      "name": "division_id",
+      "type": "INT64"
+    },
+    {
+      "name": "division_name",
+      "type": "STRING"
+    },
+    {
+      "name": "created_timestamp",
+      "type": "TIMESTAMP"
+    },
+    {
+      "name": "updated_timestamp",
+      "type": "TIMESTAMP"
+    }
+  ]
+}

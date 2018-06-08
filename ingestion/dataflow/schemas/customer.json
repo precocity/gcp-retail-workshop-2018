@@ -1,0 +1,100 @@
+{
+  "BigQuery Schema": [
+    {
+      "name": "customer_id",
+      "type": "INT64"
+    },
+    {
+      "name": "customer_number",
+      "type": "STRING"
+    },
+    {
+      "name": "last_name",
+      "type": "STRING"
+    },
+    {
+      "name": "first_name",
+      "type": "STRING"
+    },
+    {
+      "name": "alternate_lastName",
+      "type": "STRING"
+    },
+    {
+      "name": "salutation",
+      "type": "STRING"
+    },
+    {
+      "name": "birth_date",
+      "type": "STRING"
+    },
+    {
+      "name": "gender",
+      "type": "STRING"
+    },
+    {
+      "name": "marital_status",
+      "type": "STRING"
+    },
+    {
+      "name": "anniversary",
+      "type": "STRING"
+    },
+    {
+      "name": "primary_email",
+      "type": "STRING"
+    },
+    {
+      "name": "secondary_email",
+      "type": "STRING"
+    },
+    {
+      "name": "primary_phone",
+      "type": "STRING"
+    },
+    {
+      "name": "primary_phone_type",
+      "type": "STRING"
+    },
+    {
+      "name": "secondary_phone",
+      "type": "STRING"
+    },
+    {
+      "name": "secondary_phone_type",
+      "type": "STRING"
+    },
+    {
+      "name": "employee_flag",
+      "type": "BOOLEAN"
+    },
+    {
+      "name": "social_handle_1",
+      "type": "STRING"
+    },
+    {
+      "name": "social_handle_1_type",
+      "type": "STRING"
+    },
+    {
+      "name": "social_handle_2",
+      "type": "STRING"
+    },
+    {
+      "name": "social_handle_2_type",
+      "type": "STRING"
+    },
+    {
+      "name": "household_id",
+      "type": "INT64"
+    },
+    {
+      "name": "created_timestamp",
+      "type": "TIMESTAMP"
+    },
+    {
+      "name": "updated_timestamp",
+      "type": "TIMESTAMP"
+    }
+  ]
+}

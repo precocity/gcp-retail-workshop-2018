@@ -1,0 +1,44 @@
+{
+  "BigQuery Schema": [
+    {
+      "name": "employee_id",
+      "type": "INT64"
+    },
+    {
+      "name": "employee_number",
+      "type": "STRING"
+    },
+    {
+      "name": "employee_first_name",
+      "type": "STRING"
+    },
+    {
+      "name": "employee_last_name",
+      "type": "STRING"
+    },
+    {
+      "name": "employee_type",
+      "type": "STRING"
+    },
+    {
+      "name": "employee_store_id",
+      "type": "INT64"
+    },
+    {
+      "name": "employee_department_id",
+      "type": "INT64"
+    },
+    {
+      "name": "employee_level",
+      "type": "STRING"
+    },
+    {
+      "name": "created_timestamp",
+      "type": "TIMESTAMP"
+    },
+    {
+      "name": "updated_timestamp",
+      "type": "TIMESTAMP"
+    }
+  ]
+}

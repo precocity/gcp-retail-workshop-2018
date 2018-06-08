@@ -1,0 +1,12 @@
+{
+  "BigQuery Schema": [
+    {
+      "name": "channel_id",
+      "type": "INT64"
+    },
+    {
+      "name": "channel_name",
+      "type": "STRING"
+    }
+  ]
+}

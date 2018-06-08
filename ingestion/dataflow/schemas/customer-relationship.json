@@ -1,0 +1,28 @@
+{
+  "BigQuery Schema": [
+    {
+      "name": "customer_relationship_id",
+      "type": "INT64"
+    },
+    {
+      "name": "source_customer_id",
+      "type": "INT64"
+    },
+    {
+      "name": "target_customer_id",
+      "type": "INT64"
+    },
+    {
+      "name": "relationship_type",
+      "type": "STRING"
+    },
+    {
+      "name": "created_timestamp",
+      "type": "TIMESTAMP"
+    },
+    {
+      "name": "updated_timestamp",
+      "type": "TIMESTAMP"
+    }
+  ]
+}

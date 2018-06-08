@@ -1,0 +1,28 @@
+{
+  "BigQuery Schema": [
+    {
+      "name": "customer_segment_id",
+      "type": "INT64"
+    },
+    {
+      "name": "customer_id",
+      "type": "INT64"
+    },
+    {
+      "name": "customer_segment_name",
+      "type": "STRING"
+    },
+    {
+      "name": "customer_segment_value",
+      "type": "STRING"
+    },
+    {
+      "name": "created_timestamp",
+      "type": "TIMESTAMP"
+    },
+    {
+      "name": "updated_timestamp",
+      "type": "TIMESTAMP"
+    }
+  ]
+}

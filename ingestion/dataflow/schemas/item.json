@@ -1,0 +1,68 @@
+{
+  "BigQuery Schema": [
+    {
+      "name": "item_id",
+      "type": "INT64"
+    },
+    {
+      "name": "vendor_id",
+      "type": "INT64"
+    },
+    {
+      "name": "division_id",
+      "type": "INT64"
+    },
+    {
+      "name": "department_id",
+      "type": "INT64"
+    },
+    {
+      "name": "classification_id",
+      "type": "INT64"
+    },
+    {
+      "name": "sub_classification_id",
+      "type": "INT64"
+    },
+    {
+      "name": "style_id",
+      "type": "INT64"
+    },
+    {
+      "name": "sku",
+      "type": "STRING"
+    },
+    {
+      "name": "color",
+      "type": "STRING"
+    },
+    {
+      "name": "size",
+      "type": "STRING"
+    },
+    {
+      "name": "short_description",
+      "type": "STRING"
+    },
+    {
+      "name": "long_description",
+      "type": "STRING"
+    },
+    {
+      "name": "image_url",
+      "type": "STRING"
+    },
+    {
+      "name": "current_price",
+      "type": "FLOAT64"
+    },
+    {
+      "name": "created_timestamp",
+      "type": "TIMESTAMP"
+    },
+    {
+      "name": "updated_timestamp",
+      "type": "TIMESTAMP"
+    }
+  ]
+}

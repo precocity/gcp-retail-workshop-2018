@@ -1,0 +1,68 @@
+{
+  "BigQuery Schema": [
+    {
+      "name": "store_id",
+      "type": "INT64"
+    },
+    {
+      "name": "store_num",
+      "type": "STRING"
+    },
+    {
+      "name": "store_name",
+      "type": "STRING"
+    },
+    {
+      "name": "store_address_line_1",
+      "type": "STRING"
+    },
+    {
+      "name": "store_address_line_2",
+      "type": "STRING"
+    },
+    {
+      "name": "store_city",
+      "type": "STRING"
+    },
+    {
+      "name": "store_state",
+      "type": "STRING"
+    },
+    {
+      "name": "store_postal_code",
+      "type": "STRING"
+    },
+    {
+      "name": "store_country",
+      "type": "STRING"
+    },
+    {
+      "name": "latitude",
+      "type": "FLOAT64"
+    },
+    {
+      "name": "longitude",
+      "type": "FLOAT64"
+    },
+    {
+      "name": "store_phone_number",
+      "type": "STRING"
+    },
+    {
+      "name": "open_date",
+      "type": "STRING"
+    },
+    {
+      "name": "close_date",
+      "type": "STRING"
+    },
+    {
+      "name": "created_timestamp",
+      "type": "TIMESTAMP"
+    },
+    {
+      "name": "updated_timestamp",
+      "type": "TIMESTAMP"
+    }
+  ]
+}

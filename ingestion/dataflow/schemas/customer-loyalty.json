@@ -1,0 +1,48 @@
+{
+  "BigQuery Schema": [
+    {
+      "name": "customer_loyalty_id",
+      "type": "INT64"
+    },
+    {
+      "name": "loyalty_number",
+      "type": "STRING"
+    },
+    {
+      "name": "loyalty_join_date",
+      "type": "STRING"
+    },
+    {
+      "name": "loyalty_lifetime_points",
+      "type": "INT64"
+    },
+    {
+      "name": "loyalty_available_points",
+      "type": "INT64"
+    },
+    {
+      "name": "loyalty_level",
+      "type": "INT64"
+    },
+    {
+      "name": "loyalty_level_description",
+      "type": "STRING"
+    },
+    {
+      "name": "loyalty_level_expiration",
+      "type": "STRING"
+    },
+    {
+      "name": "created_timestamp",
+      "type": "TIMESTAMP"
+    },
+    {
+      "name": "updated_timestamp",
+      "type": "TIMESTAMP"
+    },
+    {
+      "name": "customer_id",
+      "type": "INT64"
+    }
+  ]
+}

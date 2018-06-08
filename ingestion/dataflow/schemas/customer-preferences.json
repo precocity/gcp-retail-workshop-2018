@@ -1,0 +1,28 @@
+{
+  "BigQuery Schema": [
+    {
+      "name": "customer_preference_id",
+      "type": "INT64"
+    },
+    {
+      "name": "customer_id",
+      "type": "INT64"
+    },
+    {
+      "name": "customer_preference_type",
+      "type": "STRING"
+    },
+    {
+      "name": "customer_preference_value",
+      "type": "STRING"
+    },
+    {
+      "name": "created_timestamp",
+      "type": "TIMESTAMP"
+    },
+    {
+      "name": "updated_timestamp",
+      "type": "TIMESTAMP"
+    }
+  ]
+}
