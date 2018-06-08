@@ -32,9 +32,9 @@ Following the execution of this command, you should see a success message like t
 
 3. You can verify whether the dataset and the table are appropriately created by navigating to BigQuery on the left nav of Google Cloud home page and then selecting the dataset and table on the BigQuery home page.
 
-4. Let's go ahead and create the rest of the tables required using a helper script that's provided in the codebase which essentially executes step #2 for all the remaining tables:
+4. Let's go ahead and create the rest of the tables required using a helper script that's provided in the codebase which essentially executes step #2 for all the remaining tables: (the required arg to this script is the project-name)
 ```
-sh bigquery/scripts/create-bq-tables.sh
+sh bigquery/scripts/create-bq-tables.sh [project-name]
 ```
 At this point all the tables will be created in the dataset in BigQuery. You can verify in the BigQuery home page.
 
