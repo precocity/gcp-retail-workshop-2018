@@ -33,7 +33,7 @@ Following the execution of this command, you should see a success message like t
 ```
 bq mk --table [project-name]:retail_demo_warehouse.customer bigquery/schemas/customer-bq.json
 ```
-Following the execution of this command, you should see a success message like this: Table '[project-name]:retail_demo_warehouse.customer' successfully created.
+_Following the execution of this command, you should see a success message like this: Table '[project-name]:retail_demo_warehouse.customer' successfully created._
 
 3. You can verify whether the dataset and the table are appropriately created by navigating to BigQuery on the left nav of Google Cloud home page and then selecting the dataset and table on the BigQuery home page.
 
@@ -71,7 +71,7 @@ mvn compile exec:java \
 --templateLocation=gs://[unique-dataflow-bucket-name]/gcs-to-bigquery/templates/FileToBigQuery.json \
 --runner=DataflowRunner"
 ```
-You should see a "Build Successful" message upon successful deployment of the Dataflow job.
+_You should see a "Build Successful" message upon successful deployment of the Dataflow job._
 
 4. Build & deploy the Pub/Sub -> BigQuery Dataflow job:
 ```
@@ -85,7 +85,7 @@ mvn compile exec:java \
 --templateLocation=gs://[unique-dataflow-bucket-name]/pubsub-to-bigquery/templates/PubSubToBigQuery.json \
 --runner=DataflowRunner"
 ```
-You should see a "Build Successful" message upon successful deployment of the Dataflow job.
+_You should see a "Build Successful" message upon successful deployment of the Dataflow job._
 
 5. Build & deploy Pub/Sub -> GCS Text Dataflow job:
 ```
@@ -99,7 +99,7 @@ mvn compile exec:java \
 --templateLocation=gs://[unique-dataflow-bucket-name]/pubsub-to-gcs/templates/PubSubToFile.json \
 --runner=DataflowRunner"
 ```
-You should see a "Build Successful" message upon successful deployment of the Dataflow job.
+_You should see a "Build Successful" message upon successful deployment of the Dataflow job._
 
 6. At this point all the required Dataflow jobs are deployed to GCS and you can verify by navigating to your bucket and the respective folders.
 
