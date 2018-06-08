@@ -27,7 +27,7 @@ Let's create one BigQuery table using the `bq` command and create the rest in th
 ```
 bq mk [project-name]:retail_demo_warehouse
 ```
-Following the execution of this command, you should see a success message like this: Dataset '[project-name]:retail_demo_warehouse' successfully created.
+_Following the execution of this command, you should see a success message like this: Dataset '[project-name]:retail_demo_warehouse' successfully created._
 
 2. Create a BigQuery table, customer, using the schema definition in the codebase:<br/>
 ```
