@@ -13,7 +13,8 @@
 
 ## Hands-On
 ### Pre-Requisites
-* Complete the [setup](../setup/README.md) process.
+* Cloud Shell
+* `git clone https://github.com/precocity/gcp-retail-workshop-2018.git`
 * `cd gcp-retail-workshop-2018/ingestion`
 
 _Tip: For the following exercises and the commands that need to be executed as part of them, it is recommended to copy the commands to a text editor first and replace the placeholders with the appropriate values and then copy-paste the updated command at the prompt._
