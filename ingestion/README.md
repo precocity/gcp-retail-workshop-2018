@@ -158,9 +158,12 @@ gcloud dataflow jobs list
 3. In the Cloud Dataflow jobs page select the running job to see the job graph. <br/>
 <img src="assets/Dataflow-Job-Details.png" height="400px"/>
 4. You can also see the logs of each step by clicking the "Logs" icon on the job page.
+
 5. Once the job completes, the status of the job will be marked "Succeeded" in the Dataflow home page. <br/>
 <img src="assets/DataFlow-CustomerLoad-JobsPage.png"/>
+
 6. Now, let's go ahead and kick off other Dataflow jobs to load the rest of the tables. There's a helper script which has all the `gcloud` commands to kick off the batch load process for the rest of the tables.
+
 7. You can verify that the customer table has been successfully loaded in the BigQuery page as shown below.<br/>
 <img src="assets/Batch-Dataflow-Load-QuickVerification.png"/>
 
