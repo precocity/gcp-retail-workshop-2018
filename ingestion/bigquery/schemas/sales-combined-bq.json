@@ -1,0 +1,180 @@
+[
+      {
+        "mode": "NULLABLE",
+        "name": "order_id",
+        "type": "INTEGER"
+      },
+      {
+        "mode": "NULLABLE",
+        "name": "updated_timestamp",
+        "type": "TIMESTAMP"
+      },
+      {
+        "mode": "NULLABLE",
+        "name": "tax_amount",
+        "type": "FLOAT"
+      },
+      {
+        "mode": "NULLABLE",
+        "name": "transaction_number",
+        "type": "FLOAT"
+      },
+      {
+        "mode": "NULLABLE",
+        "name": "created_timestamp",
+        "type": "TIMESTAMP"
+      },
+      {
+        "fields": [
+          {
+            "mode": "NULLABLE",
+            "name": "created_timestamp",
+            "type": "TIMESTAMP"
+          },
+          {
+            "mode": "NULLABLE",
+            "name": "gift_registry_number",
+            "type": "INTEGER"
+          },
+          {
+            "mode": "NULLABLE",
+            "name": "gift_message",
+            "type": "STRING"
+          },
+          {
+            "mode": "NULLABLE",
+            "name": "ship_date",
+            "type": "STRING"
+          },
+          {
+            "mode": "NULLABLE",
+            "name": "item_status_as_of_date",
+            "type": "DATE"
+          },
+          {
+            "mode": "NULLABLE",
+            "name": "gift_wrap_flag",
+            "type": "INTEGER"
+          },
+          {
+            "mode": "NULLABLE",
+            "name": "line_item_id",
+            "type": "INTEGER"
+          },
+          {
+            "mode": "NULLABLE",
+            "name": "promotion_code",
+            "type": "STRING"
+          },
+          {
+            "mode": "NULLABLE",
+            "name": "order_id",
+            "type": "INTEGER"
+          },
+          {
+            "mode": "NULLABLE",
+            "name": "updated_timestamp",
+            "type": "TIMESTAMP"
+          },
+          {
+            "mode": "NULLABLE",
+            "name": "freight_each",
+            "type": "FLOAT"
+          },
+          {
+            "mode": "NULLABLE",
+            "name": "item_id",
+            "type": "INTEGER"
+          },
+          {
+            "mode": "NULLABLE",
+            "name": "item_price_each",
+            "type": "FLOAT"
+          },
+          {
+            "mode": "NULLABLE",
+            "name": "quantity",
+            "type": "INTEGER"
+          },
+          {
+            "mode": "NULLABLE",
+            "name": "item_tax_each",
+            "type": "FLOAT"
+          },
+          {
+            "mode": "NULLABLE",
+            "name": "transaction_type",
+            "type": "STRING"
+          },
+          {
+            "mode": "NULLABLE",
+            "name": "markdown_each",
+            "type": "FLOAT"
+          },
+          {
+            "mode": "NULLABLE",
+            "name": "item_status",
+            "type": "STRING"
+          },
+          {
+            "mode": "NULLABLE",
+            "name": "duty_each",
+            "type": "FLOAT"
+          }
+        ],
+        "mode": "REPEATED",
+        "name": "lineItems",
+        "type": "RECORD"
+      },
+      {
+        "mode": "NULLABLE",
+        "name": "merchandise_amount",
+        "type": "FLOAT"
+      },
+      {
+        "mode": "NULLABLE",
+        "name": "transaction_date",
+        "type": "DATE"
+      },
+      {
+        "mode": "NULLABLE",
+        "name": "channel_id",
+        "type": "INTEGER"
+      },
+      {
+        "mode": "NULLABLE",
+        "name": "peyment_type",
+        "type": "STRING"
+      },
+      {
+        "mode": "NULLABLE",
+        "name": "store_id",
+        "type": "STRING"
+      },
+      {
+        "mode": "NULLABLE",
+        "name": "customer_id",
+        "type": "STRING"
+      },
+      {
+        "mode": "NULLABLE",
+        "name": "primary_associate_id",
+        "type": "STRING"
+      },
+      {
+        "mode": "NULLABLE",
+        "name": "secondary_associate_id",
+        "type": "STRING"
+      },
+      {
+        "mode": "NULLABLE",
+        "name": "total_amount",
+        "type": "FLOAT"
+      },
+      {
+        "mode": "NULLABLE",
+        "name": "pos_terminal_id",
+        "type": "STRING"
+      }
+    
+  ]
