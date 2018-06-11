@@ -184,9 +184,13 @@ We will use this exercise to validate both exercises 3 & 4 completed successfull
 3. On the main area you will see 3 tabs, Schema, Details and Preview. Click on the Preview tab to see a preview of the data that's loaded into the customer table.
 <br/>
 <img src="assets/Batch-Dataflow-Load-QuickVerification.png"/>
+
 4. Next, we will execute SQL statements both from the UI.
+
 5. While on the BQ home page, click on the "Compose Query" button on the left to open up the SQL editor.
+
 6. Click on "Show Options" and **un-check** the "SQL Dialect: Use Legacy SQL" box.
+
 7. In the query editor enter the following SQL query:
 ```
 select count(*) from `retail_demo_warehouse.customer`;
