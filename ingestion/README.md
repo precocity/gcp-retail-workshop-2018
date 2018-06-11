@@ -35,13 +35,13 @@ Create a dataset using the command below, be sure to replace the **[project-name
 
 `bq mk [project-name]:retail_demo_warehouse`
 
-After executing this command, you should see a success message indicating that the dataset has been successfully created.
+>After executing this command, you should see a success message indicating that the dataset has been successfully created.
 
 **Step 2:** Create a BigQuery table, customer, using the schema definition in the codebase:
 
 `bq mk --table [project-name]:retail_demo_warehouse.customer bigquery/schemas/customer-bq.json`
 
-After executing this command, you should see a success message indicating that the table has been successfully created.
+>After executing this command, you should see a success message indicating that the table has been successfully created.
 
 **Step 3:** Verify whether the dataset and the table are appropriately created by navigating to BigQuery on the left nav of Google Cloud home page and then selecting the dataset and table on the BigQuery home page.<br/><br/>
 <img src="assets/BigQuery-Nav.png" height="300px"/>
@@ -51,7 +51,7 @@ After executing this command, you should see a success message indicating that t
 
 `sh bigquery/scripts/create-bq-tables.sh [project-name]`
 
-At this point all the tables will be created in the dataset in BigQuery. You can verify in the BigQuery home page.
+>At this point all the tables will be created in the dataset in BigQuery. You can verify in the BigQuery home page.
 
 ---
 
@@ -86,7 +86,7 @@ mvn compile exec:java \
 --templateLocation=gs://[unique-dataflow-bucket-name]/gcs-to-bigquery/templates/FileToBigQuery.json \
 --runner=DataflowRunner"
 ```
-_You should see a "Build Successful" message upon successful deployment of the Dataflow job._
+>You should see a "Build Successful" message upon successful deployment of the Dataflow job.
 
 **Step 4:** Build & deploy the Pub/Sub -> BigQuery Dataflow job:
 ```
@@ -100,7 +100,7 @@ mvn compile exec:java \
 --templateLocation=gs://[unique-dataflow-bucket-name]/pubsub-to-bigquery/templates/PubSubToBigQuery.json \
 --runner=DataflowRunner"
 ```
-_You should see a "Build Successful" message upon successful deployment of the Dataflow job._
+>You should see a "Build Successful" message upon successful deployment of the Dataflow job.
 
 **Step 5:** Build & deploy Pub/Sub -> GCS Text Dataflow job:
 ```
@@ -114,7 +114,7 @@ mvn compile exec:java \
 --templateLocation=gs://[unique-dataflow-bucket-name]/pubsub-to-gcs/templates/PubSubToFile.json \
 --runner=DataflowRunner"
 ```
-_You should see a "Build Successful" message upon successful deployment of the Dataflow job._
+>You should see a "Build Successful" message upon successful deployment of the Dataflow job.
 
 **Step 6:** At this point all the required Dataflow jobs are deployed to GCS and you can verify by navigating to your bucket and the respective folders.
 
@@ -131,7 +131,7 @@ sh dataflow/scripts/deploy-app-code.sh [unique-dataflow-bucket-name]
 Expected Time: TBD
 
 >**Note:**
-1. You will need the project name and the name of the bucket you created in the previous exercise to continue.
+>1. You will need the project name and the name of the bucket you created in the previous exercise to continue.
 >2. Be sure to enable Dataflow APIs in Google Cloud APIs page before proceeding.
 
 >**Tip:** Copy the commands to your editor and replace the appropriate placeholders before you past them on to the console
@@ -150,7 +150,7 @@ inputFilePattern=gs://precocity-retail-workshop-2018-bucket/staged/customer/cust
 outputTable=[project-name]:retail_demo_warehouse.customer,\
 bigQueryLoadingTemporaryDirectory=gs://[unique-dataflow-bucket-name]/gcs-to-bigquery/tmp
 ```
-Following the execution of the command you should see a log in the console similar to below:
+>Following the execution of the command you should see a log in the console similar to below:
 ```
 createTime: '2018-06-08T19:59:11.516061Z'
 currentStateTime: '1970-01-01T00:00:00Z'
@@ -160,6 +160,7 @@ name: CustomerLoad
 projectId: precocity-retail-workshop-2018
 type: JOB_TYPE_BATCH
 ```
+
 **Step 2:** Navigate to the Dataflow page (GCP Home > Left Nav's Dataflow) to see the status of the job just submitted. Alternatively you can also get the job status from the command line using the command below:
 
 `gcloud dataflow jobs list`
