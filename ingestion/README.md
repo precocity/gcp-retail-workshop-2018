@@ -190,13 +190,16 @@ We will use this exercise to validate both exercises 3 & 4 completed successfull
 7. In the query editor enter the following SQL query:
 ```
 select count(*) from `retail_demo_warehouse.customer`;
-```<br/>
+```
 <img src="assets/BigQuery-Basics-1.png"/> <br/><br/>
 <img src="assets/BigQuery-Basics-2.png"/>
 8. In the bottom half of the page you will see "Results" and "Details" tabs. The "Results" tab presents the output of the query just executed.
+
 9. Click on the "Details" tab to see the cost of the executing the SQL statement, the bytes processed, the physical execution plan etc.<br/>
 <img src="assets/BigQuery-Basics-3.png"/>
+
 10. Next, let's execute some basic SQL statements using `gcloud`.
+
 11. Execute the following commands:
 ```
 cd ~/
