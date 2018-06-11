@@ -1,2 +1,11 @@
 recommender_svc/python/recs_svc_env
 __pycache__
+.gradle
+.settings
+.project
+.classpath
+recommender_svc/java/bin
+recommender_svc/java/build
+recommender_svc/java/tmp
+recommender_svc/java/out
+.vscode
