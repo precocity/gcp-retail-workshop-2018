@@ -14,9 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
+import java.io.*;
 import java.nio.file.FileSystems;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -108,7 +106,10 @@ public class RecsModel implements IRecsModel {
 
             // Hack to read the User Map since Joinery has no way to specify userId is a String
             // as opposed to number
-            CSVParser userMapParser = CSVParser.parse(new FileReader(getLocalPath(userModelFile)), CSVFormat.DEFAULT);
+            //CSVParser userMapParser = CSVParser.parse(new FileReader(getLocalPath(userModelFile)), CSVFormat.DEFAULT);
+            CSVParser userMapParser = CSVParser.parse(new BufferedReader(
+                    new InputStreamReader(
+                            new FileInputStream(getLocalPath(userModelFile)), "UTF-8")), CSVFormat.DEFAULT);
             List userIndicesList = new ArrayList<>();
             List userIdList = new ArrayList<>();
             userMapParser.getRecords().stream().forEach(record -> {
@@ -126,7 +127,9 @@ public class RecsModel implements IRecsModel {
             );
 
 
-            CSVParser userItemParser = CSVParser.parse(new FileReader(getLocalPath(userItemDataFile)), CSVFormat.DEFAULT);
+            CSVParser userItemParser = CSVParser.parse(new BufferedReader(
+                    new InputStreamReader(
+                            new FileInputStream(getLocalPath(userItemDataFile)), "UTF-8")), CSVFormat.DEFAULT);
             List userIdsFromBrowse = new ArrayList();
             List productIdsFromBrowse = new ArrayList();
             userItemParser.getRecords().stream().forEach(record -> {
@@ -149,7 +152,7 @@ public class RecsModel implements IRecsModel {
             LOGGER.info("Finished loading in-memory arrays.");
 
         }
-        catch(Exception ex) {
+        catch(RuntimeException ex) {
             LOGGER.error("Error loading model data from Google Cloud Storage: {}", ex.getMessage(), ex);
             throw ex;
         }
