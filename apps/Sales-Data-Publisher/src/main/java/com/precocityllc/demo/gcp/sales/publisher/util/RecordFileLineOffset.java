@@ -15,7 +15,7 @@ import java.nio.file.StandardOpenOption;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class RecordFileLineOffset {
-    private static final String ENCODING = "utf-8";
+    private static final String ENCODING = "UTF-8";
     private static String OFFSETFILE = "offset";
     private static Logger log = LogManager.getLogger(RecordFileLineOffset.class);
 
@@ -61,7 +61,7 @@ public class RecordFileLineOffset {
         try {
             writer =
                     Files.newBufferedWriter(
-                            FileSystems.getDefault().getPath(".", OFFSETFILE),
+                            FileSystems.getDefault().getPath(OFFSETFILE),
                             Charset.forName(ENCODING),
                             StandardOpenOption.CREATE);
             String content = Integer.toString(line);
