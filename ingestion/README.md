@@ -348,10 +348,10 @@ Expected Time: 5 mins
 
 <img src="assets/GCS-Delete1.png" />
 
-<img src="assets/GCS-Delete2.png" />
+<img src="assets/GCS-Delete2.png" width="300px" />
 
 **Step 4:** Delete the dataset in BQ.
 
-<img src="assets/BigQuery-Delete1.png" />
+<img src="assets/BigQuery-Delete1.png" height="300px" />
 
-<img src="assets/BigQuery-Delete2.png" />
+<img src="assets/BigQuery-Delete2.png" width="300px" />
