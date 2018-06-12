@@ -251,7 +251,7 @@ gcloud dataflow jobs run SalesEventsRawStreaming \
 
 ```
 cd ~/gcp-retail-workshop-2018
-sh scripts/tbd.sh [topic-name]
+sh scripts/01_buildApps.sh
 ```
 
 **Step 7:** Navigate to the job pages to see the Dataflow jobs consume the realtime streaming sales events, process them and land them into their target destinations (BigQuery, GCS).
