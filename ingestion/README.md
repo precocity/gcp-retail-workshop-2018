@@ -20,7 +20,9 @@
 * `git clone https://github.com/precocity/gcp-retail-workshop-2018.git`
 * `cd gcp-retail-workshop-2018/ingestion`
 
-_Tip: For the following exercises and the commands that need to be executed as part of them, it is recommended to copy the commands to a text editor first and replace the placeholders with the appropriate values and then copy-paste the updated command at the prompt._
+>Tip: For the following exercises and the commands that need to be executed as part of them, it is recommended to copy the commands to a text editor first and replace the placeholders with the appropriate values and then copy-paste the updated command at the prompt.
+
+> Note: Unless otherwise explicitly stated, all the commands below are to be executed in Cloud Shell.
 
 ---
 
@@ -180,9 +182,18 @@ type: JOB_TYPE_BATCH
 
 **Step 6:** Now, let's go ahead and kick off other Dataflow jobs to load the rest of the tables. There's a helper script which has all the `gcloud` commands to kick off the batch load process for the rest of the tables.
 
-**Step 7:** You can verify that the customer table has been successfully loaded in the BigQuery page as shown below.
+```
+cd ~/gcp-retail-workshop-2018/ingestion
+sh dataflow/scripts/submit-batch-jobs.sh
+```
+
+**Step 7:** While the other jobs start to run, you can verify that the `customer` table has been successfully loaded in the BigQuery page as shown below.
 
 <img src="assets/Batch-Dataflow-Load-QuickVerification.png"/>
+
+**Step 8:** You can verify the other running jobs by navigating to the Dataflow jobs page and checking the status of each batch job.
+
+>The key takeaway with this exercise is that we only built the batch ingestion Dataflow job only once. By templatizing / parameterizing it's execution we are able to reuse the same code for ingesting multiple batch sources.
 
 ---
 
@@ -190,7 +201,56 @@ type: JOB_TYPE_BATCH
 
 Expected Time: TBD
 
-In this exercise we will deploy a streaming job to ingest streaming / realtime data into BigQuery.
+In this exercise we will deploy a streaming job to ingest streaming / realtime data into BigQuery. We will have two Dataflow jobs:
+1. Streaming realtime data into BQ
+2. Archiving realtime data into GCS
+
+TBD: Go over the format of Sales Message
+
+**Step 1:** Create a Pub/Sub topic to publish realtime sales events.
+
+>Note down the PubSub **[topic-name]** you are creating as it will be used in the following steps
+
+<img src="assets/PubSub-Nav.png" height="300px"/>
+<img src="assets/PubSub-Create-Topic.png" height="300px"/>
+
+>Alternatively you can create the PubSub topic using the gcloud command too by executing the following in Cloud Shell:
+> `gcloud pubsub topics create [topic-name]` and then verifying by executing:
+> `gcloud pubsub topics list`
+
+**Step 2:** Next step, let's deploy the streaming Dataflow job that will subscribe to the PubSub topic and does streaming insert into the BigQuery sales table. Be sure to replace the **[unique-dataflow-bucket-name]** with the GCS bucket you have created in the previous exercises and also the **[project-name]** and **[topic-name]**.
+
+```
+cd ~/gcp-retail-workshop-2018/ingestion
+gcloud dataflow jobs run SalesEventsStreaming \
+ --gcs-location=gs://[unique-dataflow-bucket-name]/pubsub-to-bigquery/templates/PubSubToBigQuery.json\
+ --parameters inputTopic=projects/[project-name]/topics/[topic-name],\
+ outputTableSpec=[project-name]:retail_demo_warehouse.sales_events
+```
+
+**Step 3:** Navigate to the Dataflow jobs page to notice the `SalesEventsStreaming` job running.
+
+**Step 4:** Similarly, let's deploy the streaming Dataflow job that will subscribe to the PubSub topic and stores the raw JSON data into GCS for archival purposes. Be sure to replace the placeholders in the command below.
+
+```
+gcloud dataflow jobs run SalesEventsRawStreaming \
+ --gcs-location=gs://[unique-dataflow-bucket-name]/pubsub-to-gcs/PubSubToFile.json\ --parameters inputTopic=projects/[project-name]/topics/[topic-name],\
+ outputDirectory=gs://[unique-dataflow-bucket-name]/raw/sales_events/,\
+ outputFilenamePrefix=sales-events-,outputFilenameSuffix=.json.txt
+```
+
+**Step 5:** Navigate to the Dataflow jobs page and check if both the streaming jobs are running successfully
+
+>Note: Unlike the batch jobs, the streaming Dataflow jobs run until they are terminated (either manually by going to the Dataflow job page and stopping / draining the job or programatically using the gcloud command)
+
+**Step 6:** Next step, let us start streaming some sales events to the PubSub topic so that we can see the Dataflow jobs in action. There is a helper script to accomplish this. The below scripts takes the target PubSub **[topic-name]** as an argument:
+
+```
+cd ~/gcp-retail-workshop-2018
+sh scripts/tbd.sh [topic-name]
+```
+
+**Step 7:** Navigate to the job pages to see the Dataflow jobs consume the realtime streaming sales events, process them and land them into their target destinations (BigQuery, GCS).
 
 ---
 
