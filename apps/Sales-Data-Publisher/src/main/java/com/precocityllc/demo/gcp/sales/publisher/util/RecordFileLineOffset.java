@@ -20,7 +20,7 @@ public class RecordFileLineOffset {
     private static Logger log = LogManager.getLogger(RecordFileLineOffset.class);
 
 
-    public static void setOffsetFile(String filename) {
+    public void setOffsetFile(String filename) {
         OFFSETFILE = filename;
     }
 
@@ -30,7 +30,7 @@ public class RecordFileLineOffset {
      *
      * @return
      */
-    public static int getLastReadLine() {
+    public int getLastReadLine() {
         int line = 0;
 
         BufferedReader bufferedReader = null;
@@ -56,7 +56,7 @@ public class RecordFileLineOffset {
      *
      * @param line
      */
-    public static void saveLastReadLine(int line) {
+    public void saveLastReadLine(int line) {
         BufferedWriter writer = null;
         try {
             writer =

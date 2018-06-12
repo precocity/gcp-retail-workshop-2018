@@ -125,10 +125,11 @@ public class SalesDataPublisher extends BaseCLIApp implements Runnable {
         Random random = new SecureRandom();
         BufferedReader bufferedReader = null;
         PubSubPublisher pubSubPublisher = null;
-        RecordFileLineOffset.setOffsetFile( offsetFile );
+        RecordFileLineOffset offsetRecorder = new RecordFileLineOffset();
+        offsetRecorder.setOffsetFile( offsetFile );
         try {
             pubSubPublisher = new PubSubPublisher(pubSubTopic);
-            int offset = RecordFileLineOffset.getLastReadLine();
+            int offset = offsetRecorder.getLastReadLine();
             boolean readMoreLines = true;
 
             log.info("opening {} for reading. Skipping {} lines.", inputFile, offset);
@@ -163,7 +164,7 @@ public class SalesDataPublisher extends BaseCLIApp implements Runnable {
                 //last step to save sequence
                 // This MAY NOT BE ACCURATE AS EXCEPTION OR INTERRUPTION MAY BREAK UP BATCH SEND
                 offset += linesThisBatch;
-                RecordFileLineOffset.saveLastReadLine(offset);
+                offsetRecorder.saveLastReadLine(offset);
 
                 // Sleep for a bit
                 Thread.sleep(delayBetweenBatchesInMs);
