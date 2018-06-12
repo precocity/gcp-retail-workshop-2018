@@ -226,7 +226,7 @@ Below is the format of a sales event JSON message that we will be using for this
 ```
 cd ~/gcp-retail-workshop-2018/ingestion
 gcloud dataflow jobs run SalesEventsStreaming \
- --gcs-location=gs://[unique-dataflow-bucket-name]/pubsub-to-bigquery/templates/PubSubToBigQuery.json\
+ --gcs-location=gs://[unique-dataflow-bucket-name]/pubsub-to-bigquery/templates/PubSubToBigQuery.json \
  --parameters inputTopic=projects/[project-name]/topics/[topic-name],\
  outputTableSpec=[project-name]:retail_demo_warehouse.sales_events
 ```
@@ -237,10 +237,10 @@ gcloud dataflow jobs run SalesEventsStreaming \
 
 ```
 gcloud dataflow jobs run SalesEventsRawStreaming \
- --gcs-location=gs://[unique-dataflow-bucket-name]/pubsub-to-gcs/PubSubToFile.json\
- --parameters inputTopic=projects/[project-name]/topics/[topic-name],\
- outputDirectory=gs://[unique-dataflow-bucket-name]/raw/sales_events/,\
- outputFilenamePrefix=sales-events-,outputFilenameSuffix=.json.txt
+--gcs-location=gs://[unique-dataflow-bucket-name]/pubsub-to-gcs/templates/PubSubToFile.json \
+--parameters inputTopic=projects/[project-name]/topics/[topic-name],\
+outputDirectory=gs://[unique-dataflow-bucket-name]/raw/sales_events/,\
+outputFilenamePrefix=sales-events-,outputFilenameSuffix=.json.txt
 ```
 
 **Step 5:** Navigate to the Dataflow jobs page and check if both the streaming jobs are running successfully
@@ -251,10 +251,18 @@ gcloud dataflow jobs run SalesEventsRawStreaming \
 
 ```
 cd ~/gcp-retail-workshop-2018
+
+## builds the data publisher utility
 sh scripts/01_buildApps.sh
+
+## copies the sales events data to local
 sh ingestion/scripts/01_prepPublisher.sh
+
+## starts publishing sales events to the topic
 sh ingestion/scripts/02_runPublisher.sh [project-name] [pubsub-topic-name]
 ```
+
+>Leave the utility running in the Cloud Shell and proceed to the next step. This utility will be running until you terminate it.
 
 **Step 7:** Navigate to the job pages to see the Dataflow jobs consume the realtime streaming sales events, process them and land them into their target destinations (BigQuery, GCS).
 
@@ -282,11 +290,11 @@ We will use this exercise to validate both exercises 3 & 4 completed successfull
 
 **Step 7:** In the query editor enter the following SQL query:
 ```
-select count(*) from `retail_demo_warehouse.customer`;
+select count(*) from `retail_demo_warehouse.sales_events`;
 ```
 <img src="assets/BigQuery-Basics-1.png"/>
 
-<img src="assets/BigQuery-Basics-2.png"/>
+<img src="assets/BigQuery-Basics-2a.png"/>
 
 **Step 8:** In the bottom half of the page you will see "Results" and "Details" tabs. The "Results" tab presents the output of the query just executed.
 
