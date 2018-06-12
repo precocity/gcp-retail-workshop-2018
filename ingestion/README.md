@@ -237,7 +237,11 @@ gcloud dataflow jobs run SalesEventsStreaming \
 ```
 gcloud dataflow jobs run SalesEventsRawStreaming \
  --gcs-location=gs://[unique-dataflow-bucket-name]/pubsub-to-gcs/PubSubToFile.json\
+<<<<<<< HEAD
   --parameters inputTopic=projects/[project-name]/topics/[topic-name],\
+=======
+ --parameters inputTopic=projects/[project-name]/topics/[topic-name],\
+>>>>>>> 997da3340333c11c5e15bd0baca1e480734fb4ee
  outputDirectory=gs://[unique-dataflow-bucket-name]/raw/sales_events/,\
  outputFilenamePrefix=sales-events-,outputFilenameSuffix=.json.txt
 ```
