@@ -315,9 +315,9 @@ bq query --use_legacy_sql=False `cat bigquery/samples/interesting-tbd.sql`
 
 ### Exercise: Cleanup
 
-**Step 1:** Stop the sales event data pump
+Expected Time: TBD
 
-`sh tbd.sh`
+**Step 1:** Stop the sales event data pump that's running in the Cloud Shell using `Ctrl + C`.
 
 **Step 2:** Stop the running Dataflow jobs. **SalesEventsStreaming** and **SalesEventsRawStreaming**. You can perform this step either in the UI or using `gcloud` command as described below:
 
