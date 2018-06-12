@@ -15,11 +15,14 @@ import java.nio.file.StandardOpenOption;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class RecordFileLineOffset {
-    private static final String OFFSETFILE = "offset";
     private static final String ENCODING = "utf-8";
-
+    private static String OFFSETFILE = "offset";
     private static Logger log = LogManager.getLogger(RecordFileLineOffset.class);
 
+
+    public static void setOffsetFile(String filename) {
+        OFFSETFILE = filename;
+    }
 
     /**
      * Reads the offset stored in the offset file

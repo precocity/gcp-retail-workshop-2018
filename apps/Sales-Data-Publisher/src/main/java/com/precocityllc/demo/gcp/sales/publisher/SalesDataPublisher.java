@@ -29,6 +29,7 @@ public class SalesDataPublisher extends BaseCLIApp implements Runnable {
     private int delayBetweenBatchesInMs = 100;
     private String pubSubTopic = "";
     private String inputFile = "";
+    private String offsetFile = "offset";
     private DateFormat timestampDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     private boolean running;
@@ -124,6 +125,7 @@ public class SalesDataPublisher extends BaseCLIApp implements Runnable {
         Random random = new SecureRandom();
         BufferedReader bufferedReader = null;
         PubSubPublisher pubSubPublisher = null;
+        RecordFileLineOffset.setOffsetFile( offsetFile );
         try {
             pubSubPublisher = new PubSubPublisher(pubSubTopic);
             int offset = RecordFileLineOffset.getLastReadLine();
@@ -214,6 +216,7 @@ public class SalesDataPublisher extends BaseCLIApp implements Runnable {
             options.addOption(OptionBuilder.withLongOpt("max_batch_size").withArgName("max batch size").hasArgs(2).isRequired(true).withDescription("max batch size").create("s"));
             options.addOption(OptionBuilder.withLongOpt("pub_sub_topic").withArgName("pub_sub_topic").hasArgs(2).isRequired(true).withDescription("pubsub topic").create("t"));
             options.addOption(OptionBuilder.withLongOpt("input_file").withArgName("input_file").hasArgs(2).isRequired(true).withDescription("input file").create("i"));
+            options.addOption(OptionBuilder.withLongOpt("offset_file").withArgName("offset_file").hasArgs(2).isRequired(false).withDescription("offset file").create("o"));
 
             // parse the args
             CommandLineParser parser = new BasicParser();
@@ -235,6 +238,10 @@ public class SalesDataPublisher extends BaseCLIApp implements Runnable {
             }
             if (cmd.hasOption("i")) {
                 inputFile = cmd.getOptionValue("i");
+            }
+
+            if (cmd.hasOption("o")) {
+                offsetFile = cmd.getOptionValue("o");
             }
 
         } catch (ParseException exp) {
