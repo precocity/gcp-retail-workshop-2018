@@ -318,7 +318,7 @@ exit
 
 [TODO: Nicely explain what's going on in the big sql.]
 
-1. Open the [customer_detail_demo.sql](ingestion/bigquery/samples/customer_detail_demo.sql) file.
+1. Open the [customer_detail_demo.sql](bigquery/samples/customer_detail_demo.sql) file.
 2. Copy the entire contents of this SQL file and paste it in the BigQuery > Compose Query text area.
 3. Select Show Options > Uncheck "Use Legacy SQL" option.
 4. Click Run Query.
