@@ -247,11 +247,13 @@ gcloud dataflow jobs run SalesEventsRawStreaming \
 
 >Note: Unlike the batch jobs, the streaming Dataflow jobs run until they are terminated (either manually by going to the Dataflow job page and stopping / draining the job or programatically using the gcloud command)
 
-**Step 6:** Next step, let us start streaming some sales events to the PubSub topic so that we can see the Dataflow jobs in action. There is a helper script to accomplish this. The below scripts takes the target PubSub **[topic-name]** as an argument:
+**Step 6:** Next step, let us start streaming some sales events to the PubSub topic so that we can see the Dataflow jobs in action. There is a helper script to accomplish this. The last script takes the **[project-name]** and target PubSub **[topic-name]** as an argument:
 
 ```
 cd ~/gcp-retail-workshop-2018
 sh scripts/01_buildApps.sh
+sh ingestion/scripts/01_prepPublisher.sh
+sh ingestion/scripts/02_runPublisher.sh [project-name] [pubsub-topic-name]
 ```
 
 **Step 7:** Navigate to the job pages to see the Dataflow jobs consume the realtime streaming sales events, process them and land them into their target destinations (BigQuery, GCS).
