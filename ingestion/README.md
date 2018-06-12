@@ -22,7 +22,9 @@
 
 >Tip: For the following exercises and the commands that need to be executed as part of them, it is recommended to copy the commands to a text editor first and replace the placeholders with the appropriate values and then copy-paste the updated command at the prompt.
 
-> Note: Unless otherwise explicitly stated, all the commands below are to be executed in Cloud Shell.
+>Note: Unless otherwise explicitly stated, all the commands below are to be executed in Cloud Shell.
+
+>Note: Once you are done with all the exercises, please go through the last Cleanup exercise to review and make sure any running resources are terminated.
 
 ---
 
@@ -235,7 +237,11 @@ gcloud dataflow jobs run SalesEventsStreaming \
 ```
 gcloud dataflow jobs run SalesEventsRawStreaming \
  --gcs-location=gs://[unique-dataflow-bucket-name]/pubsub-to-gcs/PubSubToFile.json\
+<<<<<<< HEAD
+  --parameters inputTopic=projects/[project-name]/topics/[topic-name],\
+=======
  --parameters inputTopic=projects/[project-name]/topics/[topic-name],\
+>>>>>>> 997da3340333c11c5e15bd0baca1e480734fb4ee
  outputDirectory=gs://[unique-dataflow-bucket-name]/raw/sales_events/,\
  outputFilenamePrefix=sales-events-,outputFilenameSuffix=.json.txt
 ```
@@ -306,3 +312,9 @@ exit
 cd ~/gcp-retail-workshop-2018/ingestion
 bq query --use_legacy_sql=False `cat bigquery/samples/interesting-tbd.sql`
 ```
+
+---
+
+### Exercise: Cleanup
+
+(TBD: checklist to go through and turn off running resources)
