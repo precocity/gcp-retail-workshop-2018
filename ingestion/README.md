@@ -30,7 +30,7 @@
 
 ### Exercise 1: Creating BigQuery Tables
 
-Expected Time: TBD
+Expected Time: 5 mins
 
 Let's create one BigQuery table using the `bq` command and create the rest in the same manner using a helper script.
 
@@ -61,7 +61,7 @@ Create a dataset using the command below, be sure to replace the **[project-name
 
 ### Exercise 2: Deploy Dataflow Jobs
 
-Expected Time: TBD
+Expected Time: 15 mins
 
 Let's manually deploy both batch and streaming dataflow jobs using the Google provided templates to understand how they readily provide capabilities to address most common ingestion scenarios.
 
@@ -132,7 +132,7 @@ sh dataflow/scripts/deploy-app-code.sh [unique-dataflow-bucket-name]
 
 ### Exercise 3: Batch Load
 
-Expected Time: TBD
+Expected Time: 20 mins
 
 >**Note:**
 >1. You will need the project name and the name of the bucket you created in the previous exercise to continue.
@@ -146,7 +146,6 @@ In this exercise we will deploy a batch load job to load the customer data from 
 ```
 gcloud dataflow jobs run CustomerLoad \
 --gcs-location=gs://[unique-dataflow-bucket-name]/gcs-to-bigquery/templates/FileToBigQuery.json \
---zone=us-central1-c \
 --parameters javascriptTextTransformFunctionName=transform,\
 JSONPath=gs://[unique-dataflow-bucket-name]/schemas/customer.json,\
 javascriptTextTransformGcsPath=gs://[unique-dataflow-bucket-name]/udfs/customer.js,\
@@ -182,11 +181,11 @@ type: JOB_TYPE_BATCH
 
 <img src="assets/DataFlow-CustomerLoad-JobsPage.png" width="500px"/>
 
-**Step 6:** Now, let's go ahead and kick off other Dataflow jobs to load the rest of the tables. There's a helper script which has all the `gcloud` commands to kick off the batch load process for the rest of the tables.
+**Step 6:** Now, let's go ahead and kick off other Dataflow jobs to load the rest of the tables. There's a helper script which has all the `gcloud` commands to kick off the batch load process for the rest of the tables. It requires 2 arguments, **[project-name]** and **[unique-dataflow-bucket-name]**
 
 ```
 cd ~/gcp-retail-workshop-2018/ingestion
-sh dataflow/scripts/submit-batch-jobs.sh
+sh dataflow/scripts/submit-batch-jobs.sh [project-name] [unique-dataflow-bucket-name]
 ```
 
 **Step 7:** While the other jobs start to run, you can verify that the `customer` table has been successfully loaded in the BigQuery page as shown below.
@@ -328,7 +327,7 @@ gcloud dataflow jobs SalesEventsRawStreaming drain
 
 **Step 3:** Delete the **[unique-dataflow-bucket-name]** you created. This can be done either through the UI or using the gcloud command as describe below:
 
-`gsutil rb gs://[unique-dataflow-bucket-name]`
+`gsutil rb gs://[unique-dataflow-bucket-name]` [FIXME]
 
 **Step 4:** Delete the dataset in BQ. Like the other resources, this can be done either in the UI or through command line as follows:
 
