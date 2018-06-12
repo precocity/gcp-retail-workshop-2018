@@ -5,17 +5,26 @@ import com.google.cloud.storage.Bucket;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
 import joinery.DataFrame;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.factory.Nd4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.nio.file.FileSystems;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 
-public class RecsModel {
+@Component
+public class RecsModel implements IRecsModel {
 
     private final String gcpProject;
     private final String bucketName;
@@ -33,11 +42,15 @@ public class RecsModel {
 
     private static final String temporaryStoragePath = "tmp";
 
-    protected static Logger LOGGER = LoggerFactory.getLogger(RecsModel.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(RecsModel.class);
 
-    public RecsModel(final String gcpProject, final String bucketName, final String rowModelPath,
-                     final String colModelPath, final String userModelPath, final String itemModePath,
-                     final String userItemDataPath) {
+    public RecsModel(@Value("${recs.gcp.project}") final String gcpProject,
+                     @Value("${recs.gcp.bucket}") final String bucketName,
+                     @Value("${recs.rowmodel.path}") final String rowModelPath,
+                     @Value("${recs.colmodel.path}") final String colModelPath,
+                     @Value("${recs.usermodel.path}") final String userModelPath,
+                     @Value("${recs.itemmodel.path}") final String itemModelPath,
+                     @Value("${recs.useritem.path}") final String userItemDataPath) {
 
         LOGGER.info("Initializing the Recommendations Model Loader");
         this.gcpProject = gcpProject;
@@ -45,7 +58,7 @@ public class RecsModel {
         this.rowModelFile = rowModelPath;
         this.colModelFile = colModelPath;
         this.userModelFile = userModelPath;
-        this.itemModelFile = itemModePath;
+        this.itemModelFile = itemModelPath;
         this.userItemDataFile = userItemDataPath;
     }
 
@@ -63,11 +76,19 @@ public class RecsModel {
 
             LOGGER.info("Ensuring that local directory structure exists...");
             File tmpDir = new File(temporaryStoragePath);
-            tmpDir.mkdir();
+            boolean mkdirResult;
+            mkdirResult = tmpDir.mkdir();
+            if(mkdirResult == false)
+                LOGGER.info("Tmp dir already created.");
             File modelDir = new File(new StringBuilder(temporaryStoragePath).append(File.separator).append("model").toString());
-            modelDir.mkdir();
+            mkdirResult = modelDir.mkdir();
+            if(mkdirResult == false)
+                LOGGER.info("Model dir already created.");
             File dataDir = new File(new StringBuilder(temporaryStoragePath).append(File.separator).append("data").toString());
-            dataDir.mkdir();
+            mkdirResult = dataDir.mkdir();
+            if(mkdirResult == false)
+                LOGGER.info("Data dir already created.");
+
 
             for (String modelFile : filesToDownload) {
                 Blob theFile = bucket.get(modelFile);
@@ -84,15 +105,46 @@ public class RecsModel {
             this.colFactor = Nd4j.readNumpy(getLocalPath(this.colModelFile), ",");
 
             this.itemMap = DataFrame.readCsv(getLocalPath(this.itemModelFile));
-            this.userMap = DataFrame.readCsv(getLocalPath(this.userModelFile));
-            this.userItems = DataFrame.readCsv(getLocalPath(this.userItemDataFile)).groupBy(
-                    new DataFrame.KeyFunction<Object>() {
 
-                        @Override
-                        public Object apply(List<Object> value) {
-                            return Math.round((Double)value.get(0));
-                        }
-                    }).explode();
+            // Hack to read the User Map since Joinery has no way to specify userId is a String
+            // as opposed to number
+            CSVParser userMapParser = CSVParser.parse(new FileReader(getLocalPath(userModelFile)), CSVFormat.DEFAULT);
+            List userIndicesList = new ArrayList<>();
+            List userIdList = new ArrayList<>();
+            userMapParser.getRecords().stream().forEach(record -> {
+                userIndicesList.add(Integer.parseInt(record.get(0)));
+                userIdList.add(record.get(1));
+            });
+
+            this.userMap = new DataFrame<Object>(
+                    userIndicesList,
+                    Arrays.asList("userIndex", "userId"),
+                    Arrays.<List<Object>>asList(
+                            userIndicesList,
+                            userIdList
+                    )
+            );
+
+
+            CSVParser userItemParser = CSVParser.parse(new FileReader(getLocalPath(userItemDataFile)), CSVFormat.DEFAULT);
+            List userIdsFromBrowse = new ArrayList();
+            List productIdsFromBrowse = new ArrayList();
+            userItemParser.getRecords().stream().forEach(record -> {
+                userIdsFromBrowse.add(record.get(0));
+                productIdsFromBrowse.add(record.get(1));
+            } );
+
+            DataFrame tmpUserItemDf = new DataFrame<Object>(
+                    IntStream.rangeClosed(0, userIdsFromBrowse.size() - 1).boxed().collect(Collectors.toList()),
+                    Arrays.asList("userId", "productId"),
+                    Arrays.<List<Object>>asList(
+                            userIdsFromBrowse,
+                            productIdsFromBrowse
+                    )
+            );
+
+            this.userItems = tmpUserItemDf.groupBy("userId").explode();
+
 
             LOGGER.info("Finished loading in-memory arrays.");
 
@@ -107,12 +159,12 @@ public class RecsModel {
     public List<String> generateRecommendations(String userId, int numRecommendations) {
 
 
-        DataFrame userRow = this.userMap.select((row) -> Long.parseLong(userId) == Math.round((Double)((List)row).get(1)));
+        DataFrame userRow = this.userMap.select((row) -> userId.equals((String)((List)row).get(1)));
 
-        int userIndex = (int)(long)userRow.get(0, 0);
+        int userIndex = (int)userRow.get(0, 0);
 
         HashSet viewedItems = new HashSet<>(
-                Arrays.asList((this.userItems.get(Long.parseLong(userId)).col(1).toArray())));
+                Arrays.asList((this.userItems.get(userId).col(1).toArray())));
 
 
         List viewedItemIndices = itemMap.select((row) -> viewedItems.contains(((List)row).get(1))).col(0);

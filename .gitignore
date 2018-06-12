@@ -9,3 +9,4 @@ recommender_svc/java/build
 recommender_svc/java/tmp
 recommender_svc/java/out
 .vscode
+tmp

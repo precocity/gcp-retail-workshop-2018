@@ -16,16 +16,7 @@ public class RecommenderServiceMain {
 
     protected static final Logger LOGGER  = LoggerFactory.getLogger(RecommenderServiceMain.class);
 
-    public static void loadModelData() {
-        RecsModel modelLoader = new RecsModel("precocity-retail-workshop-2018",
-                    "recommender_precocity-retail-workshop-2018",
-                "model/row.csv", "model/col.csv", "model/user.csv",
-                "model/item.csv", "data/recommendation_events.csv");
-    }
-
     public static void main(String []  args) {
-
-        loadModelData();
         SpringApplication.run(RecommenderServiceMain.class, args);
     }
 }

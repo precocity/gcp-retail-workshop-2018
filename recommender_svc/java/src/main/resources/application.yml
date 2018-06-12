@@ -1,0 +1,14 @@
+recs:
+  gcp:
+    project: precocity-retail-workshop-2018
+    bucket: recommender_precocity-retail-workshop-2018
+  rowmodel:
+    path: model/row.csv
+  colmodel:
+    path: model/col.csv
+  usermodel:
+    path: model/user.csv
+  itemmodel:
+    path: model/item.csv
+  useritem:
+    path: data/recommendation_events.csv
