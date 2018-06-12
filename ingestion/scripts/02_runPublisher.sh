@@ -7,3 +7,4 @@ PUBLISHER_JAR=$PUBLISHER_JAR_DIR/Sales-Data-Publisher.jar
 
 echo "Starting publisher $PUBLISHER_JAR"
 
+
