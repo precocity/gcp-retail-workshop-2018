@@ -93,7 +93,6 @@ public class SalesDataPublisher extends BaseCLIApp implements Runnable {
         while (sdg.isRunning()) {
             try {
                 log.info("waiting for running to stop");
-
                 Thread.sleep(1000);
             } catch (InterruptedException ex) {
                 //terminate
