@@ -314,14 +314,15 @@ select * from retail_demo_warehouse.customer limit 5;
 exit
 ```
 
-**Step 12:** We will next execute a SQL from a file. This is a bit more interesting usecase. Execute the following commands:
+**Step 12:** In this step we will execute a more realistic BQ query that will join both customer and sales data to get some metrics about the customer that can help drive the analytics. Also as part of this step we will see more detailed information about query execution plans, costs, data processed etc.
 
 [TODO: Nicely explain what's going on in the big sql.]
 
-```
-cd ~/gcp-retail-workshop-2018/ingestion
-bq query --use_legacy_sql=False `cat bigquery/samples/customer_detail_demo.sql`
-```
+1. Open the [customer_detail_demo.sql](ingestion/bigquery/samples/customer_detail_demo.sql) file.
+2. Copy the entire contents of this SQL file and paste it in the BigQuery > Compose Query text area.
+3. Select Show Options > Uncheck "Use Legacy SQL" option.
+4. Click Run Query.
+5. Once the query execution is complete you will see the results in the bottom pane.
 
 ---
 
