@@ -17,8 +17,19 @@ PUBLISHER_JAR=$PUBLISHER_JAR_DIR/Sales-Data-Publisher.jar
 BATCH_DELAY_MS=1000
 MAX_BATCH_SIZE=100
 INPUT_FILE=$DATA_DIR/json.txt
-FULL_PUBSUB_TOPIC="projects/$PROJECT/topics/$PUBSUB_TOPIC"
+#FULL_PUBSUB_TOPIC="projects/$PROJECT/topics/$PUBSUB_TOPIC"
 OFFSET_FILE=$DATA_DIR/publisher_offset.txt
+
+# Read in the the pubsub topic
+read -p "Enter Your topic: "  FULL_PUBSUB_TOPIC
+echo "Using topic: $FULL_PUBSUB_TOPIC"
+
+## Test that topic is not empty
+if [[ -z $FULL_PUBSUB_TOPIC ]];
+then
+    echo "ERROR: You must specify a topic"
+    exit -1
+fi
 
 #Action
 echo "Starting publisher $PUBLISHER_JAR"
