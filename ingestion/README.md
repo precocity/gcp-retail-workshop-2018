@@ -144,7 +144,7 @@ In this exercise we will deploy a batch load job to load the customer data from 
 
 **Step 1:** Execute the following `gcloud` command to create a Dataflow job to load customer data. Be sure to replace both **[unique-dataflow-bucket-name]** and **[project-name]** with appropriate values before executing:
 ```
-gcloud dataflow jobs run CustomerLoad \
+gcloud dataflow jobs run customerLoad \
 --gcs-location=gs://[unique-dataflow-bucket-name]/gcs-to-bigquery/templates/FileToBigQuery.json \
 --parameters javascriptTextTransformFunctionName=transform,\
 JSONPath=gs://[unique-dataflow-bucket-name]/schemas/customer.json,\
@@ -159,7 +159,7 @@ createTime: '2018-06-08T19:59:11.516061Z'
 currentStateTime: '1970-01-01T00:00:00Z'
 id: 2018-06-08_12_59_10-6953731249770254557
 location: us-central1
-name: CustomerLoad
+name: customerLoad
 projectId: precocity-retail-workshop-2018
 type: JOB_TYPE_BATCH
 ```
