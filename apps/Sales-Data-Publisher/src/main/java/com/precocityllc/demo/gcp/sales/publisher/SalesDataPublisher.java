@@ -2,7 +2,6 @@ package com.precocityllc.demo.gcp.sales.publisher;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.precocityllc.demo.gcp.common.cli.BaseCLIApp;
-import com.precocityllc.demo.gcp.converters.sales.model.SalesHeader;
 import com.precocityllc.demo.gcp.converters.sales.model.SalesRecord;
 import com.precocityllc.demo.gcp.sales.publisher.stream.PubSubPublisher;
 import com.precocityllc.demo.gcp.sales.publisher.util.RecordFileLineOffset;
@@ -98,8 +97,6 @@ public class SalesDataPublisher extends BaseCLIApp implements Runnable {
                 //terminate
             }
         }
-
-
     }
 
     private BufferedReader openAndFastForwardFile(String fileToRead, int linesToSkip) throws Exception {
