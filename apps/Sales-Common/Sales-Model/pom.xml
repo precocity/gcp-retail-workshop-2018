@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>Precocity-Retail-Workshop-Root</artifactId>
+        <artifactId>Sales-Common</artifactId>
         <groupId>com.precocityllc.demo.gcp</groupId>
         <version>1.0.1-SNAPSHOT</version>
     </parent>
