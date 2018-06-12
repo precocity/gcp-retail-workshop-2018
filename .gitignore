@@ -10,3 +10,10 @@ recommender_svc/java/tmp
 recommender_svc/java/out
 .vscode
 tmp
+offset
+.idea
+**/target*
+*.iml
+*.log
+*logs*
+*dependency-reduced-pom.xml*
