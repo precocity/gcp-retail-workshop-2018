@@ -200,7 +200,7 @@ sh dataflow/scripts/submit-batch-jobs.sh [project-name] [unique-dataflow-bucket-
 
 ### Exercise 4: Streaming
 
-Expected Time: TBD
+Expected Time: 20 mins
 
 In this exercise we will deploy a streaming job to ingest streaming / realtime data into BigQuery. We will have two Dataflow jobs:
 1. Streaming realtime data into BQ
@@ -270,7 +270,7 @@ sh ingestion/scripts/02_runPublisher.sh [project-name] [pubsub-topic-name]
 
 ### Exercise 5: BigQuery Basics
 
-Expected Time: TBD
+Expected Time: 20 mins
 
 We will use this exercise to validate both exercises 3 & 4 completed successfully while exploring BigQuery by executing SQL queries through both UI & the gcloud command line.
 
@@ -314,17 +314,20 @@ select * from retail_demo_warehouse.customer limit 5;
 exit
 ```
 
-**Step 12:** We will next execute a SQL from a file. This is a bit more interesting usecase to [TBD usecase to show top 'x' records & the required SQL file]. Execute the below command:
+**Step 12:** We will next execute a SQL from a file. This is a bit more interesting usecase. Execute the following commands:
+
+[TODO: Nicely explain what's going on in the big sql.]
+
 ```
 cd ~/gcp-retail-workshop-2018/ingestion
-bq query --use_legacy_sql=False `cat bigquery/samples/interesting-tbd.sql`
+bq query --use_legacy_sql=False `cat bigquery/samples/customer_detail_demo.sql`
 ```
 
 ---
 
 ### Exercise: Cleanup
 
-Expected Time: TBD
+Expected Time: 5 mins
 
 **Step 1:** Stop the sales event data pump that's running in the Cloud Shell using `Ctrl + C`.
 
