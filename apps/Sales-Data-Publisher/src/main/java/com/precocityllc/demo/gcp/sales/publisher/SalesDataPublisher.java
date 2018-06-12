@@ -38,11 +38,12 @@ public class SalesDataPublisher extends BaseCLIApp implements Runnable {
     public SalesDataPublisher() {
     }
 
-    public SalesDataPublisher(int maxBatchSize, int delayBetweenBatchesInMs, String pubSubTopic, String inputFile) {
+    public SalesDataPublisher(int maxBatchSize, int delayBetweenBatchesInMs, String pubSubTopic, String inputFile, String offsetFile) {
         this.maxBatchSize = maxBatchSize;
         this.delayBetweenBatchesInMs = delayBetweenBatchesInMs;
         this.pubSubTopic = pubSubTopic;
         this.inputFile = inputFile;
+        this.offsetFile = offsetFile;
     }
 
     public static void main(String... args) {
@@ -62,7 +63,7 @@ public class SalesDataPublisher extends BaseCLIApp implements Runnable {
 
 
     public void startThread() {
-        final SalesDataPublisher sdg = new SalesDataPublisher(maxBatchSize, delayBetweenBatchesInMs, pubSubTopic, inputFile);
+        final SalesDataPublisher sdg = new SalesDataPublisher(maxBatchSize, delayBetweenBatchesInMs, pubSubTopic, inputFile, offsetFile);
         final Thread sdgThread = new Thread(sdg);
 
         sdgThread.start();
