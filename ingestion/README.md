@@ -324,6 +324,12 @@ exit
 4. Click Run Query.
 5. Once the query execution is complete you will see the results in the bottom pane.
 
+<img src="assets/BigQuery-Basics-Demo1.png" />
+
+<img src="assets/BigQuery-Basics-Demo2.png" />
+
+<img src="assets/BigQuery-Basics-Demo3.png" />
+
 ---
 
 ### Exercise: Cleanup
@@ -332,17 +338,20 @@ Expected Time: 5 mins
 
 **Step 1:** Stop the sales event data pump that's running in the Cloud Shell using `Ctrl + C`.
 
-**Step 2:** Stop the running Dataflow jobs. **SalesEventsStreaming** and **SalesEventsRawStreaming**. You can perform this step either in the UI or using `gcloud` command as described below:
+**Step 2:** Stop the running Dataflow jobs. **SalesEventsStreaming** and **SalesEventsRawStreaming**.
 
-```
-gcloud dataflow jobs SalesEventsStreaming drain
-gcloud dataflow jobs SalesEventsRawStreaming drain
-```
+<img src="assets/Dataflow-Stop1.png" />
 
-**Step 3:** Delete the **[unique-dataflow-bucket-name]** you created. This can be done either through the UI or using the gcloud command as describe below:
+<img src="assets/Dataflow-Stop2.png" />
 
-`gsutil rb gs://[unique-dataflow-bucket-name]` [FIXME]
+**Step 3:** Delete the **[unique-dataflow-bucket-name]** you created.
 
-**Step 4:** Delete the dataset in BQ. Like the other resources, this can be done either in the UI or through command line as follows:
+<img src="assets/GCS-Delete1.png" />
 
-`bq rm -r -f [project-name]:retail_demo_warehouse`
+<img src="assets/GCS-Delete2.png" />
+
+**Step 4:** Delete the dataset in BQ.
+
+<img src="assets/BigQuery-Delete1.png" />
+
+<img src="assets/BigQuery-Delete2.png" />
