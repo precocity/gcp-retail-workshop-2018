@@ -207,7 +207,9 @@ In this exercise we will deploy a streaming job to ingest streaming / realtime d
 1. Streaming realtime data into BQ
 2. Archiving realtime data into GCS
 
-TBD: Go over the format of Sales Message
+Below is the format of a sales event JSON message that we will be using for this exercise.
+
+<img src="assets/Sales-Event-Format.png" height="300px"/>
 
 **Step 1:** Create a Pub/Sub topic to publish realtime sales events.
 
@@ -237,11 +239,7 @@ gcloud dataflow jobs run SalesEventsStreaming \
 ```
 gcloud dataflow jobs run SalesEventsRawStreaming \
  --gcs-location=gs://[unique-dataflow-bucket-name]/pubsub-to-gcs/PubSubToFile.json\
-<<<<<<< HEAD
-  --parameters inputTopic=projects/[project-name]/topics/[topic-name],\
-=======
  --parameters inputTopic=projects/[project-name]/topics/[topic-name],\
->>>>>>> 997da3340333c11c5e15bd0baca1e480734fb4ee
  outputDirectory=gs://[unique-dataflow-bucket-name]/raw/sales_events/,\
  outputFilenamePrefix=sales-events-,outputFilenameSuffix=.json.txt
 ```
@@ -317,4 +315,21 @@ bq query --use_legacy_sql=False `cat bigquery/samples/interesting-tbd.sql`
 
 ### Exercise: Cleanup
 
-(TBD: checklist to go through and turn off running resources)
+**Step 1:** Stop the sales event data pump
+
+`sh tbd.sh`
+
+**Step 2:** Stop the running Dataflow jobs. **SalesEventsStreaming** and **SalesEventsRawStreaming**. You can perform this step either in the UI or using `gcloud` command as described below:
+
+```
+gcloud dataflow jobs SalesEventsStreaming drain
+gcloud dataflow jobs SalesEventsRawStreaming drain
+```
+
+**Step 3:** Delete the **[unique-dataflow-bucket-name]** you created. This can be done either through the UI or using the gcloud command as describe below:
+
+`gsutil rb gs://[unique-dataflow-bucket-name]`
+
+**Step 4:** Delete the dataset in BQ. Like the other resources, this can be done either in the UI or through command line as follows:
+
+`bq rm -r -f [project-name]:retail_demo_warehouse`
