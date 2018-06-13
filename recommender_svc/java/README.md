@@ -48,4 +48,12 @@ kubectl create configmap recs-svc-config --from-literal=gcp.project=$DEVSHELL_PR
 kubectl apply -f ./k8s/deployment.yml
 ```
 
-//TODO : Set up the firewall rule
+10. Open the firewall to allow for external traffic to the service:
+
+```bash
+gcloud compute firewall-rules create allow-k8s-rec-svc \
+  --allow=tcp:30333 \
+  --description="Allow access to the product recommendation service" \
+  --source-ranges=0.0.0.0/0 
+```
+
