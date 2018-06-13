@@ -33,3 +33,14 @@ spec:
         image: gcr.io/precocity-retail-workshop-2018/retail-wkshp-recs
         ports:
         - containerPort: 8080
+        env:
+           - name: RECS_GCP_PROJECT
+             valueFrom:
+               configMapKeyRef:
+                 name: recs-svc-config
+                 key: gcp.project
+           - name: RECS_GCS_BUCKET
+             valueFrom:
+               configMapKeyRef:
+                 name: recs-svc-config
+                 key: gcs.bucket

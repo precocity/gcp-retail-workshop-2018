@@ -1,6 +1,5 @@
 package com.precocityllc.gcp.retailwkshp;
 
-import com.precocityllc.gcp.retailwkshp.model.RecsModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

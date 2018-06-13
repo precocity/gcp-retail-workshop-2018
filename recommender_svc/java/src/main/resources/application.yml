@@ -1,7 +1,7 @@
 recs:
   gcp:
-    project: precocity-retail-workshop-2018
-    bucket: recommender_precocity-retail-workshop-2018
+    project: ${RECS_GCP_PROJECT}
+    bucket: ${RECS_GCS_BUCKET}
   rowmodel:
     path: model/row.csv
   colmodel:
