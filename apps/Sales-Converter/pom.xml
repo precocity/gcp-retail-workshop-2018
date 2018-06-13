@@ -40,56 +40,47 @@
     </dependencies>
 
     <build>
-        <finalName>SalesConverter</finalName>
+        <finalName>Sales-Converter</finalName>
         <plugins>
-            <!--<plugin>-->
-                <!--<groupId>org.apache.maven.plugins</groupId>-->
-                <!--<artifactId>maven-jar-plugin</artifactId>-->
-                <!--<version>2.4</version>-->
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<id>default-jar</id>-->
-                        <!--<phase/>-->
-                    <!--</execution>-->
-                <!--</executions>-->
-            <!--</plugin>-->
-            <!--<plugin>-->
-            <!--<groupId>org.apache.maven.plugins</groupId>-->
-            <!--<artifactId>maven-shade-plugin</artifactId>-->
-            <!--<version>2.4.1</version>-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>2.4.1</version>
 
-            <!--<configuration>-->
-            <!--<createDependencyReducedPom>true</createDependencyReducedPom>-->
-            <!--<filters>-->
-            <!--<filter>-->
-            <!--<artifact>*:*</artifact>-->
-            <!--<excludes>-->
-            <!--<exclude>META-INF/*.SF</exclude>-->
-            <!--<exclude>META-INF/*.DSA</exclude>-->
-            <!--<exclude>META-INF/*.RSA</exclude>-->
-            <!--</excludes>-->
-            <!--</filter>-->
-            <!--</filters>-->
+                <configuration>
+                    <createDependencyReducedPom>true</createDependencyReducedPom>
+                    <filters>
+                        <filter>
+                            <artifact>*:*</artifact>
+                            <excludes>
+                                <exclude>META-INF/*.SF</exclude>
+                                <exclude>META-INF/*.DSA</exclude>
+                                <exclude>META-INF/*.RSA</exclude>
+                                <exclude>assets/*</exclude>
+                            </excludes>
+                        </filter>
+                    </filters>
 
-            <!--</configuration>-->
-            <!--<executions>-->
-            <!--<execution>-->
-            <!--<phase>package</phase>-->
-            <!--<goals>-->
-            <!--<goal>shade</goal>-->
-            <!--</goals>-->
-            <!--<configuration>-->
-            <!--<transformers>-->
-            <!--<transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />-->
-            <!--<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">-->
-            <!--<mainClass>com.precocity.demo.gcp.converters.sales.SalesHeeaderLineItemConverter</mainClass>-->
-            <!--</transformer>-->
-            <!--</transformers>-->
-            <!--</configuration>-->
-            <!--</execution>-->
-            <!--</executions>-->
-            <!--</plugin>-->
-
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <transformers>
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>com.precocityllc.demo.gcp.converters.sales.SalesHeaderLineItemConverter</mainClass>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 </project>
