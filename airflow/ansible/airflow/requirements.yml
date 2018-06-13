@@ -1,0 +1,4 @@
+- src: http://github.com/idealista/airflow-role.git
+  scm: git
+  version: 1.0.0
+  name: airflow
