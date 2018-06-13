@@ -5,8 +5,8 @@ if [ $# -ne 2 ]; then
   exit 1
 fi
 
-PROJECT_NAME=$1
-TOPIC_NAME=$2
+PROJECT_NAME=${GOOGLE_CLOUD_PROJECT}
+TOPIC_NAME=${GOOGLE_CLOUD_PROJECT}-sales-events
 
 SCRIPT_DIR="$( cd "$( dirname "$0" )" && pwd )"
 

@@ -1,12 +1,7 @@
 #!/bin/bash
 
-if [ $# -ne 2 ]; then
-  echo "Expected 2 args: project-name and unique-dataflow-bucket-name"
-  exit 1
-fi
-
-export PROJECT_NAME=$1
-export BUCKET_NAME=$2
+export PROJECT_NAME=${GOOGLE_CLOUD_PROJECT}
+export BUCKET_NAME=${GOOGLE_CLOUD_PROJECT}-dataflow
 
 submitBatchJob () {
   FEED=$1
