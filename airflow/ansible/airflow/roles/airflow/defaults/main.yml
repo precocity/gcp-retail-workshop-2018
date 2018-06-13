@@ -33,6 +33,8 @@ airflow_dags_folder: "{{ airflow_home }}/dags"
 airflow_logs_folder: /var/log/airflow
 airflow_child_process_log_folder: "{{ airflow_logs_folder }}/scheduler"
 airflow_environment_file_folder: /etc/sysconfig
+airflow_custom_py_folder: "{{ airflow_home }}/custom_py"
+airflow_scripts_folder: "{{ airflow_home }}/scripts"
 
 # Allowing playbooks to provide external config files&templates
 airflow_extra_conf_path: "{{ playbook_dir }}/files/airflow"
@@ -42,6 +44,12 @@ airflow_extra_conf_template_path: "{{ playbook_dir }}/templates/airflow"
 # ---------------------
 
 airflow_load_examples: True
+airflow_logging_level: DEBUG
+airflow_log_format: [%%(asctime)s] {%%(filename)s:%%(lineno)d} %%(levelname)s - %%(message)s
+airflow_simple_log_format: %%(asctime)s %%(levelname)s - %%(message)s
+airflow_task_log_reader: file.task
+airflow_enable_xcom_pickling: True
+airflow_killed_task_cleanup_time: 60
 
 # The executor class that airflow should use. Choices include
 # SequentialExecutor, LocalExecutor, CeleryExecutor
@@ -102,6 +110,8 @@ airflow_webserver_dag_orientation: LR
 airflow_webserver_demo_mode: False
 airflow_webserver_log_fetch_timeout_sec: 5
 airflow_webserver_hide_paused_dags_by_default: False
+airflow_webserver_dag_default_view: tree
+airflow_webserver_page_size: 100
 
 ## Webserver Authentication (http://pythonhosted.org/airflow/security.html#web-authentication)
 
@@ -155,6 +165,7 @@ airflow_scheduler_zombie_task_threshold: 300
 airflow_scheduler_catchup_by_default: True
 airflow_scheduler_max_threads: 2
 airflow_scheduler_authenticate: False
+airflow_max_tis_per_query: 0
 
 ## STASTD
 airflow_statsd_on: False
@@ -169,6 +180,10 @@ airflow_celery_worker_log_server_port: 8793
 airflow_celery_broker_url: sqla+mysql://airflow:airflow@localhost:3306/airflow
 airflow_celery_result_backend: db+mysql://airflow:airflow@localhost:3306/airflow
 airflow_celery_default_queue: default
+airflow_celery_config_options: airflow.config_templates.default_celery.DEFAULT_CELERY_CONFIG
+
+# DASK
+airflow_dask_cluster_address: 127.0.0.1:8786
 
 # FLOWER
 airflow_flower_host: 0.0.0.0

@@ -11,6 +11,8 @@
     - "{{ airflow_child_process_log_folder }}"
     - "{{ airflow_dags_folder }}"
     - "{{ airflow_plugins_folder }}"
+    - "{{ airflow_custom_py_folder }}"
+    - "{{ airflow_scripts_folder }}"
 
 - name: Airflow | Copy gunicorn logrotate config
   template:
@@ -81,3 +83,17 @@
     - restart airflow-webserver
     - restart airflow-scheduler
     - restart airflow-worker
+
+- name: Copy Airflow runtime artifacts
+  copy:
+    src: ~/runtime
+    dest: "{{ airflow_home}}"
+    owner: "{{ airflow_user }}"
+    group: "{{ airflow_group }}"
+
+name: Copy .bash_profile for airflow user
+  copy:
+    src: ~/ansible/airflow/.bash_profile
+    dest: /home/airflow/.bash_profile
+    owner: "{{ airflow_user }}"
+    group: "{{ airflow_group }}"

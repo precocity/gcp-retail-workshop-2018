@@ -15,12 +15,21 @@ base_log_folder = {{ airflow_logs_folder }}
 # must supply a remote location URL (starting with either 's3://...' or
 # 'gs://...') and an Airflow connection id that provides access to the storage
 # location.
-remote_base_log_folder = {{ airflow_remote_base_log_folder }}
 remote_log_conn_id = {{ airflow_remote_log_conn_id }}
-# Use server-side encryption for logs stored in S3
 encrypt_s3_logs = {{ airflow_encrypt_s3_logs }}
-# DEPRECATED option for remote log storage, use remote_base_log_folder instead!
-s3_log_folder = {{ airflow_s3_log_folder }}
+
+# Logging level
+logging_level = {{ airflow_logging_level }}
+
+# Logging class
+# Specify the class that will specify the logging configuration
+# This class has to be on the python classpath
+# logging_config_class = my.path.default_local_settings.LOGGING_CONFIG
+logging_config_class =
+
+# Log format
+log_format = {{ airflow_log_format }}
+simple_log_format = {{ airflow_simple_log_format }}
 
 # The executor class that airflow should use. Choices include
 # SequentialExecutor, LocalExecutor, CeleryExecutor
@@ -88,6 +97,18 @@ security =
 # Turn unit test mode on (overwrites many configuration options with test
 # values at runtime)
 unit_test_mode = {{ airflow_unit_test_mode }}
+
+# Name of handler to read task instance logs.
+# Default to use file task handler.
+task_log_reader = {{ airflow_task_log_reader }}
+
+# Whether to enable pickling for xcom (note that this is insecure and allows for
+# RCE exploits). This will be deprecated in Airflow 2.0 (be forced to False).
+enable_xcom_pickling = {{ airflow_enable_xcom_pickling }}
+
+# When a task is killed forcefully, this is the amount of time in seconds that
+# it has to cleanup after it is sent a SIGTERM, before it is SIGKILLED
+killed_task_cleanup_time = {{ airflow_killed_task_cleanup_time }}
 
 [cli]
 # In what way should the cli access the API. The LocalClient will use the
@@ -158,9 +179,6 @@ expose_config = {{ airflow_webserver_expose_config }}
 # Set to true to turn on authentication:
 # http://pythonhosted.org/airflow/security.html#web-authentication
 authenticate = {{ airflow_webserver_authenticate }}
-{% if airflow_webserver_auth_backend %}
-auth_backend = {{ airflow_webserver_auth_backend }}
-{% endif %}
 
 # Filter the list of dags by owner name (requires authentication to be enabled)
 filter_by_owner = {{ airflow_webserver_filter_by_owner }}
@@ -171,6 +189,10 @@ filter_by_owner = {{ airflow_webserver_filter_by_owner }}
 # Note that the ldap server needs the "memberOf" overlay to be set up
 # in order to user the ldapgroup mode.
 owner_mode = {{ airflow_webserver_owner_mode }}
+
+# Default DAG view.  Valid values are:
+# tree, graph, duration, gantt, landing_times
+dag_default_view = {{ airflow_webserver_dag_default_view }}
 
 # Default DAG orientation. Valid values are:
 # LR (Left->Right), TB (Top->Bottom), RL (Right->Left), BT (Bottom->Top)
@@ -188,6 +210,8 @@ log_fetch_timeout_sec = {{ airflow_webserver_log_fetch_timeout_sec }}
 # DAGs by default
 hide_paused_dags_by_default = {{ airflow_webserver_hide_paused_dags_by_default }}
 
+# Consistent page size across all listing views in the UI
+page_size = {{ airflow_webserver_page_size }}
 
 [email]
 email_backend = {{ airflow_email_backend }}
@@ -247,6 +271,16 @@ flower_port = {{ airflow_flower_port }}
 # Default queue that tasks get assigned to and that worker listen on.
 default_queue = {{ airflow_celery_default_queue }}
 
+# Import path for celery configuration options
+celery_config_options = {{ airflow_celery_config_options }}
+
+[dask]
+# This section only applies if you are using the DaskExecutor in
+# [core] section above
+
+# The IP address and port of the Dask cluster's scheduler.
+cluster_address = {{ airflow_dask_cluster_address }}
+
 
 [scheduler]
 # Task instances listen for external kill signal (when you clear tasks
@@ -286,6 +320,11 @@ scheduler_zombie_task_threshold = {{ airflow_scheduler_zombie_task_threshold }}
 # DAG definition (catchup)
 catchup_by_default = {{ airflow_scheduler_catchup_by_default }}
 
+# This changes the batch size of queries in the scheduling main loop.
+# This depends on query length limits and how long you are willing to hold locks.
+# 0 for no limit
+max_tis_per_query = {{ airflow_max_tis_per_query }}
+
 # Statsd (https://github.com/etsy/statsd) integration settings
 statsd_on = {{ airflow_statsd_on }}
 statsd_host = {{ airflow_statsd_host }}
@@ -299,6 +338,20 @@ max_threads = {{ airflow_scheduler_max_threads }}
 
 authenticate = {{ airflow_scheduler_authenticate }}
 
+
+[ldap]
+# set this to ldaps://<your.ldap.server>:<port>
+uri = {{ airflow_ldap_uri }}
+user_filter = {{ airflow_ldap_user_filter }}
+user_name_attr = {{ airflow_ldap_user_name_attr }}
+group_member_attr = memberOf
+superuser_filter = {{ airflow_ldap_superuser_filter }}
+data_profiler_filter = airflow_max_tis_per_query
+bind_user = {{ airflow_ldap_bind_user }}
+bind_password = {{ airflow_ldap_bind_password }}
+basedn = {{ airflow_ldap_basedn }}
+cacert = {{ airflow_ldap_cacert }}
+search_scope = {{ airflow_ldap_search_scope }}
 
 [mesos]
 # Mesos master address which MesosExecutor will connect to.
@@ -354,21 +407,3 @@ api_rev = {{ airflow_github_enterprise_api_rev }}
 [admin]
 # UI to hide sensitive variable fields when set to True
 hide_sensitive_variable_fields = {{ airflow_admin_hide_sensitive_variable_fields }}
-
-{% if airflow_webserver_auth_backend == "airflow.contrib.auth.backends.ldap_auth" %}
-[ldap]
-# set a connection without encryption: uri = ldap://<your.ldap.server>:<port>
-uri = {{ airflow_ldap_uri }}
-user_filter = {{ airflow_ldap_user_filter }}
-# in case of Active Directory you would use: user_name_attr = sAMAccountName
-user_name_attr = {{ airflow_ldap_user_name_attr }}
-superuser_filter = {{ airflow_ldap_superuser_filter }}
-data_profiler_filter = {{ airflow_ldap_data_profiler_filter }}
-bind_user = {{ airflow_ldap_bind_user }}
-bind_password = {{ airflow_ldap_bind_password }}
-basedn = {{ airflow_ldap_basedn }}
-cacert = {{ airflow_ldap_cacert }}
-# Set search_scope to one of them:  BASE, LEVEL , SUBTREE
-# Set search_scope to SUBTREE if using Active Directory, and not specifying an Organizational Unit
-search_scope = {{ airflow_ldap_search_scope }}
-{% endif %}
