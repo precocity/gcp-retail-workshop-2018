@@ -20,9 +20,7 @@
 * `git clone https://github.com/precocity/gcp-retail-workshop-2018.git`
 * `cd gcp-retail-workshop-2018/ingestion`
 
->Tip: For the following exercises and the commands that need to be executed as part of them, it is recommended to copy the commands to a text editor first and replace the placeholders with the appropriate values and then copy-paste the updated command at the prompt.
-
->Note: Unless otherwise explicitly stated, all the commands below are to be executed in Cloud Shell.
+>Note: Unless otherwise explicitly stated, all the commands below are to be executed in Cloud Shell as-is.
 
 >Note: Once you are done with all the exercises, please go through the last Cleanup exercise to review and make sure any running resources are terminated.
 
@@ -35,15 +33,15 @@ Expected Time: 5 mins
 Let's create one BigQuery table using the `bq` command and create the rest in the same manner using a helper script.
 
 **Step 1:**
-Create a dataset using the command below, be sure to replace the **[project-name]** before executing:
+Create a dataset using the command below:
 
-`bq mk [project-name]:retail_demo_warehouse`
+`bq mk retail_demo_warehouse`
 
 >After executing this command, you should see a success message indicating that the dataset has been successfully created.
 
 **Step 2:** Create a BigQuery table, customer, using the schema definition in the codebase:
 
-`bq mk --table [project-name]:retail_demo_warehouse.customer bigquery/schemas/customer-bq.json`
+`bq mk --table retail_demo_warehouse.customer bigquery/schemas/customer-bq.json`
 
 >After executing this command, you should see a success message indicating that the table has been successfully created.
 
@@ -51,9 +49,9 @@ Create a dataset using the command below, be sure to replace the **[project-name
 <img src="assets/BigQuery-Nav.png" height="300px"/>
 <img src="assets/BigQuery-Table-Creation-QuickVerification.png" height="300px"/>
 
-**Step 4:** Let's go ahead and create the rest of the tables required using a helper script that's provided in the codebase which essentially executes step #2 for all the remaining tables: (the required arg to this script is the **[project-name]**)
+**Step 4:** Let's go ahead and create the rest of the tables required using a helper script that's provided in the codebase which essentially executes step #2 for all the remaining tables:
 
-`sh bigquery/scripts/create-bq-tables.sh [project-name]`
+`sh bigquery/scripts/create-bq-tables.sh`
 
 >At this point all the tables will be created in the dataset in BigQuery. You can verify in the BigQuery home page.
 
@@ -72,12 +70,11 @@ git clone https://github.com/GoogleCloudPlatform/DataflowTemplates.git
 cd DataflowTemplates
 ```
 
-**Step 2:** Create a bucket in GCS to deploy the Dataflow jobs, be sure to replace **[unique-dataflow-bucket-name]** before you execute the command:<br/>
+**Step 2:** Next, we will create a unique bucket in GCS to deploy our Dataflow code. The name of the bucket will be [your-project-id]-dataflow.
 
->**Note:** The bucket that you will be creating in this step will be used in rest of the steps.
-> The bucket name has to be unique across entire Google Cloud Platform, so avoid using generic names and include a unique identifier. ex: [username]-dataflow-2018.
+`gsutil mb gs://${GOOGLE_CLOUD_PROJECT}-dataflow`
 
-`gsutil mb gs://[unique-dataflow-bucket-name]`
+>In the above command the environment variable $GOOGLE_CLOUD_PROJECT is readily available in the Cloud Shell and will be substituted automatically during execution.
 
 **Step 3:** Build & deploy the GCS Text -> BigQuery Dataflow job:
 ```
@@ -85,10 +82,10 @@ mvn compile exec:java \
 -Dexec.mainClass=com.google.cloud.teleport.templates.TextIOToBigQuery \
 -Dexec.cleanupDaemonThreads=false \
 -Dexec.args=" \
---project=[project-name] \
---stagingLocation=gs://[unique-dataflow-bucket-name]/gcs-to-bigquery/staging \
---tempLocation=gs://[unique-dataflow-bucket-name]/gcs-to-bigquery/tmp \
---templateLocation=gs://[unique-dataflow-bucket-name]/gcs-to-bigquery/templates/FileToBigQuery.json \
+--project=${GOOGLE_CLOUD_PROJECT} \
+--stagingLocation=gs://${GOOGLE_CLOUD_PROJECT}-dataflow/gcs-to-bigquery/staging \
+--tempLocation=gs://${GOOGLE_CLOUD_PROJECT}-dataflow/gcs-to-bigquery/tmp \
+--templateLocation=gs://${GOOGLE_CLOUD_PROJECT}-dataflow/gcs-to-bigquery/templates/FileToBigQuery.json \
 --runner=DataflowRunner"
 ```
 >You should see a "Build Successful" message upon successful deployment of the Dataflow job.
@@ -99,10 +96,10 @@ mvn compile exec:java \
 -Dexec.mainClass=com.google.cloud.teleport.templates.PubSubToBigQuery \
 -Dexec.cleanupDaemonThreads=false \
 -Dexec.args=" \
---project=[project-name] \
---stagingLocation=gs://[unique-dataflow-bucket-name]/pubsub-to-bigquery/staging \
---tempLocation=gs://[unique-dataflow-bucket-name]/pubsub-to-bigquery/tmp \
---templateLocation=gs://[unique-dataflow-bucket-name]/pubsub-to-bigquery/templates/PubSubToBigQuery.json \
+--project=${GOOGLE_CLOUD_PROJECT} \
+--stagingLocation=gs://${GOOGLE_CLOUD_PROJECT}-dataflow/pubsub-to-bigquery/staging \
+--tempLocation=gs://${GOOGLE_CLOUD_PROJECT}-dataflow/pubsub-to-bigquery/tmp \
+--templateLocation=gs://${GOOGLE_CLOUD_PROJECT}-dataflow/pubsub-to-bigquery/templates/PubSubToBigQuery.json \
 --runner=DataflowRunner"
 ```
 >You should see a "Build Successful" message upon successful deployment of the Dataflow job.
@@ -113,10 +110,10 @@ mvn compile exec:java \
 -Dexec.mainClass=com.google.cloud.teleport.templates.PubsubToText \
 -Dexec.cleanupDaemonThreads=false \
 -Dexec.args=" \
---project=[project-name] \
---stagingLocation=gs://[unique-dataflow-bucket-name]/pubsub-to-gcs/staging \
---tempLocation=gs://[unique-dataflow-bucket-name]/pubsub-to-gcs/tmp \
---templateLocation=gs://[unique-dataflow-bucket-name]/pubsub-to-gcs/templates/PubSubToFile.json \
+--project=${GOOGLE_CLOUD_PROJECT} \
+--stagingLocation=gs://${GOOGLE_CLOUD_PROJECT}-dataflow/pubsub-to-gcs/staging \
+--tempLocation=gs://${GOOGLE_CLOUD_PROJECT}-dataflow/pubsub-to-gcs/tmp \
+--templateLocation=gs://${GOOGLE_CLOUD_PROJECT}-dataflow/pubsub-to-gcs/templates/PubSubToFile.json \
 --runner=DataflowRunner"
 ```
 >You should see a "Build Successful" message upon successful deployment of the Dataflow job.
@@ -126,7 +123,7 @@ mvn compile exec:java \
 **Step 7:** Next step is to deploy application specific logic (parsing & transformations) that is required by the Dataflow jobs. There is helper script that copies the application specific code to GCS. Execute the following:
 ```
 cd ~/gcp-retail-workshop-2018/ingestion
-sh dataflow/scripts/deploy-app-code.sh [unique-dataflow-bucket-name]
+sh dataflow/scripts/deploy-app-code.sh
 ```
 
 ---
@@ -136,23 +133,20 @@ sh dataflow/scripts/deploy-app-code.sh [unique-dataflow-bucket-name]
 Expected Time: 20 mins
 
 >**Note:**
->1. You will need the project name and the name of the bucket you created in the previous exercise to continue.
->2. Be sure to enable Dataflow APIs in Google Cloud APIs page before proceeding.
-
->**Tip:** Copy the commands to your editor and replace the appropriate placeholders before you past them on to the console
+>1. Be sure to enable Dataflow APIs in Google Cloud APIs page before proceeding.
 
 In this exercise we will deploy a batch load job to load the customer data from GCS to the target customer table in BigQuery. We will be using the customer CSV file that's available in the workshop's bucket.
 
-**Step 1:** Execute the following `gcloud` command to create a Dataflow job to load customer data. Be sure to replace both **[unique-dataflow-bucket-name]** and **[project-name]** with appropriate values before executing:
+**Step 1:** Execute the following `gcloud` command to create a Dataflow job to load customer data:
 ```
 gcloud dataflow jobs run customerLoad \
---gcs-location=gs://[unique-dataflow-bucket-name]/gcs-to-bigquery/templates/FileToBigQuery.json \
+--gcs-location=gs://${GOOGLE_CLOUD_PROJECT}-dataflow/gcs-to-bigquery/templates/FileToBigQuery.json \
 --parameters javascriptTextTransformFunctionName=transform,\
-JSONPath=gs://[unique-dataflow-bucket-name]/schemas/customer.json,\
-javascriptTextTransformGcsPath=gs://[unique-dataflow-bucket-name]/udfs/customer.js,\
+JSONPath=gs://${GOOGLE_CLOUD_PROJECT}-dataflow/schemas/customer.json,\
+javascriptTextTransformGcsPath=gs://${GOOGLE_CLOUD_PROJECT}-dataflow/udfs/customer.js,\
 inputFilePattern=gs://precocity-retail-workshop-2018-bucket/staged/customer/customer.*.csv,\
-outputTable=[project-name]:retail_demo_warehouse.customer,\
-bigQueryLoadingTemporaryDirectory=gs://[unique-dataflow-bucket-name]/gcs-to-bigquery/tmp
+outputTable=retail_demo_warehouse.customer,\
+bigQueryLoadingTemporaryDirectory=gs://${GOOGLE_CLOUD_PROJECT}-dataflow/gcs-to-bigquery/tmp
 ```
 >Following the execution of the command you should see a log in the console similar to below:
 ```
@@ -161,7 +155,7 @@ currentStateTime: '1970-01-01T00:00:00Z'
 id: 2018-06-08_12_59_10-6953731249770254557
 location: us-central1
 name: customerLoad
-projectId: precocity-retail-workshop-2018
+projectId: sample-project-id
 type: JOB_TYPE_BATCH
 ```
 
@@ -182,11 +176,11 @@ type: JOB_TYPE_BATCH
 
 <img src="assets/DataFlow-CustomerLoad-JobsPage.png" width="500px"/>
 
-**Step 6:** Now, let's go ahead and kick off other Dataflow jobs to load the rest of the tables. There's a helper script which has all the `gcloud` commands to kick off the batch load process for the rest of the tables. It requires 2 arguments, **[project-name]** and **[unique-dataflow-bucket-name]**
+**Step 6:** Now, let's go ahead and kick off other Dataflow jobs to load the rest of the tables. There's a helper script which has all the `gcloud` commands to kick off the batch load process for the rest of the tables.
 
 ```
 cd ~/gcp-retail-workshop-2018/ingestion
-sh dataflow/scripts/submit-batch-jobs.sh [project-name] [unique-dataflow-bucket-name]
+sh dataflow/scripts/submit-batch-jobs.sh
 ```
 
 **Step 7:** While the other jobs start to run, you can verify that the `customer` table has been successfully loaded in the BigQuery page as shown below.
@@ -211,36 +205,35 @@ Below is the format of a sales event JSON message that we will be using for this
 
 <img src="assets/Sales-Event-Format.png" height="300px"/>
 
-**Step 1:** Create a Pub/Sub topic to publish realtime sales events.
+**Step 1:** Create a Pub/Sub topic to publish realtime sales events by executing the below statements:
 
->Note down the PubSub **[topic-name]** you are creating as it will be used in the following steps
+```
+gcloud pubsub topics create ${GOOGLE_CLOUD_PROJECT}-sales-events
 
-<img src="assets/PubSub-Nav.png" height="300px"/>
-<img src="assets/PubSub-Create-Topic.png" height="300px"/>
+# verify whether the topic has been created by executing:
+gcloud pubsub topics list
+```
 
->Alternatively you can create the PubSub topic using the gcloud command too by executing the following in Cloud Shell:
-> `gcloud pubsub topics create [topic-name]` and then verifying by executing:
-> `gcloud pubsub topics list`
-
-**Step 2:** Next step, let's deploy the streaming Dataflow job that will subscribe to the PubSub topic and does streaming insert into the BigQuery sales table. Be sure to replace the **[unique-dataflow-bucket-name]** with the GCS bucket you have created in the previous exercises and also the **[project-name]** and **[topic-name]**.
+**Step 2:** Next step, let's deploy the streaming Dataflow job that will subscribe to the PubSub topic and does streaming insert into the BigQuery sales table.
 
 ```
 cd ~/gcp-retail-workshop-2018/ingestion
+
 gcloud dataflow jobs run SalesEventsStreaming \
- --gcs-location=gs://[unique-dataflow-bucket-name]/pubsub-to-bigquery/templates/PubSubToBigQuery.json \
- --parameters inputTopic=projects/[project-name]/topics/[topic-name],\
- outputTableSpec=[project-name]:retail_demo_warehouse.sales_events
+--gcs-location=gs://${GOOGLE_CLOUD_PROJECT}-dataflow/pubsub-to-bigquery/templates/PubSubToBigQuery.json \
+--parameters inputTopic=projects/${GOOGLE_CLOUD_PROJECT}/topics/${GOOGLE_CLOUD_PROJECT}-sales-events,\
+outputTableSpec=retail_demo_warehouse.sales_events
 ```
 
 **Step 3:** Navigate to the Dataflow jobs page to notice the `SalesEventsStreaming` job running.
 
-**Step 4:** Similarly, let's deploy the streaming Dataflow job that will subscribe to the PubSub topic and stores the raw JSON data into GCS for archival purposes. Be sure to replace the placeholders in the command below.
+**Step 4:** Similarly, let's deploy the streaming Dataflow job that will subscribe to the PubSub topic and stores the raw JSON data into GCS for archival purposes.
 
 ```
 gcloud dataflow jobs run SalesEventsRawStreaming \
---gcs-location=gs://[unique-dataflow-bucket-name]/pubsub-to-gcs/templates/PubSubToFile.json \
---parameters inputTopic=projects/[project-name]/topics/[topic-name],\
-outputDirectory=gs://[unique-dataflow-bucket-name]/raw/sales_events/,\
+--gcs-location=gs://${GOOGLE_CLOUD_PROJECT}-dataflow/pubsub-to-gcs/templates/PubSubToFile.json \
+--parameters inputTopic=projects/${GOOGLE_CLOUD_PROJECT}/topics/[topic-name],\
+outputDirectory=gs://${GOOGLE_CLOUD_PROJECT}-dataflow/raw/sales_events/,\
 outputFilenamePrefix=sales-events-,outputFilenameSuffix=.json.txt
 ```
 
@@ -260,7 +253,7 @@ sh scripts/01_buildApps.sh
 sh ingestion/scripts/01_prepPublisher.sh
 
 ## starts publishing sales events to the topic
-sh ingestion/scripts/02_runPublisher.sh [project-name] [pubsub-topic-name]
+sh ingestion/scripts/02_runPublisher.sh
 ```
 
 >Leave the utility running in the Cloud Shell and proceed to the next step. This utility will be running until you terminate it.
