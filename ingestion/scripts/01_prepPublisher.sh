@@ -20,6 +20,6 @@ else
     echo "$DATA_FILE exists. Not downloading."
 fi
 
-echo "Creating topic $PUBSUB_TOPIC"
-gcloud pubsub topics create $PUBSUB_TOPIC
+#echo "Creating topic $PUBSUB_TOPIC"
+#gcloud pubsub topics create $PUBSUB_TOPIC
 

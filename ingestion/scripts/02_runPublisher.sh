@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
 
+if [ $# -ne 2 ]; then
+  echo "Expected 2 arguments: [project-name] [pubsub-topic-name]"
+  exit 1
+fi
+
+PROJECT_NAME=$1
+TOPIC_NAME=$2
+
 SCRIPT_DIR="$( cd "$( dirname "$0" )" && pwd )"
 
 #source the library
@@ -17,11 +25,11 @@ PUBLISHER_JAR=$PUBLISHER_JAR_DIR/Sales-Data-Publisher.jar
 BATCH_DELAY_MS=1000
 MAX_BATCH_SIZE=100
 INPUT_FILE=$DATA_DIR/json.txt
-FULL_PUBSUB_TOPIC="projects/$PROJECT/topics/$PUBSUB_TOPIC"
+FULL_PUBSUB_TOPIC="projects/$PROJECT_NAME/topics/$TOPIC_NAME"
 OFFSET_FILE=$DATA_DIR/publisher_offset.txt
+
+echo "Using topic: $FULL_PUBSUB_TOPIC"
 
 #Action
 echo "Starting publisher $PUBLISHER_JAR"
 java -jar $PUBLISHER_JAR -d $BATCH_DELAY_MS -s $MAX_BATCH_SIZE -i $INPUT_FILE -t $FULL_PUBSUB_TOPIC -o $OFFSET_FILE
-
-

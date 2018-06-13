@@ -30,7 +30,7 @@
 
 ### Exercise 1: Creating BigQuery Tables
 
-Expected Time: TBD
+Expected Time: 5 mins
 
 Let's create one BigQuery table using the `bq` command and create the rest in the same manner using a helper script.
 
@@ -61,7 +61,7 @@ Create a dataset using the command below, be sure to replace the **[project-name
 
 ### Exercise 2: Deploy Dataflow Jobs
 
-Expected Time: TBD
+Expected Time: 15 mins
 
 Let's manually deploy both batch and streaming dataflow jobs using the Google provided templates to understand how they readily provide capabilities to address most common ingestion scenarios.
 
@@ -132,7 +132,7 @@ sh dataflow/scripts/deploy-app-code.sh [unique-dataflow-bucket-name]
 
 ### Exercise 3: Batch Load
 
-Expected Time: TBD
+Expected Time: 20 mins
 
 >**Note:**
 >1. You will need the project name and the name of the bucket you created in the previous exercise to continue.
@@ -144,9 +144,8 @@ In this exercise we will deploy a batch load job to load the customer data from 
 
 **Step 1:** Execute the following `gcloud` command to create a Dataflow job to load customer data. Be sure to replace both **[unique-dataflow-bucket-name]** and **[project-name]** with appropriate values before executing:
 ```
-gcloud dataflow jobs run CustomerLoad \
+gcloud dataflow jobs run customerLoad \
 --gcs-location=gs://[unique-dataflow-bucket-name]/gcs-to-bigquery/templates/FileToBigQuery.json \
---zone=us-central1-c \
 --parameters javascriptTextTransformFunctionName=transform,\
 JSONPath=gs://[unique-dataflow-bucket-name]/schemas/customer.json,\
 javascriptTextTransformGcsPath=gs://[unique-dataflow-bucket-name]/udfs/customer.js,\
@@ -160,7 +159,7 @@ createTime: '2018-06-08T19:59:11.516061Z'
 currentStateTime: '1970-01-01T00:00:00Z'
 id: 2018-06-08_12_59_10-6953731249770254557
 location: us-central1
-name: CustomerLoad
+name: customerLoad
 projectId: precocity-retail-workshop-2018
 type: JOB_TYPE_BATCH
 ```
@@ -182,11 +181,11 @@ type: JOB_TYPE_BATCH
 
 <img src="assets/DataFlow-CustomerLoad-JobsPage.png" width="500px"/>
 
-**Step 6:** Now, let's go ahead and kick off other Dataflow jobs to load the rest of the tables. There's a helper script which has all the `gcloud` commands to kick off the batch load process for the rest of the tables.
+**Step 6:** Now, let's go ahead and kick off other Dataflow jobs to load the rest of the tables. There's a helper script which has all the `gcloud` commands to kick off the batch load process for the rest of the tables. It requires 2 arguments, **[project-name]** and **[unique-dataflow-bucket-name]**
 
 ```
 cd ~/gcp-retail-workshop-2018/ingestion
-sh dataflow/scripts/submit-batch-jobs.sh
+sh dataflow/scripts/submit-batch-jobs.sh [project-name] [unique-dataflow-bucket-name]
 ```
 
 **Step 7:** While the other jobs start to run, you can verify that the `customer` table has been successfully loaded in the BigQuery page as shown below.
@@ -201,7 +200,7 @@ sh dataflow/scripts/submit-batch-jobs.sh
 
 ### Exercise 4: Streaming
 
-Expected Time: TBD
+Expected Time: 20 mins
 
 In this exercise we will deploy a streaming job to ingest streaming / realtime data into BigQuery. We will have two Dataflow jobs:
 1. Streaming realtime data into BQ
@@ -227,7 +226,7 @@ Below is the format of a sales event JSON message that we will be using for this
 ```
 cd ~/gcp-retail-workshop-2018/ingestion
 gcloud dataflow jobs run SalesEventsStreaming \
- --gcs-location=gs://[unique-dataflow-bucket-name]/pubsub-to-bigquery/templates/PubSubToBigQuery.json\
+ --gcs-location=gs://[unique-dataflow-bucket-name]/pubsub-to-bigquery/templates/PubSubToBigQuery.json \
  --parameters inputTopic=projects/[project-name]/topics/[topic-name],\
  outputTableSpec=[project-name]:retail_demo_warehouse.sales_events
 ```
@@ -238,22 +237,32 @@ gcloud dataflow jobs run SalesEventsStreaming \
 
 ```
 gcloud dataflow jobs run SalesEventsRawStreaming \
- --gcs-location=gs://[unique-dataflow-bucket-name]/pubsub-to-gcs/PubSubToFile.json\
- --parameters inputTopic=projects/[project-name]/topics/[topic-name],\
- outputDirectory=gs://[unique-dataflow-bucket-name]/raw/sales_events/,\
- outputFilenamePrefix=sales-events-,outputFilenameSuffix=.json.txt
+--gcs-location=gs://[unique-dataflow-bucket-name]/pubsub-to-gcs/templates/PubSubToFile.json \
+--parameters inputTopic=projects/[project-name]/topics/[topic-name],\
+outputDirectory=gs://[unique-dataflow-bucket-name]/raw/sales_events/,\
+outputFilenamePrefix=sales-events-,outputFilenameSuffix=.json.txt
 ```
 
 **Step 5:** Navigate to the Dataflow jobs page and check if both the streaming jobs are running successfully
 
 >Note: Unlike the batch jobs, the streaming Dataflow jobs run until they are terminated (either manually by going to the Dataflow job page and stopping / draining the job or programatically using the gcloud command)
 
-**Step 6:** Next step, let us start streaming some sales events to the PubSub topic so that we can see the Dataflow jobs in action. There is a helper script to accomplish this. The below scripts takes the target PubSub **[topic-name]** as an argument:
+**Step 6:** Next step, let us start streaming some sales events to the PubSub topic so that we can see the Dataflow jobs in action. There is a helper script to accomplish this. The last script takes the **[project-name]** and target PubSub **[topic-name]** as an argument:
 
 ```
 cd ~/gcp-retail-workshop-2018
-sh scripts/tbd.sh [topic-name]
+
+## builds the data publisher utility
+sh scripts/01_buildApps.sh
+
+## copies the sales events data to local
+sh ingestion/scripts/01_prepPublisher.sh
+
+## starts publishing sales events to the topic
+sh ingestion/scripts/02_runPublisher.sh [project-name] [pubsub-topic-name]
 ```
+
+>Leave the utility running in the Cloud Shell and proceed to the next step. This utility will be running until you terminate it.
 
 **Step 7:** Navigate to the job pages to see the Dataflow jobs consume the realtime streaming sales events, process them and land them into their target destinations (BigQuery, GCS).
 
@@ -261,7 +270,7 @@ sh scripts/tbd.sh [topic-name]
 
 ### Exercise 5: BigQuery Basics
 
-Expected Time: TBD
+Expected Time: 20 mins
 
 We will use this exercise to validate both exercises 3 & 4 completed successfully while exploring BigQuery by executing SQL queries through both UI & the gcloud command line.
 
@@ -281,11 +290,11 @@ We will use this exercise to validate both exercises 3 & 4 completed successfull
 
 **Step 7:** In the query editor enter the following SQL query:
 ```
-select count(*) from `retail_demo_warehouse.customer`;
+select count(*) from `retail_demo_warehouse.sales_events`;
 ```
 <img src="assets/BigQuery-Basics-1.png"/>
 
-<img src="assets/BigQuery-Basics-2.png"/>
+<img src="assets/BigQuery-Basics-2a.png"/>
 
 **Step 8:** In the bottom half of the page you will see "Results" and "Details" tabs. The "Results" tab presents the output of the query just executed.
 
@@ -305,31 +314,44 @@ select * from retail_demo_warehouse.customer limit 5;
 exit
 ```
 
-**Step 12:** We will next execute a SQL from a file. This is a bit more interesting usecase to [TBD usecase to show top 'x' records & the required SQL file]. Execute the below command:
-```
-cd ~/gcp-retail-workshop-2018/ingestion
-bq query --use_legacy_sql=False `cat bigquery/samples/interesting-tbd.sql`
-```
+**Step 12:** In this step we will execute a more realistic BQ query that will join both customer and sales data to get some metrics about the customer that can help drive the analytics. Also as part of this step we will see more detailed information about query execution plans, costs, data processed etc.
+
+[TODO: Nicely explain what's going on in the big sql.]
+
+1. Open the [customer_detail_demo.sql](bigquery/samples/customer_detail_demo.sql) file.
+2. Copy the entire contents of this SQL file and paste it in the BigQuery > Compose Query text area.
+3. Select Show Options > Uncheck "Use Legacy SQL" option.
+4. Click Run Query.
+5. Once the query execution is complete you will see the results in the bottom pane.
+
+<img src="assets/BigQuery-Basics-Demo1.png" />
+
+<img src="assets/BigQuery-Basics-Demo2.png" />
+
+<img src="assets/BigQuery-Basics-Demo3.png" />
 
 ---
 
 ### Exercise: Cleanup
 
-Expected Time: TBD
+Expected Time: 5 mins
 
 **Step 1:** Stop the sales event data pump that's running in the Cloud Shell using `Ctrl + C`.
 
-**Step 2:** Stop the running Dataflow jobs. **SalesEventsStreaming** and **SalesEventsRawStreaming**. You can perform this step either in the UI or using `gcloud` command as described below:
+**Step 2:** Stop the running Dataflow jobs. **SalesEventsStreaming** and **SalesEventsRawStreaming**.
 
-```
-gcloud dataflow jobs SalesEventsStreaming drain
-gcloud dataflow jobs SalesEventsRawStreaming drain
-```
+<img src="assets/Dataflow-Stop1.png" />
 
-**Step 3:** Delete the **[unique-dataflow-bucket-name]** you created. This can be done either through the UI or using the gcloud command as describe below:
+<img src="assets/Dataflow-Stop2.png" />
 
-`gsutil rb gs://[unique-dataflow-bucket-name]`
+**Step 3:** Delete the **[unique-dataflow-bucket-name]** you created.
 
-**Step 4:** Delete the dataset in BQ. Like the other resources, this can be done either in the UI or through command line as follows:
+<img src="assets/GCS-Delete1.png" />
 
-`bq rm -r -f [project-name]:retail_demo_warehouse`
+<img src="assets/GCS-Delete2.png" width="300px" />
+
+**Step 4:** Delete the dataset in BQ.
+
+<img src="assets/BigQuery-Delete1.png" height="300px" />
+
+<img src="assets/BigQuery-Delete2.png" width="300px" />
