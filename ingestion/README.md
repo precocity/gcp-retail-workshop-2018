@@ -74,7 +74,8 @@ cd DataflowTemplates
 
 **Step 2:** Create a bucket in GCS to deploy the Dataflow jobs, be sure to replace **[unique-dataflow-bucket-name]** before you execute the command:<br/>
 
->**Note:** The bucket that you will be creating in this step will be used in rest of the steps_
+>**Note:** The bucket that you will be creating in this step will be used in rest of the steps.
+> The bucket name has to be unique across entire Google Cloud Platform, so avoid using generic names and include a unique identifier. ex: [username]-dataflow-2018.
 
 `gsutil mb gs://[unique-dataflow-bucket-name]`
 
@@ -355,3 +356,7 @@ Expected Time: 5 mins
 <img src="assets/BigQuery-Delete1.png" height="300px" />
 
 <img src="assets/BigQuery-Delete2.png" width="300px" />
+
+**Step 5:** Delete PubSub topic
+
+<img src="assets/PubSub-Delete1.png" />
