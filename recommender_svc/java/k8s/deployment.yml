@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: recs-svc
+  labels:
+    app: recs-svc
+spec:
+   type: NodePort
+   ports:
+     - port: 8080
+       nodePort: 30333
+   selector:
+     app: recs-svc
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: recs-svc
+  labels:
+    app: recs-svc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: recs-svc
+  template:
+    metadata:
+      labels:
+        app: recs-svc
+    spec:
+      containers:
+      - name: recs-svc
+        image: gcr.io/precocity-retail-workshop-2018/retail-wkshp-recs
+        ports:
+        - containerPort: 8080
