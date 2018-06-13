@@ -17,7 +17,7 @@ public class SalesHeader {
     private BigDecimal totalAmount;
     private Integer storeId;
     private Integer posTerminalId;
-    private String  transactionDate;
+    private String transactionDate;
     private String transactionNumber;
     private BigDecimal merchandiseAmount;
     private BigDecimal taxAmount;
@@ -28,7 +28,21 @@ public class SalesHeader {
     public SalesHeader() {
     }
 
-    public SalesHeader(int orderId, int channelId, Integer customerId, Integer primaryAssociateId, Integer secondaryAssociateId, BigDecimal totalAmount, Integer storeId, Integer posTerminalId, String transactionDate, String transactionNumber, BigDecimal merchandiseAmount, BigDecimal taxAmount, String paymentType, String createdTimestamp, String updatedTimestamp) {
+    public SalesHeader(int orderId,
+                       int channelId,
+                       Integer customerId,
+                       Integer primaryAssociateId,
+                       Integer secondaryAssociateId,
+                       BigDecimal totalAmount,
+                       Integer storeId,
+                       Integer posTerminalId,
+                       String transactionDate,
+                       String transactionNumber,
+                       BigDecimal merchandiseAmount,
+                       BigDecimal taxAmount,
+                       String paymentType,
+                       String createdTimestamp,
+                       String updatedTimestamp) {
         this.orderId = orderId;
         this.channelId = channelId;
         this.customerId = customerId;
@@ -54,6 +68,7 @@ public class SalesHeader {
     public void setOrderId(int orderId) {
         this.orderId = orderId;
     }
+
     @JsonProperty("channel_id")
     public int getChannelId() {
         return channelId;
@@ -62,6 +77,7 @@ public class SalesHeader {
     public void setChannelId(int channelId) {
         this.channelId = channelId;
     }
+
     @JsonProperty("customer_id")
     public Integer getCustomerId() {
         return customerId;
@@ -70,6 +86,7 @@ public class SalesHeader {
     public void setCustomerId(Integer customerId) {
         this.customerId = customerId;
     }
+
     @JsonProperty("primary_associate_id")
     public Integer getPrimaryAssociateId() {
         return primaryAssociateId;
@@ -78,6 +95,7 @@ public class SalesHeader {
     public void setPrimaryAssociateId(Integer primaryAssociateId) {
         this.primaryAssociateId = primaryAssociateId;
     }
+
     @JsonProperty("secondary_associate_id")
     public Integer getSecondaryAssociateId() {
         return secondaryAssociateId;
@@ -86,6 +104,7 @@ public class SalesHeader {
     public void setSecondaryAssociateId(Integer secondaryAssociateId) {
         this.secondaryAssociateId = secondaryAssociateId;
     }
+
     @JsonProperty("total_amount")
     public BigDecimal getTotalAmount() {
         return totalAmount;
@@ -94,6 +113,7 @@ public class SalesHeader {
     public void setTotalAmount(BigDecimal totalAmount) {
         this.totalAmount = totalAmount;
     }
+
     @JsonProperty("store_id")
     public Integer getStoreId() {
         return storeId;
@@ -102,6 +122,7 @@ public class SalesHeader {
     public void setStoreId(Integer storeId) {
         this.storeId = storeId;
     }
+
     @JsonProperty("pos_terminal_id")
     public Integer getPosTerminalId() {
         return posTerminalId;
@@ -110,6 +131,7 @@ public class SalesHeader {
     public void setPosTerminalId(Integer posTerminalId) {
         this.posTerminalId = posTerminalId;
     }
+
     @JsonProperty("transaction_date")
     public String getTransactionDate() {
         return transactionDate;
@@ -118,6 +140,7 @@ public class SalesHeader {
     public void setTransactionDate(String transactionDate) {
         this.transactionDate = transactionDate;
     }
+
     @JsonProperty("transaction_number")
     public String getTransactionNumber() {
         return transactionNumber;
@@ -126,6 +149,7 @@ public class SalesHeader {
     public void setTransactionNumber(String transactionNumber) {
         this.transactionNumber = transactionNumber;
     }
+
     @JsonProperty("merchandise_amount")
     public BigDecimal getMerchandiseAmount() {
         return merchandiseAmount;
@@ -134,6 +158,7 @@ public class SalesHeader {
     public void setMerchandiseAmount(BigDecimal merchandiseAmount) {
         this.merchandiseAmount = merchandiseAmount;
     }
+
     @JsonProperty("tax_amount")
     public BigDecimal getTaxAmount() {
         return taxAmount;
@@ -142,6 +167,7 @@ public class SalesHeader {
     public void setTaxAmount(BigDecimal taxAmount) {
         this.taxAmount = taxAmount;
     }
+
     @JsonProperty("peyment_type")
     public String getPaymentType() {
         return paymentType;
@@ -150,6 +176,7 @@ public class SalesHeader {
     public void setPaymentType(String paymentType) {
         this.paymentType = paymentType;
     }
+
     @JsonProperty("created_timestamp")
     public String getCreatedTimestamp() {
         return createdTimestamp;
@@ -158,6 +185,7 @@ public class SalesHeader {
     public void setCreatedTimestamp(String createdTimestamp) {
         this.createdTimestamp = createdTimestamp;
     }
+
     @JsonProperty("updated_timestamp")
     public String getUpdatedTimestamp() {
         return updatedTimestamp;

@@ -16,15 +16,21 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.Reader;
 import java.math.BigDecimal;
+import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
-public class SalesHeaderLineItemConverter extends BaseCLIApp{
+public class SalesHeaderLineItemConverter extends BaseCLIApp {
     private Logger log = LogManager.getLogger(getClass());
     private String headerFile = "";
     private String lineItemFile = "";
     private String outputFile = "";
     private final char newline = '\n';
+    private static int MAX_CUSTOMER = 3500;
+    private static int MAX_ASSOCIATE_ID = 1500;
+    private static int MAX_STORE = 500;
+    private static int MAX_POS = 500;
 
     public static void main(String... args) {
         SalesHeaderLineItemConverter app = new SalesHeaderLineItemConverter();
@@ -139,7 +145,9 @@ public class SalesHeaderLineItemConverter extends BaseCLIApp{
      * @return
      * @throws Exception
      */
+
     private Map<Integer, SalesRecord> convertSalesHeaders(Iterable<CSVRecord> headerRecords) throws Exception {
+        Random random = new SecureRandom();
         log.info("converting sales header data");
         Map<Integer, SalesRecord> salesRecordMap = new HashMap<>();
         if (null != headerRecords) {
@@ -147,12 +155,12 @@ public class SalesHeaderLineItemConverter extends BaseCLIApp{
                 SalesHeader header = new SalesHeader(
                         Integer.parseInt(record.get("order_id"))
                         , Integer.parseInt(record.get("channel_id"))
-                        , Integer.getInteger(record.get("customer_id"))
-                        , Integer.getInteger(record.get("primary_associate_id"))
-                        , Integer.getInteger(record.get("secondary_associate_id"))
+                        , !record.get("customer_id").equals("NULL") ? Integer.valueOf(record.get("customer_id")) : random.nextInt(3500)
+                        , !record.get("primary_associate_id").equals("NULL") ? Integer.valueOf(record.get("primary_associate_id")) : random.nextInt(MAX_ASSOCIATE_ID)
+                        , !record.get("secondary_associate_id").equals("NULL") ? Integer.valueOf(record.get("secondary_associate_id")) : random.nextInt(MAX_ASSOCIATE_ID)
                         , record.get("total_amount").equals("NULL") ? null : new BigDecimal(record.get("total_amount"))
-                        , Integer.getInteger(record.get("store_id"))
-                        , Integer.getInteger(record.get("pos_terminal_id"))
+                        , !record.get("store_id").equals("NULL") ? Integer.valueOf(record.get("store_id")) : random.nextInt(MAX_STORE)
+                        , !record.get("pos_terminal_id").equals("NULL") ? Integer.valueOf(record.get("pos_terminal_id")) : random.nextInt(MAX_POS)
                         , record.get("transaction_date")
                         , record.get("transaction_number")
                         , record.get("merchandise_amount").equals("NULL") ? null : new BigDecimal(record.get("merchandise_amount"))
@@ -161,7 +169,8 @@ public class SalesHeaderLineItemConverter extends BaseCLIApp{
                         , record.get("created_timestamp")
                         , record.get("updated_timestamp")
                 );
-                salesRecordMap.put(header.getOrderId(), new SalesRecord(header));
+                SalesRecord salesRecord = new SalesRecord(header);
+                salesRecordMap.put(header.getOrderId(), salesRecord);
             }
         }
 
@@ -228,7 +237,6 @@ public class SalesHeaderLineItemConverter extends BaseCLIApp{
         log.info("Completed parsing command line options.");
 
     }
-
 
 
 }
