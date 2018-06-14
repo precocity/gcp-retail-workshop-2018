@@ -1,0 +1,2 @@
+# airflow.us-central1-c.precocity-retail-workshop-2018
+airflow.{{ lookup('env','DEVSHELL_PROJECT_ID') }}

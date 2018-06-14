@@ -1,0 +1,99 @@
+---
+
+- name: Airflow | Ensure airflow directories structure
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ airflow_user }}"
+    group: "{{ airflow_group }}"
+  with_items:
+    - "{{ airflow_logs_folder }}"
+    - "{{ airflow_child_process_log_folder }}"
+    - "{{ airflow_dags_folder }}"
+    - "{{ airflow_plugins_folder }}"
+    - "{{ airflow_custom_py_folder }}"
+    - "{{ airflow_scripts_folder }}"
+
+- name: Airflow | Copy gunicorn logrotate config
+  template:
+    src: gunicorn-logrotate.j2
+    dest: /etc/logrotate.d/airflow
+    mode: 0644
+    owner: root
+    group: root
+
+- name: Airflow | Copy basic airflow config file
+  template:
+    src: "airflow.cfg.j2"
+    dest: "{{ airflow_home }}/airflow.cfg"
+    owner: "{{ airflow_user }}"
+    group: "{{ airflow_group }}"
+    mode: 0640
+  register: airflow_config
+  notify:
+    - restart airflow-webserver
+    - restart airflow-scheduler
+    - restart airflow-worker
+
+- name: Airflow | Initializing DB
+  shell: AIRFLOW_HOME={{ airflow_home }} /usr/local/bin/airflow initdb
+  become: true
+  become_user: "{{ airflow_user }}"
+  tags:
+    skip_ansible_lint
+  when: airflow_install.changed or airflow_config.changed
+  notify:
+    - restart airflow-webserver
+    - restart airflow-scheduler
+    - restart airflow-worker
+
+#- name: Create the new default GCP connection
+#  shell: |
+#      export AIRFLOW_HOME=/etc/airflow
+#      airflow connections -d --conn_id google_cloud_default
+#      airflow connections -a --conn_id google_cloud_default --conn_type google_cloud_platform --conn_extra /etc/airflow/gce-infrastructure-key.json
+#      exit 0
+#  become: true
+#  become_user: "{{ airflow_user }}"
+
+- name: Airflow | Copy extra airflow config files (provided by playbooks)
+  copy:
+    src: "{{ item }}"
+    dest: "{{ airflow_home }}/{{ item | basename }}"
+    owner: "{{ airflow_user }}"
+    group: "{{ airflow_group }}"
+    mode: 0640
+  with_fileglob:
+    - "{{ airflow_extra_conf_path }}/*"
+  notify:
+    - restart airflow-webserver
+    - restart airflow-scheduler
+    - restart airflow-worker
+
+- name: Airflow | Copy extra airflow config templates (provided by playbooks)
+  template:
+    src: "{{ item }}"
+    dest: "{{ airflow_home }}/{{ item | basename }}"
+    owner: "{{ airflow_user }}"
+    group: "{{ airflow_group }}"
+    mode: 0640
+  with_fileglob:
+    - "{{ airflow_extra_conf_template_path }}/*"
+  notify:
+    - restart airflow-webserver
+    - restart airflow-scheduler
+    - restart airflow-worker
+
+- name: Copy Airflow runtime artifacts
+  copy:
+    src: ~/runtime
+    dest: "{{ airflow_home}}"
+    owner: "{{ airflow_user }}"
+    group: "{{ airflow_group }}"
+
+name: Copy .bash_profile for airflow user
+  copy:
+    src: ~/ansible/airflow/.bash_profile
+    dest: /home/airflow/.bash_profile
+    owner: "{{ airflow_user }}"
+    group: "{{ airflow_group }}"
