@@ -116,10 +116,39 @@ From the Google Cloud Console, navigate to the Compute Engine | VM Instances pag
 
 ![Airflow Instance](assets/airflow-instance.png)
 
-
-
 **Step 5:**
 Verify SSH Access
 
-Part of the Terraform deployment for Airflow is to copy the local SSH key for your account to the Airflow instance.
+Part of the Terraform deployment for Airflow is to copy the local SSH key for your account to the Airflow instance. This last set of commands will configure and verify the ssh access.
+
+`gcloud compute config-ssh`
+
+The output should look similar to the that below:
+
+`You should now be able to use ssh/scp with your instances.
+For example, try running:
+  $ ssh retail2.us-east1-b.precocity-retail-workshop-2018`
+
+Now enter the following, substituting your name and project id as needed:
+
+`ssh $USER@airflow.us-central1-c.$DEVSHELL_PROJECT_ID`
+
+The next prompt will appear:
+
+`The authenticity of host 'compute.937945848083147541 (35.226.76.14)' can't be established.
+ECDSA key fingerprint is SHA256:1CMAxEisZL17ammaMOqMt4rIRIuGzHSX1SpFypbwVyE.
+Are you sure you want to continue connecting (yes/no)?`
+
+Type `yes` and Enter to continue. The following content will appear, along with the airflow prompt to indicate you are connected:
+
+`Warning: Permanently added 'compute.937945848083147541' (ECDSA) to the list of known hosts.
+Linux airflow 4.9.0-6-amd64 #1 SMP Debian 4.9.88-1+deb9u1 (2018-05-07) x86_64
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+chrisdebracy@airflow:~$`
+
+To quit the airflow instance, type `exit`.
 
