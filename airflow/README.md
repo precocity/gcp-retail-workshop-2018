@@ -162,6 +162,12 @@ In this section you will configure and run Ansible to deploy the Airflow applica
 **Step 1:**
 Downloading Ansible
 
-> Note that Ansible requires sudo access to install and will not survive the exiting of Google Cloud Shell. Should you disconnect, re-run these commands again.
+The following commands will change to the Ansible folder from where you will perform the install of Ansible and the running of the playbook. A script that installs pip packages needs execute permissions set and then you will run the script to install Ansible.
+
+`cd ~/gcp-retail-workshop-2018/airflow/ansible/airflow`
+`chmod +x ansible_install.sh`
+`./ansible_install.sh`
+
+> Note that Ansible requires sudo access to install and the binaries will not survive the exiting of Google Cloud Shell. Should you disconnect, re-run the `ansible_install.sh` command again so youc an continue from where you left off.
 
 
