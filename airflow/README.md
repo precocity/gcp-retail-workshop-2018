@@ -65,7 +65,22 @@ Now enter:
 The output displayed will be a list of members and their roles for the project.
 
 **Step 3:**
-Configuring and Running Terraform
+Configuring the Terraform Files
+
+You will next edit the `provider.tf` file to include your project name:
+
+`vi provider.tf`
+
+Move the cursor to the project name and press `I` to put the editor into insert mode. Use the `DEL` key to delete the sample project name and enter your own. When complete, press `ESC` and `:wq` to save and quit the editor.
+
+Now, edit the `compute.tf` file. This time you will edit the default user to your account name.
+
+Move the cursor to the user name and press `I` to put the editor into insert mode. Use the `DEL` key to delete the sample user name and enter your own. When complete, press `ESC` and `:wq` to save and quit the editor.
+
+![Terraform Compute-TF](assets/compute-tf.png)
+
+**Step 4:**
+Running Terraform
 
 The next commands will initialize Terraform, create the deployment plan and then apply that plan to create your Airflow instance.
 
@@ -81,12 +96,6 @@ Your cloud shell should look similar to the screen below:
 
 ![Terraform Init](assets/terraform-init.png)
 
-The next step is to edit the `provider.tf` file to include your project name:
-
-`vi provider.tf`
-
-Move the cursor to the project name and press `I` to put the editor into insert mode. Use the `DEL` key to delete the sample project name and enter your own. When complete, press `ESC` and `:wq` to save and quit the editor.
-
 Now, run the next command to create the deployment plan:
 
 `./terraform plan`
@@ -100,4 +109,17 @@ It is time to deploy your Airflow instance. Please enter the following:
 `./terraform apply`
 
 When prompted to continue, enter `yes` and press Enter.
+
+![Terraform Apply](assets/terraform-apply.png)
+
+From the Google Cloud Console, navigate to the Compute Engine | VM Instances page and you will see an `airflow` instance created.
+
+![Airflow Instance](assets/airflow-instance.png)
+
+
+
+**Step 5:**
+Verify SSH Access
+
+Part of the Terraform deployment for Airflow is to copy the local SSH key for your account to the Airflow instance.
 
