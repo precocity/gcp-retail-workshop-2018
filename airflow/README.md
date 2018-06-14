@@ -14,9 +14,9 @@ Precocity uses Terraform for overall infrastrucutre deployment and Ansible for t
 >Note: Once you are done with all the exercises, please go through the last Cleanup exercise to review and make sure any running resources are terminated.
 
 ---
-### Exercise 1: Creating the Airflow Instance with Terraform
+### Lab 1: Creating the Airflow Instance with Terraform
 
-Expected Time: 5 mins
+Expected Time: 15 mins
 
 In this section you will configure Terraform and create a service account key for use with Ansible.
 
@@ -151,4 +151,17 @@ permitted by applicable law.
 chrisdebracy@airflow:~$`
 
 To quit the airflow instance, type `exit`.
+
+---
+### Lab 2: Installing Airflow with Ansible
+
+Expected Time: 15 mins
+
+In this section you will configure and run Ansible to deploy the Airflow application and artifacts onto the new airflow instance you created with Terraform.
+
+**Step 1:**
+Downloading Ansible
+
+> Note that Ansible requires sudo access to install and will not survive the exiting of Google Cloud Shell. Should you disconnect, re-run these commands again.
+
 

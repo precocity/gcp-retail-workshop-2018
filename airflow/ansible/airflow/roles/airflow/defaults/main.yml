@@ -45,8 +45,6 @@ airflow_extra_conf_template_path: "{{ playbook_dir }}/templates/airflow"
 
 airflow_load_examples: True
 airflow_logging_level: DEBUG
-airflow_log_format: [%%(asctime)s] {%%(filename)s:%%(lineno)d} %%(levelname)s - %%(message)s
-airflow_simple_log_format: %%(asctime)s %%(levelname)s - %%(message)s
 airflow_task_log_reader: file.task
 airflow_enable_xcom_pickling: True
 airflow_killed_task_cleanup_time: 60

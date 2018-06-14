@@ -75,7 +75,7 @@
 
 - name: Copy GCP credentials key
   copy:
-    src: ~/gce-infrastructure-key.json
+    src: ~/gce-airflow-key.json
     dest: "{{ airflow_home }}"
     owner: "{{ airflow_user }}"
     group: "{{ airflow_group }}"

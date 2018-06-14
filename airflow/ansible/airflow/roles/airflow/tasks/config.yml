@@ -91,7 +91,7 @@
     owner: "{{ airflow_user }}"
     group: "{{ airflow_group }}"
 
-name: Copy .bash_profile for airflow user
+- name: Copy .bash_profile for airflow user
   copy:
     src: ~/ansible/airflow/.bash_profile
     dest: /home/airflow/.bash_profile
