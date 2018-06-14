@@ -7,7 +7,7 @@ Precocity uses Terraform for overall infrastrucutre deployment and Ansible for t
 ## Hands-On
 ### Pre-Requisites
 * Cloud Shell
-* `$ git clone https://github.com/precocity/gcp-retail-workshop-2018.git`
+* `git clone https://github.com/precocity/gcp-retail-workshop-2018.git`
 
 >Note: Unless otherwise explicitly stated, all the commands below are to be executed in Cloud Shell as-is. If you have already run the `git clone` command, it is not necessary to do it again.
 
@@ -65,7 +65,7 @@ Now enter:
 The output displayed will be a list of members and their roles for the project.
 
 **Step 3:**
-Running Terraform
+Configuring and Running Terraform
 
 The next commands will initialize Terraform, create the deployment plan and then apply that plan to create your Airflow instance.
 
@@ -81,7 +81,23 @@ Your cloud shell should look similar to the screen below:
 
 ![Terraform Init](assets/terraform-init.png)
 
+The next step is to edit the `provider.tf` file to include your project name:
+
+`vi provider.tf`
+
+Move the cursor to the project name and press `I` to put the editor into insert mode. Use the `DEL` key to delete the sample project name and enter your own. When complete, press `ESC` and `:wq` to save and quit the editor.
+
 Now, run the next command to create the deployment plan:
 
 `./terraform plan`
+
+Your shell should look similar to the following:
+
+![Terraform Plan](assets/terraform-plan.png)
+
+It is time to deploy your Airflow instance. Please enter the following:
+
+`./terraform apply`
+
+When prompted to continue, enter `yes` and press Enter.
 
