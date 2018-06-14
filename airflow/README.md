@@ -20,22 +20,68 @@ Expected Time: 5 mins
 
 In this section you will configure Terraform and create a service account key for use with Ansible.
 
-***Step 1***
+**Step 1:**
+Downloading Terraform
+
 From Google Cloud Shell run the following commands:
 
-* `$ gcloud config set project [PROJECT_ID]`
+* `gcloud config set project [PROJECT_ID]`
 
 Replace [PROJECT_ID] with your project name. From this point on we can reference your project name using the $DEVSHELL_PROJECT_ID environment variable.
 
 * `cd gcp-retail-workshop-2018/airflow/terraform/airflow`
 
-This is the folder from which we'll install and configure Terraform. Run the following commands
+This is the folder from which you will install and configure Terraform. Run the following commands in order:
 
-* `$ wget https://releases.hashicorp.com/terraform/0.11.7/terraform_0.11.7_linux_amd64.zip`
-* `$ unzip terraform_0.11.7_linux_amd64.zip -d .`
-* `$ ./terraform -v`
+* `wget https://releases.hashicorp.com/terraform/0.11.7/terraform_0.11.7_linux_amd64.zip`
+* `unzip terraform_0.11.7_linux_amd64.zip -d .`
+* `./terraform -v`
 
 The output from the last command should display `Terraform v0.11.7`.
 
+**Step 2:**
+Creating a Service Account
 
+You will create a service account with editor permissions that both Terraform and Ansible can use to create and configure GCP resources needed for Airflow. Enter the following:
+
+`$ gcloud iam service-accounts create airflow`
+
+If prompted to enable the API, press Y to continue. The output from the command should display:
+
+`Created service account [airflow].`
+
+These next two commands will create the credentials needed to communicate with the Airflow instance and add the appropriate role to the service account:
+
+'gcloud iam service-accounts keys create ~/gce-airflow-key.json --iam-account=airflow@$DEVSHELL_PROJECT_ID.iam.gserviceaccount.com'
+
+THe output should look similar to below:
+
+`created key [230bc3e5da71391ffd8554a7f1a2a661d51a9045] of type [json] as [/home/chrisdebracy/gce-airflow-key.json] for [airflow@precocity-retail-workshop-2018.iam.gserviceaccount.c
+om]`
+
+Now enter:
+`gcloud projects add-iam-policy-binding $DEVSHELL_PROJECT_ID  --member serviceAccount:airflow@$DEVSHELL_PROJECT_ID.iam.gserviceaccount.com --role roles/editor`
+
+The output displayed will be a list of members and their roles for the project.
+
+**Step 3:**
+Running Terraform
+
+The next commands will initialize Terraform, create the deployment plan and then apply that plan to create your Airflow instance.
+
+If you're not in the `gcp-retail-workshop-2018/airflow/terraform/airflow` folder, change to it now:
+
+`cd ~/gcp-retail-workshop-2018/airflow/terraform/airflow`
+
+Run the init command:
+
+'./terraform init'
+
+Your cloud shell should look similar to the screen below:
+
+![Terraform Init](assets/terraform-init.png)
+
+Now, run the next command to create the deployment plan:
+
+`./terraform plan`
 
