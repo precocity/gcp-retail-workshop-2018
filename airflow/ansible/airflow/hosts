@@ -1,1 +1,1 @@
-airflow.us-central1-c.{DEVSHELL_PROJECT_ID}
+airflow.us-central1-c.{GOOGLE_CLOUD_PROJECT}
