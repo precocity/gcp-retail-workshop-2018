@@ -43,7 +43,7 @@ airflow_extra_conf_template_path: "{{ playbook_dir }}/templates/airflow"
 # AIRFLOW CONFIGURATION
 # ---------------------
 
-airflow_load_examples: True
+airflow_load_examples: False
 airflow_logging_level: DEBUG
 airflow_task_log_reader: file.task
 airflow_enable_xcom_pickling: True
@@ -132,6 +132,7 @@ airflow_operator_default_gpus: 0
 airflow_ldap_uri:
 airflow_ldap_user_filter:
 airflow_ldap_user_name_attr:
+airflow_ldap_group_member_attr:
 airflow_ldap_superuser_filter:
 airflow_ldap_data_profiler_filter:
 airflow_ldap_bind_user:

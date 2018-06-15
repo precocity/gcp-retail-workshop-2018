@@ -28,8 +28,8 @@ logging_level = {{ airflow_logging_level }}
 logging_config_class =
 
 # Log format
-log_format = [%%(asctime)s] {%%(filename)s:%%(lineno)d} %%(levelname)s - %%(message)s
-simple_log_format = %%(asctime)s %%(levelname)s - %%(message)s
+log_format = urlencode([%%(asctime)s] {%%(filename)s:%%(lineno)d} %%(levelname)s - %%(message)s)
+simple_log_format = urlencode(%%(asctime)s %%(levelname)s - %%(message)s)
 
 # The executor class that airflow should use. Choices include
 # SequentialExecutor, LocalExecutor, CeleryExecutor
@@ -344,7 +344,7 @@ authenticate = {{ airflow_scheduler_authenticate }}
 uri = {{ airflow_ldap_uri }}
 user_filter = {{ airflow_ldap_user_filter }}
 user_name_attr = {{ airflow_ldap_user_name_attr }}
-group_member_attr = memberOf
+group_member_attr = {{ airflow_ldap_group_member_attr }}
 superuser_filter = {{ airflow_ldap_superuser_filter }}
 data_profiler_filter = airflow_max_tis_per_query
 bind_user = {{ airflow_ldap_bind_user }}

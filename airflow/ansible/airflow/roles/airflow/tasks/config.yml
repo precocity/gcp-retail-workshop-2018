@@ -84,16 +84,37 @@
     - restart airflow-scheduler
     - restart airflow-worker
 
-- name: Copy Airflow runtime artifacts
+- name: Copy Airflow dags
   copy:
-    src: ~/runtime
-    dest: "{{ airflow_home}}"
+    src: ~/gcp-retail-workshop-2018/airflow/runtime/dags
+    dest: "{{ airflow_home}}/dags"
     owner: "{{ airflow_user }}"
     group: "{{ airflow_group }}"
 
+- name: Copy Airflow plugins
+  copy:
+    src: ~/gcp-retail-workshop-2018/airflow/runtime/plugins
+    dest: "{{ airflow_home}}/plugins"
+    owner: "{{ airflow_user }}"
+    group: "{{ airflow_group }}"
+
+- name: Copy Airflow custom_py
+  copy:
+    src: ~/gcp-retail-workshop-2018/airflow/runtime/custom_py
+    dest: "{{ airflow_home}}/custom_py"
+    owner: "{{ airflow_user }}"
+    group: "{{ airflow_group }}"
+
+#- name: Copy Airflow scripts
+#  copy:
+#    src: ~/gcp-retail-workshop-2018/airflow/runtime/scripts
+#    dest: "{{ airflow_home}}/scripts"
+#    owner: "{{ airflow_user }}"
+#    group: "{{ airflow_group }}"
+
 - name: Copy .bash_profile for airflow user
   copy:
-    src: ~/ansible/airflow/.bash_profile
+    src: ~/gcp-retail-workshop-2018/airflow/ansible/airflow/bash_profile
     dest: /home/airflow/.bash_profile
     owner: "{{ airflow_user }}"
     group: "{{ airflow_group }}"

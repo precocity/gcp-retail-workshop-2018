@@ -160,7 +160,7 @@ Expected Time: 15 mins
 In this section you will configure and run Ansible to deploy the Airflow application and artifacts onto the new airflow instance you created with Terraform.
 
 **Step 1:**
-Downloading Ansible
+Installing Ansible
 
 The following commands will change to the Ansible folder from where you will perform the install of Ansible and the running of the playbook. A script that installs pip packages needs execute permissions set and then you will run the script to install Ansible.
 
@@ -170,4 +170,50 @@ The following commands will change to the Ansible folder from where you will per
 
 > Note that Ansible requires sudo access to install and the binaries will not survive the exiting of Google Cloud Shell. Should you disconnect, re-run the `ansible_install.sh` command again so youc an continue from where you left off.
 
+When successful, your cloud shell should look similar to the screen below:
+
+![Ansible Install](assets/anisble-install.png)
+
+> The ansible-install.sh configures 2 environment variables for you automatically. You will edit the files they reference in the next step.
+
+**Step 2:**
+Configuring Ansible
+
+In this step you will edit a few files to configure Ansible for your environment so you can run the Playbook successfully. Ansible Playbooks contain the information needed to manage the deployment and configuration of resources on the airflow instance. Playbooks use the YAML file format and are relatively readable and easy to understand.
+
+From the current folder, you will need to edit the following files:
+
+***hosts
+***gce.ini
+***.bash_profile
+
+Using VI, open the hosts file and change the project name in the file to match your own.
+
+`vi hosts`
+
+Remember, use `I` to enter Insert mode and then press `ESC` followed by `:wq` to write out the changes and exit the editor.
+
+Once that change is made, run the following command:
+
+`ansible all -m ping`
+
+The output should look similar to the following:
+
+`airflow.us-central1-c.precocity-retail-workshop-2018 | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}`
+
+Next, edit the gce.ini file using VI.
+
+`vi gce.ini`
+
+Change the `gce_service_account_email_address` and `gce_project_id` lines to use your own project id. Save and quit the file as you did previously.
+
+The highlighted lines appear in the screen below:
+
+![Ansible Configure](assets/gce-ini.png)
+
+*Step 3:**
+Running Ansible's Playbook
 
