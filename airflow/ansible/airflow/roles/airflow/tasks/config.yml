@@ -87,21 +87,21 @@
 - name: Copy Airflow dags
   copy:
     src: ~/gcp-retail-workshop-2018/airflow/runtime/dags
-    dest: "{{ airflow_home}}/dags"
+    dest: "{{ airflow_home}}"
     owner: "{{ airflow_user }}"
     group: "{{ airflow_group }}"
 
 - name: Copy Airflow plugins
   copy:
     src: ~/gcp-retail-workshop-2018/airflow/runtime/plugins
-    dest: "{{ airflow_home}}/plugins"
+    dest: "{{ airflow_home}}"
     owner: "{{ airflow_user }}"
     group: "{{ airflow_group }}"
 
 - name: Copy Airflow custom_py
   copy:
     src: ~/gcp-retail-workshop-2018/airflow/runtime/custom_py
-    dest: "{{ airflow_home}}/custom_py"
+    dest: "{{ airflow_home}}"
     owner: "{{ airflow_user }}"
     group: "{{ airflow_group }}"
 

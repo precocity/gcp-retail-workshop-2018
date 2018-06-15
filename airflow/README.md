@@ -166,9 +166,10 @@ The following commands will change to the Ansible folder from where you will per
 
 `cd ~/gcp-retail-workshop-2018/airflow/ansible/airflow`
 `chmod +x ansible_install.sh`
-`./ansible_install.sh`
+`. ./ansible_install.sh`
 
 > Note that Ansible requires sudo access to install and the binaries will not survive the exiting of Google Cloud Shell. Should you disconnect, re-run the `ansible_install.sh` command again so youc an continue from where you left off.
+> The last command run `. ./ansible_install.sh` needs the extra period as it is setting environment variables that you want exposed to your current session.
 
 When successful, your cloud shell should look similar to the screen below:
 
@@ -216,4 +217,10 @@ The highlighted lines appear in the screen below:
 
 *Step 3:**
 Running Ansible's Playbook
+
+`ansible-playbook provision.yml`
+
+> Answer `yes` if prompted to authenticate the host.
+
+The content that displays is extensive and spans more than one screen. You will see several warnings that you can ignore.
 
