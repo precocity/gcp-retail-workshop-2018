@@ -1,8 +1,11 @@
 # Airflow Hands-On Lab
 ## Overview
+In the previous BigQuery exercise you ran an number of DataFlow jobs manually. In a production environment you would want to automate these against some type of schedule. Airflow is the tool of choice for automating ETL jobs, due to its rich set of built-in operators and ability to create custom operators.
+
 This lab is designed to demonstrate how to use Terraform to create a compute instance and then configure an Airflow instance using Ansible.
 
-Precocity uses Terraform for overall infrastrucutre deployment and Ansible for the installation and configuration management of resources.
+Precocity uses Terraform for overall infrastructure deployment and Ansible for the installation and configuration management of resources.
+
 
 ## Hands-On
 ### Pre-Requisites
@@ -23,11 +26,7 @@ In this section you will configure Terraform and create a service account key fo
 **Step 1:**
 Downloading Terraform
 
-From Google Cloud Shell run the following commands:
-
-* `gcloud config set project [PROJECT_ID]`
-
-Replace [PROJECT_ID] with your project name. From this point on we can reference your project name using the $DEVSHELL_PROJECT_ID environment variable.
+Navigate to the Terraform folder.
 
 * `cd gcp-retail-workshop-2018/airflow/terraform/airflow`
 
@@ -37,7 +36,7 @@ This is the folder from which you will install and configure Terraform. Run the 
 * `unzip terraform_0.11.7_linux_amd64.zip -d .`
 * `./terraform -v`
 
-The output from the last command should display `Terraform v0.11.7`.
+>The output from the last command should display `Terraform v0.11.7`.
 
 **Step 2:**
 Creating a Service Account
@@ -46,23 +45,23 @@ You will create a service account with editor permissions that both Terraform an
 
 `$ gcloud iam service-accounts create airflow`
 
-If prompted to enable the API, press Y to continue. The output from the command should display:
+>If prompted to enable the API, press Y to continue. The output from the command should display:
 
-`Created service account [airflow].`
+>`Created service account [airflow].`
 
 These next two commands will create the credentials needed to communicate with the Airflow instance and add the appropriate role to the service account:
 
 'gcloud iam service-accounts keys create ~/gce-airflow-key.json --iam-account=airflow@$DEVSHELL_PROJECT_ID.iam.gserviceaccount.com'
 
-THe output should look similar to below:
+The output should look similar to below:
 
-`created key [230bc3e5da71391ffd8554a7f1a2a661d51a9045] of type [json] as [/home/chrisdebracy/gce-airflow-key.json] for [airflow@precocity-retail-workshop-2018.iam.gserviceaccount.c
+>`created key [230bc3e5da71391ffd8554a7f1a2a661d51a9045] of type [json] as [/home/chrisdebracy/gce-airflow-key.json] for [airflow@precocity-retail-workshop-2018.iam.gserviceaccount.c
 om]`
 
 Now enter:
 `gcloud projects add-iam-policy-binding $DEVSHELL_PROJECT_ID  --member serviceAccount:airflow@$DEVSHELL_PROJECT_ID.iam.gserviceaccount.com --role roles/editor`
 
-The output displayed will be a list of members and their roles for the project.
+>The output displayed will be a list of members and their roles for the project.
 
 **Step 3:**
 Configuring the Terraform Files
@@ -139,7 +138,7 @@ The next prompt will appear:
 ECDSA key fingerprint is SHA256:1CMAxEisZL17ammaMOqMt4rIRIuGzHSX1SpFypbwVyE.
 Are you sure you want to continue connecting (yes/no)?`
 
-Type `yes` and Enter to continue. The following content will appear, along with the airflow prompt to indicate you are connected:
+>Type `yes` and Enter to continue. The following content will appear, along with the airflow prompt to indicate you are connected:
 
 `Warning: Permanently added 'compute.937945848083147541' (ECDSA) to the list of known hosts.
 Linux airflow 4.9.0-6-amd64 #1 SMP Debian 4.9.88-1+deb9u1 (2018-05-07) x86_64
@@ -223,4 +222,15 @@ Running Ansible's Playbook
 > Answer `yes` if prompted to authenticate the host.
 
 The content that displays is extensive and spans more than one screen. You will see several warnings that you can ignore.
+
+![Ansible Playbook](assets/ansible-playbook.png)
+
+Navigate to the Compute Engine | VM Instances page from Google Cloud Console and you will see the external IP of your airflow instance.
+
+![Airflow Instance](assets/airflow-instance.png)
+
+Copy the IP followed by `:8080` into a browser window and press Enter. The Airflow GUI will appear.
+
+**Step 4:***
+Airflow GUI
 

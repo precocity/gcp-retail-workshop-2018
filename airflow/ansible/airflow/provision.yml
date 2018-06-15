@@ -1,7 +1,7 @@
 ---
 - name: 'Provision Airflow Server'
-  hosts: airflow.us-central1-c.precocity-retail-workshop-2018
-  remote_user: chrisdebracy
+  hosts: airflow.us-central1-c.{DEVSHELL_PROJECT_ID}
+  remote_user: {USER}
   roles:
     - role: airflow
       become: true

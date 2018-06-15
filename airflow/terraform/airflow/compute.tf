@@ -1,5 +1,5 @@
 # Variables
-variable "gce_ssh_user" { default = "chrisdebracy" }
+variable "gce_ssh_user" { default = "{USER}" }
 variable "gce_ssh_pub_key_file" { default = "~/.ssh/google_compute_engine.pub"  }
 # Create a new instance
 resource "google_compute_instance" "debian" {
