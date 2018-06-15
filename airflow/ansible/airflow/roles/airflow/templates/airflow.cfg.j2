@@ -28,8 +28,8 @@ logging_level = {{ airflow_logging_level }}
 logging_config_class =
 
 # Log format
-log_format = urlencode([%%(asctime)s] {%%(filename)s:%%(lineno)d} %%(levelname)s - %%(message)s)
-simple_log_format = urlencode(%%(asctime)s %%(levelname)s - %%(message)s)
+log_format = %%(asctime)s {%%(filename)s:%%(lineno)d} %%(levelname)s - %%(message)s)
+simple_log_format = %%(asctime)s %%(levelname)s - %%(message)s
 
 # The executor class that airflow should use. Choices include
 # SequentialExecutor, LocalExecutor, CeleryExecutor
