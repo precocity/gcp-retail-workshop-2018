@@ -47,14 +47,14 @@
     - restart airflow-scheduler
     - restart airflow-worker
 
-#- name: Create the new default GCP connection
-#  shell: |
-#      export AIRFLOW_HOME=/etc/airflow
-#      airflow connections -d --conn_id google_cloud_default
-#      airflow connections -a --conn_id google_cloud_default --conn_type google_cloud_platform --conn_extra /etc/airflow/gce-infrastructure-key.json
-#      exit 0
-#  become: true
-#  become_user: "{{ airflow_user }}"
+- name: Create the new default GCP connection
+  shell: |
+      export AIRFLOW_HOME=/etc/airflow
+      airflow connections -d --conn_id google_cloud_default
+      airflow connections -a --conn_id google_cloud_default --conn_type google_cloud_platform --conn_extra /etc/airflow/gce-infrastructure-key.json
+      exit 0
+  become: true
+  become_user: "{{ airflow_user }}"
 
 - name: Airflow | Copy extra airflow config files (provided by playbooks)
   copy:
