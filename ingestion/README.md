@@ -1,6 +1,6 @@
 # Data Ingestion Hands-On Lab
 ## Overview
-### Architecture
+### Reference Architecture
 ![Architecture Diagram](assets/RetailWorkshop-DataIngestion-Arch.png)
 ### Data Model
 *[To Be Added]*

@@ -15,6 +15,7 @@ bq mk --table retail_demo_warehouse.employee bigquery/schemas/employee-bq.json
 bq mk --table retail_demo_warehouse.item bigquery/schemas/item-bq.json
 bq mk --table retail_demo_warehouse.sales_events bigquery/schemas/sales-events-bq.json
 bq mk --table retail_demo_warehouse.store bigquery/schemas/store-bq.json
+bq mk --table retail_demo_warehouse.store_sales bigquery/schemas/store-sales-bq.json
 bq mk --table retail_demo_warehouse.style bigquery/schemas/style-bq.json
 bq mk --table retail_demo_warehouse.sub_classification bigquery/schemas/sub-classification-bq.json
 bq mk --table retail_demo_warehouse.vendor bigquery/schemas/vendor-bq.json
