@@ -1,6 +1,6 @@
 # Specify the provider (GCP, AWS, Azure)
 provider "google" {
-	credentials = "${file("gce-terraform-key.json")}"
-	project = "precocity-retail-workshop-2018"
+	credentials = "${file("~/gce-airflow-key.json")}"
+	project = "{GOOGLE_CLOUD_PROJECT}"
 	region = "us-central1"
 }

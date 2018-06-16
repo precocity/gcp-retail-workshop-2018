@@ -1,10 +1,5 @@
 #!/usr/bin/env bash
 
-if [ $# -ne 2 ]; then
-  echo "Expected 2 arguments: [project-name] [pubsub-topic-name]"
-  exit 1
-fi
-
 PROJECT_NAME=${GOOGLE_CLOUD_PROJECT}
 TOPIC_NAME=${GOOGLE_CLOUD_PROJECT}-sales-events
 

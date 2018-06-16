@@ -1,0 +1,32 @@
+[
+  {
+    "mode": "NULLABLE",
+    "name": "store_id",
+    "type": "INTEGER"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "store_name",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "lat_long",
+    "type": "STRING"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "transaction_date",
+    "type": "DATE"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "total_sales",
+    "type": "FLOAT"
+  },
+  {
+    "mode": "NULLABLE",
+    "name": "updated_timestamp",
+    "type": "TIMESTAMP"
+  }
+]

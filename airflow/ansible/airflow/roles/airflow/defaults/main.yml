@@ -43,10 +43,8 @@ airflow_extra_conf_template_path: "{{ playbook_dir }}/templates/airflow"
 # AIRFLOW CONFIGURATION
 # ---------------------
 
-airflow_load_examples: True
+airflow_load_examples: False
 airflow_logging_level: DEBUG
-airflow_log_format: [%%(asctime)s] {%%(filename)s:%%(lineno)d} %%(levelname)s - %%(message)s
-airflow_simple_log_format: %%(asctime)s %%(levelname)s - %%(message)s
 airflow_task_log_reader: file.task
 airflow_enable_xcom_pickling: True
 airflow_killed_task_cleanup_time: 60
@@ -64,7 +62,7 @@ airflow_max_active_runs_per_dag: 16
 airflow_fernet_key: w9r3bqFB5kl8v1XF2TEqrPDVFVWr-laLyOOw0uX24Mk=
 
 airflow_donot_pickle: False
-airflow_dagbag_import_timeout:
+airflow_dagbag_import_timeout: 30
 
 airflow_task_runner: BashTaskRunner
 
@@ -134,6 +132,7 @@ airflow_operator_default_gpus: 0
 airflow_ldap_uri:
 airflow_ldap_user_filter:
 airflow_ldap_user_name_attr:
+airflow_ldap_group_member_attr:
 airflow_ldap_superuser_filter:
 airflow_ldap_data_profiler_filter:
 airflow_ldap_bind_user:

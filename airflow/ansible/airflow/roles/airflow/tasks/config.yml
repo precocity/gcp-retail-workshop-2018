@@ -47,14 +47,14 @@
     - restart airflow-scheduler
     - restart airflow-worker
 
-#- name: Create the new default GCP connection
-#  shell: |
-#      export AIRFLOW_HOME=/etc/airflow
-#      airflow connections -d --conn_id google_cloud_default
-#      airflow connections -a --conn_id google_cloud_default --conn_type google_cloud_platform --conn_extra /etc/airflow/gce-infrastructure-key.json
-#      exit 0
-#  become: true
-#  become_user: "{{ airflow_user }}"
+- name: Create the new default GCP connection
+  shell: |
+      export AIRFLOW_HOME=/etc/airflow
+      airflow connections -d --conn_id google_cloud_default
+      airflow connections -a --conn_id google_cloud_default --conn_type google_cloud_platform --conn_extra /etc/airflow/gce-infrastructure-key.json
+      exit 0
+  become: true
+  become_user: "{{ airflow_user }}"
 
 - name: Airflow | Copy extra airflow config files (provided by playbooks)
   copy:
@@ -84,16 +84,37 @@
     - restart airflow-scheduler
     - restart airflow-worker
 
-- name: Copy Airflow runtime artifacts
+- name: Copy Airflow dags
   copy:
-    src: ~/runtime
+    src: ~/gcp-retail-workshop-2018/airflow/runtime/dags
     dest: "{{ airflow_home}}"
     owner: "{{ airflow_user }}"
     group: "{{ airflow_group }}"
 
-name: Copy .bash_profile for airflow user
+- name: Copy Airflow plugins
   copy:
-    src: ~/ansible/airflow/.bash_profile
+    src: ~/gcp-retail-workshop-2018/airflow/runtime/plugins
+    dest: "{{ airflow_home}}"
+    owner: "{{ airflow_user }}"
+    group: "{{ airflow_group }}"
+
+- name: Copy Airflow custom_py
+  copy:
+    src: ~/gcp-retail-workshop-2018/airflow/runtime/custom_py
+    dest: "{{ airflow_home}}"
+    owner: "{{ airflow_user }}"
+    group: "{{ airflow_group }}"
+
+#- name: Copy Airflow scripts
+#  copy:
+#    src: ~/gcp-retail-workshop-2018/airflow/runtime/scripts
+#    dest: "{{ airflow_home}}/scripts"
+#    owner: "{{ airflow_user }}"
+#    group: "{{ airflow_group }}"
+
+- name: Copy .bash_profile for airflow user
+  copy:
+    src: ~/gcp-retail-workshop-2018/airflow/ansible/airflow/bash_profile
     dest: /home/airflow/.bash_profile
     owner: "{{ airflow_user }}"
     group: "{{ airflow_group }}"
