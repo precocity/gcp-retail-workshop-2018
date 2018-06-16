@@ -1,4 +1,0 @@
-recs-svc:
-  build:
-    image: precocityllc/retail-recs-svc-demo
-    dockerfile: docker/build_only/Dockerfile
