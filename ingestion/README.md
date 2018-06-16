@@ -237,7 +237,7 @@ outputTableSpec=retail_demo_warehouse.sales_events
 ```
 gcloud dataflow jobs run SalesEventsRawStreaming \
 --gcs-location=gs://${GOOGLE_CLOUD_PROJECT}-dataflow/pubsub-to-gcs/templates/PubSubToFile.json \
---parameters inputTopic=projects/${GOOGLE_CLOUD_PROJECT}/topics/[topic-name],\
+--parameters inputTopic=projects/${GOOGLE_CLOUD_PROJECT}/topics/${GOOGLE_CLOUD_PROJECT}-sales-events,\
 outputDirectory=gs://${GOOGLE_CLOUD_PROJECT}-dataflow/raw/sales_events/,\
 outputFilenamePrefix=sales-events-,outputFilenameSuffix=.json.txt
 ```
@@ -246,7 +246,7 @@ outputFilenamePrefix=sales-events-,outputFilenameSuffix=.json.txt
 
 >Note: Unlike the batch jobs, the streaming Dataflow jobs run until they are terminated (either manually by going to the Dataflow job page and stopping / draining the job or programatically using the gcloud command)
 
-**Step 6:** Next step, let us start streaming some sales events to the PubSub topic so that we can see the Dataflow jobs in action. There is a helper script to accomplish this. The last script takes the **[project-name]** and target PubSub **[topic-name]** as an argument:
+**Step 6:** Next step, let us start streaming some sales events to the PubSub topic so that we can see the Dataflow jobs in action. There is a helper script to accomplish this. Execute the below commands:
 
 ```
 cd ~/gcp-retail-workshop-2018
