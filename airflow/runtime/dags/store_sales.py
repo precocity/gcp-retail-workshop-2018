@@ -24,6 +24,6 @@ bq_store_sales_task = BigQueryOperator(
     bql='scripts/store_sales.sql',
     bigquery_conn_id='google_cloud_default',
     use_legacy_sql=False,
-    delegate_to='airflow@precocity-retail-workshop-2018.iam.gserviceaccount.com'
+    delegate_to='airflow@{GOOGLE_CLOUD_PROJECT}.iam.gserviceaccount.com'
 )
 
