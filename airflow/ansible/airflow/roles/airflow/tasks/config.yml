@@ -118,3 +118,10 @@
     dest: /home/airflow/.bash_profile
     owner: "{{ airflow_user }}"
     group: "{{ airflow_group }}"
+
+- name: Copy BigQuery script
+  copy:
+    src: ~/gcp-retail-workshop-2018/ingestion/bigquery/samples/store_sales.sql
+    dest: "{{ airflow_home }}/scripts"
+    owner: "{{ airflow_user }}"
+    group: "{{ airflow_group }}"

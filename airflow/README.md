@@ -1,6 +1,6 @@
 # Airflow Hands-On Lab
 ## Overview
-In the previous BigQuery exercise you ran an number of DataFlow jobs manually. In a production environment you would want to automate these against some type of schedule. Airflow is the tool of choice for automating ETL jobs, due to its rich set of built-in operators and ability to create custom operators.
+In the previous BigQuery labs you ran an number of DataFlow jobs manually. In a production environment you would want to automate these jobs on a schedule. Airflow is the tool of choice for automating ETL jobs, due to its rich set of built-in operators, create sophisticated orchestration for the movement of data and an ability to create custom operators to extend its functionality.
 
 This lab is designed to demonstrate how to use Terraform to create a compute instance and then configure an Airflow instance using Ansible.
 
@@ -11,8 +11,11 @@ Precocity uses Terraform for overall infrastructure deployment and Ansible for t
 ### Pre-Requisites
 * Cloud Shell
 * `git clone https://github.com/precocity/gcp-retail-workshop-2018.git`
+* `~gcp-retail-workshop-2018/scripts/02_variableSubstitution.sh`
 
 >Note: Unless otherwise explicitly stated, all the commands below are to be executed in Cloud Shell as-is. If you have already run the `git clone` command, it is not necessary to do it again.
+
+>Note: The last command listed may have been run during the BigQuery labs. If you have, you can skip that step.
 
 >Note: Once you are done with all the exercises, please go through the last Cleanup exercise to review and make sure any running resources are terminated.
 
@@ -49,7 +52,7 @@ You will create a service account with editor permissions that both Terraform an
 
 >`Created service account [airflow].`
 
-These next two commands will create the credentials needed to communicate with the Airflow instance and add the appropriate role to the service account:
+These next two commands will create the credentials needed to communicate with the Airflow instance and add the appropriate role to the service account that you just created.
 
 'gcloud iam service-accounts keys create ~/gce-airflow-key.json --iam-account=airflow@$DEVSHELL_PROJECT_ID.iam.gserviceaccount.com'
 
@@ -59,26 +62,12 @@ The output should look similar to below:
 om]`
 
 Now enter:
+
 `gcloud projects add-iam-policy-binding $DEVSHELL_PROJECT_ID  --member serviceAccount:airflow@$DEVSHELL_PROJECT_ID.iam.gserviceaccount.com --role roles/editor`
 
 >The output displayed will be a list of members and their roles for the project.
 
 **Step 3:**
-Configuring the Terraform Files
-
-You will next edit the `provider.tf` file to include your project name:
-
-`vi provider.tf`
-
-Move the cursor to the project name and press `I` to put the editor into insert mode. Use the `DEL` key to delete the sample project name and enter your own. When complete, press `ESC` and `:wq` to save and quit the editor.
-
-Now, edit the `compute.tf` file. This time you will edit the default user to your account name.
-
-Move the cursor to the user name and press `I` to put the editor into insert mode. Use the `DEL` key to delete the sample user name and enter your own. When complete, press `ESC` and `:wq` to save and quit the editor.
-
-![Terraform Compute-TF](assets/compute-tf.png)
-
-**Step 4:**
 Running Terraform
 
 The next commands will initialize Terraform, create the deployment plan and then apply that plan to create your Airflow instance.
@@ -130,7 +119,7 @@ For example, try running:
 
 Now enter the following, substituting your name and project id as needed:
 
-`ssh $USER@airflow.us-central1-c.$DEVSHELL_PROJECT_ID`
+`ssh $USER@airflow.us-central1-c.$GOOGLE_CLOUD_PROJECT`
 
 The next prompt will appear:
 
@@ -164,7 +153,6 @@ Installing Ansible
 The following commands will change to the Ansible folder from where you will perform the install of Ansible and the running of the playbook. A script that installs pip packages needs execute permissions set and then you will run the script to install Ansible.
 
 `cd ~/gcp-retail-workshop-2018/airflow/ansible/airflow`
-`chmod +x ansible_install.sh`
 `. ./ansible_install.sh`
 
 > Note that Ansible requires sudo access to install and the binaries will not survive the exiting of Google Cloud Shell. Should you disconnect, re-run the `ansible_install.sh` command again so youc an continue from where you left off.
@@ -177,23 +165,9 @@ When successful, your cloud shell should look similar to the screen below:
 > The ansible-install.sh configures 2 environment variables for you automatically. You will edit the files they reference in the next step.
 
 **Step 2:**
-Configuring Ansible
+Running Ansible's Playbook
 
-In this step you will edit a few files to configure Ansible for your environment so you can run the Playbook successfully. Ansible Playbooks contain the information needed to manage the deployment and configuration of resources on the airflow instance. Playbooks use the YAML file format and are relatively readable and easy to understand.
-
-From the current folder, you will need to edit the following files:
-
-***hosts
-***gce.ini
-***.bash_profile
-
-Using VI, open the hosts file and change the project name in the file to match your own.
-
-`vi hosts`
-
-Remember, use `I` to enter Insert mode and then press `ESC` followed by `:wq` to write out the changes and exit the editor.
-
-Once that change is made, run the following command:
+First, verify you have connectivity to the airflow instance:
 
 `ansible all -m ping`
 
@@ -204,18 +178,7 @@ The output should look similar to the following:
     "ping": "pong"
 }`
 
-Next, edit the gce.ini file using VI.
-
-`vi gce.ini`
-
-Change the `gce_service_account_email_address` and `gce_project_id` lines to use your own project id. Save and quit the file as you did previously.
-
-The highlighted lines appear in the screen below:
-
-![Ansible Configure](assets/gce-ini.png)
-
-*Step 3:**
-Running Ansible's Playbook
+Now you can run the Ansible command to install the Playbook:
 
 `ansible-playbook provision.yml`
 
@@ -234,3 +197,6 @@ Copy the IP followed by `:8080` into a browser window and press Enter. The Airfl
 **Step 4:***
 Airflow GUI
 
+![Airflow Instance](assets/airflow-instance.png)
+
+By default Airflow pauses new DAGs that have been deployed.
