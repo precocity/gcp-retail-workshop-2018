@@ -125,3 +125,8 @@
     dest: "{{ airflow_home }}/scripts"
     owner: "{{ airflow_user }}"
     group: "{{ airflow_group }}"
+
+- name: BigQuery init
+  shell: bq init
+  become: true
+  become_user: "{{ airflow_user }}"
