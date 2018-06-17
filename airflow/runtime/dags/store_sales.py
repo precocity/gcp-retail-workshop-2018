@@ -21,7 +21,7 @@ dag = DAG('bq_stores_sales_processing',
           default_args=default_args)
 
 bq_store_sales_task = BashOperator(task_id='bq_store_sales_bash',
-                                   bash_command='bq query --use_legacy_sql=False `cat /etc/airflow/scripts/store_sales.sql`',
+                                   bash_command='bq query --use_legacy_sql=False < ' + airflow_home + '/scripts/store_sales.sql ',
                                    dag=dag)
 
 # bq_store_sales_task = BigQueryOperator(
