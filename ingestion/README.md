@@ -1,6 +1,6 @@
 # Data Ingestion Hands-On Lab
 ## Overview
-### Architecture
+### Reference Architecture
 ![Architecture Diagram](assets/RetailWorkshop-DataIngestion-Arch.png)
 ### Data Model
 *[To Be Added]*
@@ -89,6 +89,7 @@ mvn compile exec:java \
 --runner=DataflowRunner"
 ```
 >You should see a "Build Successful" message upon successful deployment of the Dataflow job.
+>**Note**: The very first execution of the build will take significantly longer than the rest of the builds below as Maven downloads all the dependencies to perform the build.
 
 **Step 4:** Build & deploy the Pub/Sub -> BigQuery Dataflow job:
 ```
@@ -172,6 +173,10 @@ type: JOB_TYPE_BATCH
 
 **Step 4:** You can also see the logs of each step by clicking the "Logs" icon on the job page.
 
+>Note: As the customerLoad job executes, you can skip to Step 6 and kick off the rest of the Dataflow jobs. The first time execution of Dataflow job may take a while.
+
+>:bulb: If the customerLoad is not progressing, check and make sure the Dataflow API settings are enabled for your project.
+
 **Step 5:** Once the job completes, the status of the job will be marked "Succeeded" in the Dataflow home page.
 
 <img src="assets/DataFlow-CustomerLoad-JobsPage.png" width="500px"/>
@@ -232,7 +237,7 @@ outputTableSpec=retail_demo_warehouse.sales_events
 ```
 gcloud dataflow jobs run SalesEventsRawStreaming \
 --gcs-location=gs://${GOOGLE_CLOUD_PROJECT}-dataflow/pubsub-to-gcs/templates/PubSubToFile.json \
---parameters inputTopic=projects/${GOOGLE_CLOUD_PROJECT}/topics/[topic-name],\
+--parameters inputTopic=projects/${GOOGLE_CLOUD_PROJECT}/topics/${GOOGLE_CLOUD_PROJECT}-sales-events,\
 outputDirectory=gs://${GOOGLE_CLOUD_PROJECT}-dataflow/raw/sales_events/,\
 outputFilenamePrefix=sales-events-,outputFilenameSuffix=.json.txt
 ```
@@ -241,7 +246,7 @@ outputFilenamePrefix=sales-events-,outputFilenameSuffix=.json.txt
 
 >Note: Unlike the batch jobs, the streaming Dataflow jobs run until they are terminated (either manually by going to the Dataflow job page and stopping / draining the job or programatically using the gcloud command)
 
-**Step 6:** Next step, let us start streaming some sales events to the PubSub topic so that we can see the Dataflow jobs in action. There is a helper script to accomplish this. The last script takes the **[project-name]** and target PubSub **[topic-name]** as an argument:
+**Step 6:** Next step, let us start streaming some sales events to the PubSub topic so that we can see the Dataflow jobs in action. There is a helper script to accomplish this. Execute the below commands:
 
 ```
 cd ~/gcp-retail-workshop-2018
@@ -259,6 +264,8 @@ sh ingestion/scripts/02_runPublisher.sh
 >Leave the utility running in the Cloud Shell and proceed to the next step. This utility will be running until you terminate it.
 
 **Step 7:** Navigate to the job pages to see the Dataflow jobs consume the realtime streaming sales events, process them and land them into their target destinations (BigQuery, GCS).
+
+>:bulb: You can also verify the data being loaded into the BQ `sales_events` table. Since this is a streaming insert the table might still look empty on the BQ UI if you go to the preview tab. Alternatively you can confirm by executing a quick `select` statement which will be as described in the next exercise.
 
 ---
 
@@ -296,9 +303,11 @@ select count(*) from `retail_demo_warehouse.sales_events`;
 
 <img src="assets/BigQuery-Basics-3.png"/>
 
-**Step 10:** Next, let's execute some basic SQL statements using `gcloud`.
+**Step 10 (Optional):** Next, let's execute some basic SQL statements using `gcloud`.
 
-**Step 11:** Execute the following commands:
+>**Note:** The sales events data publisher might still be running in your Cloud Shell. In order to execute the next step you might have to kill the running sales data publisher using **`Ctrl + C`**. You can restart the sales data publisher by executing `cd ~/gcp-retail-workshop-2018 && sh ingestion/scripts/02_runPublisher.sh`
+
+**Step 11 (Optional):** Execute the following commands:
 ```
 cd ~/
 bq shell
