@@ -54,7 +54,7 @@ airflow_killed_task_cleanup_time: 60
 airflow_executor: SequentialExecutor
 
 airflow_parallelism: 32
-airflow_dag_concurrency: 16
+airflow_dag_concurrency: 1
 airflow_dags_are_paused_at_creation: True
 airflow_non_pooled_task_slot_count: 128
 airflow_max_active_runs_per_dag: 16
