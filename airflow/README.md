@@ -117,7 +117,7 @@ The output should look similar to the that below:
 For example, try running:
   $ ssh retail2.us-east1-b.precocity-retail-workshop-2018`
 
-Now enter the following, substituting your name and project id as needed:
+Now enter the following, substituting your name and project id as needed. This is required to initialize the ssh connectivity to the airflow instance for Ansible.
 
 `ssh $USER@airflow.us-central1-c.$GOOGLE_CLOUD_PROJECT`
 
