@@ -33,60 +33,7 @@ First, run the following command:
 
 The following content will appear:
 
->WARNING: The public SSH key file for gcloud does not exist.
->WARNING: The private SSH key file for gcloud does not exist.
->
->WARNING: You do not have an SSH key for gcloud.
->WARNING: SSH keygen will be executed to generate a key.
->This tool needs to create the directory [/home/wils_jacob/.ssh] before
-> being able to generate SSH keys.
->
->Do you want to continue (Y/n)?
-
-Type `Y` and Enter to continue. When prompted to enter a passphrase, just press Enter. You will do that twice. When complete, your cloud shell will display:
-
->Generating public/private rsa key pair.
->
->Enter passphrase (empty for no passphrase):
->
->Enter same passphrase again:
->
->Your identification has been saved in /home/wils_jacob/.ssh/google_compute_engine.
->
->Your public key has been saved in /home/wils_jacob/.ssh/google_compute_engine.pub.
->
->The key fingerprint is:
->
->SHA256:HI5Zb8o34A97wDG+QK1LjOqKS0yQmjLXoTz7A5shnnU wils_jacob@cs-6000-devshell-vm-0adf3408-f5f9-45ad-9ac9-ab073a6d05a1
->
->The key's randomart image is:
->
->+---[RSA 2048]----+
->
->|                 |
->
->| .               |
->
->|o   .  .o        |
->
->|oo o ..*+o       |
->
->|=.= .+o+Soo      |
->
->|=oo+.E=o++       |
->
->|.++*.. o=oo      |
->
->|oo+.. . .=..     |
->
->|++. ..  ...      |
->+----[SHA256]-----+
->
->Updating project ssh metadata...|Updated [https://www.googleapis.com/compute/v1/projects/retail-workshop-walkthrough-1].
->
->Updating project ssh metadata...done.
->
->WARNING: No host aliases were added to your SSH configs because you do not have any instances. Try running this command again after creating some instances.
+![Gcloud Config-SSH](assets/gcloud-config-ssh.png)
 
 The SSH key created here will be used by Terraform when deploying the Airflow instance. Now you can navigate to the Terraform folder.
 
