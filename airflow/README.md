@@ -46,12 +46,19 @@ The following content will appear:
 Type `Y` and Enter to continue. When prompted to enter a passphrase, just press Enter. You will do that twice. When complete, your cloud shell will display:
 
 >Generating public/private rsa key pair.
+>
 >Enter passphrase (empty for no passphrase):
+>
 >Enter same passphrase again:
+>
 >Your identification has been saved in /home/wils_jacob/.ssh/google_compute_engine.
+>
 >Your public key has been saved in /home/wils_jacob/.ssh/google_compute_engine.pub.
+>
 >The key fingerprint is:
+>
 >SHA256:HI5Zb8o34A97wDG+QK1LjOqKS0yQmjLXoTz7A5shnnU wils_jacob@cs-6000-devshell-vm-0adf3408-f5f9-45ad-9ac9-ab073a6d05a1
+>
 >The key's randomart image is:
 >+---[RSA 2048]----+
 >|                 |
