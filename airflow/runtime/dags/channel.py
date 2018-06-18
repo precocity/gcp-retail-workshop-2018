@@ -26,6 +26,6 @@ dag = DAG('channel_processing',
 # Add the terminating forward slash to stick to the single folder in the bucket
 file_list = list_gcs_folder('staged/channel/', 'precocity-retail-workshop-2018-bucket')
 for file_name in file_list:
-    channel_df_task = BashOperator(task_id='channel_df.' + file_name,
+    channel_df_task = BashOperator(task_id='channel_df_' + file_name,
                                    bash_command=channel_dataflow_bash_command,
                                    dag=dag)
