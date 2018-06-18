@@ -19,7 +19,7 @@ default_args = {
 }
 
 dag = DAG('channel_processing',
-          schedule_interval=None,
+          schedule_interval='*/30 * * * *',
           catchup=False,
           default_args=default_args)
 
