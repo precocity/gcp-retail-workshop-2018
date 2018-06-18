@@ -11,7 +11,7 @@ Precocity uses Terraform for overall infrastructure deployment and Ansible for t
 ### Pre-Requisites
 * Cloud Shell
 * `git clone https://github.com/precocity/gcp-retail-workshop-2018.git`
-* `cd `~gcp-retail-workshop-2018/scripts`
+* `cd ~gcp-retail-workshop-2018/scripts`
 * `./02_variableSubstitution.sh`
 
 >Note: Unless otherwise explicitly stated, all the commands below are to be executed in Cloud Shell as-is. If you have already run the `git clone` command, it is not necessary to do it again.
@@ -51,7 +51,9 @@ You will create a service account with editor permissions that both Terraform an
 
 >If prompted to enable the API, press Y to continue. The output from the command should display:
 
->`Created service account [airflow].`
+~~~~
+Created service account [airflow].
+~~~~
 
 These next two commands will create the credentials needed to communicate with the Airflow instance and add the appropriate role to the service account that you just created.
 
