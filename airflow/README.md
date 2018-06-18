@@ -60,19 +60,32 @@ Type `Y` and Enter to continue. When prompted to enter a passphrase, just press 
 >SHA256:HI5Zb8o34A97wDG+QK1LjOqKS0yQmjLXoTz7A5shnnU wils_jacob@cs-6000-devshell-vm-0adf3408-f5f9-45ad-9ac9-ab073a6d05a1
 >
 >The key's randomart image is:
+>
 >+---[RSA 2048]----+
+>
 >|                 |
+>
 >| .               |
+>
 >|o   .  .o        |
+>
 >|oo o ..*+o       |
+>
 >|=.= .+o+Soo      |
+>
 >|=oo+.E=o++       |
+>
 >|.++*.. o=oo      |
+>
 >|oo+.. . .=..     |
+>
 >|++. ..  ...      |
 >+----[SHA256]-----+
+>
 >Updating project ssh metadata...|Updated [https://www.googleapis.com/compute/v1/projects/retail-workshop-walkthrough-1].
+>
 >Updating project ssh metadata...done.
+>
 >WARNING: No host aliases were added to your SSH configs because you do not have any instances. Try running this command again after creating some instances.
 
 The SSH key created here will be used by Terraform when deploying the Airflow instance. Now you can navigate to the Terraform folder.
