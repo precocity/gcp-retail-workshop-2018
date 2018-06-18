@@ -11,7 +11,8 @@ Precocity uses Terraform for overall infrastructure deployment and Ansible for t
 ### Pre-Requisites
 * Cloud Shell
 * `git clone https://github.com/precocity/gcp-retail-workshop-2018.git`
-* `~gcp-retail-workshop-2018/scripts/02_variableSubstitution.sh`
+* `cd `~gcp-retail-workshop-2018/scripts`
+* `./02_variableSubstitution.sh`
 
 >Note: Unless otherwise explicitly stated, all the commands below are to be executed in Cloud Shell as-is. If you have already run the `git clone` command, it is not necessary to do it again.
 

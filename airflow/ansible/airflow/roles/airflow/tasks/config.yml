@@ -128,10 +128,11 @@
 
 - name: More BigQuery scripts
   copy:
-    src: ~/gcp-retail-workshop-2018/ingestion/airflow/runtime/scripts
+    src: ~/gcp-retail-workshop-2018/airflow/runtime/scripts
     dest: "{{ airflow_home }}"
     owner: "{{ airflow_user }}"
     group: "{{ airflow_group }}"
+    mode: 0777
 
 - name: gcloud auth activate-service-account
   shell: gcloud auth activate-service-account airflow@{GOOGLE_CLOUD_PROJECT}.iam.gserviceaccount.com --key-file="{{ airflow_home }}/gce-airflow-key.json"
