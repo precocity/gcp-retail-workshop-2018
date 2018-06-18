@@ -1,7 +1,7 @@
 #!/bin/bash
 
-export PROJECT_NAME=${GOOGLE_CLOUD_PROJECT}
-export BUCKET_NAME=${GOOGLE_CLOUD_PROJECT}-dataflow
+export PROJECT_NAME={GOOGLE_CLOUD_PROJECT}
+export BUCKET_NAME={GOOGLE_CLOUD_PROJECT}-dataflow
 
 submitBatchJob () {
   FEED=$1
