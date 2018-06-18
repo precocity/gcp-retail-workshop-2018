@@ -119,10 +119,17 @@
     owner: "{{ airflow_user }}"
     group: "{{ airflow_group }}"
 
-- name: Copy BigQuery script
+- name: Copy BigQuery scripts
   copy:
     src: ~/gcp-retail-workshop-2018/ingestion/bigquery/samples/store_sales.sql
     dest: "{{ airflow_home }}/scripts"
+    owner: "{{ airflow_user }}"
+    group: "{{ airflow_group }}"
+
+- name: More BigQuery scripts
+  copy:
+    src: ~/gcp-retail-workshop-2018/ingestion/airflow/runtime/scripts
+    dest: "{{ airflow_home }}"
     owner: "{{ airflow_user }}"
     group: "{{ airflow_group }}"
 
