@@ -40,7 +40,9 @@ This is the folder from which you will install and configure Terraform. Run the 
 * `unzip terraform_0.11.7_linux_amd64.zip -d .`
 * `./terraform -v`
 
->The output from the last command should display `Terraform v0.11.7`.
+>The output from the last command should display
+>
+>`Terraform v0.11.7`.
 
 **Step 2:**
 Creating a Service Account
@@ -50,10 +52,9 @@ You will create a service account with editor permissions that both Terraform an
 `$ gcloud iam service-accounts create airflow`
 
 >If prompted to enable the API, press Y to continue. The output from the command should display:
-
-~~~~
-Created service account [airflow].
-~~~~
+>
+>Created service account [airflow].
+>
 
 These next two commands will create the credentials needed to communicate with the Airflow instance and add the appropriate role to the service account that you just created.
 
