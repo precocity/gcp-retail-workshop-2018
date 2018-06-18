@@ -79,3 +79,16 @@
     dest: "{{ airflow_home }}"
     owner: "{{ airflow_user }}"
     group: "{{ airflow_group }}"
+
+- name: Install google-api-python-client
+  shell: sudo pip3 --upgrade google0api-python-client -t {{ airflow_home }}/google-api-python-client
+
+- name: Installing pandas_bgq
+  pip:
+    name: pandas_gbq
+
+- name: Installing oauth2client
+  pip:
+    name: oauth2client
+
+

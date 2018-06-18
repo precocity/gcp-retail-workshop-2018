@@ -126,7 +126,7 @@
     owner: "{{ airflow_user }}"
     group: "{{ airflow_group }}"
 
-- name: BigQuery init
+- name: gcloud auth activate-service-account
   shell: gcloud auth activate-service-account airflow@{GOOGLE_CLOUD_PROJECT}.iam.gserviceaccount.com --key-file="{{ airflow_home }}/gce-airflow-key.json"
   become: true
   become_user: "{{ airflow_user }}"

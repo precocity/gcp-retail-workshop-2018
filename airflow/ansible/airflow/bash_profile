@@ -1,3 +1,3 @@
 export AIRFLOW_HOME=/etc/airflow
-export PYTHONPATH=/etc/airflow/custom_py
+export PYTHONPATH=/etc/airflow/custom_py:$AIRFLOW_HOME/google-api-python-client
 export GOOGLE_APPLICATION_CREDENTIALS=/etc/airflow/gce-airflow-key.json
