@@ -18,8 +18,10 @@ This README documents the process to build an end-to-end ecommerce recommender w
 ## Prerequisites
 
 * Cloud Shell
-* `git clone https://github.com/precocity/gcp-retail-workshop-2018.git`
-* `cd gcp-retail-workshop-2018/recommender`
+* **Ensure ML API is enabled**: `gcloud services enable ml.googleapis.com`
+* **Clone this repo**, if you have not done so already: `git clone https://github.com/precocity/gcp-retail-workshop-2018.git`
+* **Change to recommender directory**: `cd gcp-retail-workshop-2018/recommender`
+
 
 ## <img src="assets/two.png" width="40"/> Extract Data from BigQuery
 
@@ -106,7 +108,8 @@ Note, that R is very sparse and most of the *X<sub>ui</sub>* are missing and obv
 As graphically depicted below, the cloud MLE command prepares a python trainer package using the model, task, & other .py files in the trainer directory.  It then zips it up and starts it on Cloud MLE.  The output of the training are the latent factors stored in `$BUCKET`
 
 ![image](assets/mle.png)
-		 
+
+**I should show the GCS buckets**
 		 
 			
 
