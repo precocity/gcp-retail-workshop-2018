@@ -114,8 +114,6 @@ Note, that R is very sparse and most of the *X<sub>ui</sub>* are missing and obv
 As graphically depicted below, the cloud MLE command prepares a python trainer package using the model, task, & other .py files in the trainer directory.  It then zips it up and starts it on Cloud MLE.  The output of the training are the latent factors stored in `$BUCKET`
 
 ![image](assets/mle.png)
-
-**I should show the GCS buckets**
 		 
 			
 
