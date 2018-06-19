@@ -45,9 +45,11 @@ This is the folder from which you will install and configure Terraform. Run the 
 * `unzip terraform_0.11.7_linux_amd64.zip -d .`
 * `./terraform -v`
 
->The output from the last command should display something similar to below:
+The output from the last command should display something similar to below:
+
 >
 >`Terraform v0.11.7`.
+>
 
 You have successfully installed Terraform.
 
@@ -210,10 +212,168 @@ Congratulations! You have installed and configured an Airflow instance on GCP us
 ___
 ### Lab 3: Using Airflow
 
-**Step 1:***
-Airflow GUI
+Expected Time: 20 mins
+
+As mentioned earlier, Airflow allows you to automate jobs to run on a schedule, or an event. The DAGS presented here are very basic and don't show the complexity possible for creating pipeline branches, configuring dependencies, etc. Suffice it to say that Airflow has become so popular Google Cloud Platform now offers it in beta as Cloud Composer.
+
+In this final lab you will run jobs that automate tasks that you manually ran in the BigQuery labs. For production deployments, running such tasks on a regular schedule is a must.
+
+**Step 1:**
+Introduction to the Airflow GUI
 
 ![Airflow Instance](assets/airflow-instance.png)
 
-By default Airflow pauses new DAGs that have been deployed.
+The landing page you see will be http://IP:8080/admin. You'll see that two DAGS have been deployed:
+
+* bq_stores_sales_processing
+* channel_processing
+
+By default Airflow pauses new DAGs that have been deployed so they don't start running prematurely. In the screen above you'll see 2 columns highlighted. The first column is a toggle that pauses/un-pauses a DAG's execution. To the right is the name of the DAG. The column after that contains the schedule for the DAG. The schedule format follows that of a Linux crontab very closely. The `bq_stores_sales_processing` DAG runs every 10 minutes and the `channel_processing` DAG runs every 30 minutes.
+
+Schedules for DAGS can use shortcuts such as @hourly, @daily, @weekly, etc.
+
+The Owner column shows the name of the user the DAG will run under. In most environments this will be "airflow", but if you communicate into other networks your owner name may represent a user account they've given you.
+
+The Recent Tasks, Last Run and DAG Runs columns provide status for each category. You can move your mouse over the `i` next to each column name for more information.
+
+The Links column lets you kick off DAGs immediately, short-cutting whatever schedule they are on. Additional icons let you view the DAG in different ways, view the execution times, the code for the DAG, etc. Again, you can mouseover any of the icons for more information.
+
+>Note that the current time is shown in the upper right-hand corner of your browser page. Airflow defaults to UTC time and prefers to run everything against UTC time. Logs can appear in your local time-zone, but for scheduling purposes, keep in mind that all scheduled times need to be adjusted for your local time zone.
+
+
+**Step 2:**
+Running the channel_processing DAG
+
+Let's start with the channel_processing DAG. Click the `Off` button to toggle it `On`. In 10 seconds or so, click the refresh icon for the DAG on the far right of the Links column.
+
+Airflow runs tasks for the previous scheduled interval. When you first un-pause the DAG, Airflow will notice that the DAG hasn't been run before and it will kick off fairly quickly to complete the run for the previous scheduled time.
+
+You will see this with the light green `1` that appears in the DAG Runs column. Periodically hit the refresh button for your DAG until you see it.
+
+![Airflow Step 2a](assets/channel-processing-unpause.png)
+
+Depending on the speed of your instance and quickness with the refresh button, you may miss the light green icon and see it go immediately to dark green. Light green indicates running and dark green indicates success.
+
+Since this DAG runs only every 30 minutes, let's look at the successful run.
+
+Click the green `1` in the Recent Tasks column.
+
+![Airflow Step2b](assets/channel-task-instances.png)
+
+This screen shows the state of the instance, the task id, the execution date, operator, start date, etc. Note that the Execution Date is earlier than the Start Date. Remember, Airflow when the previously scheduled interval complets.
+
+Click the Dag Id link next.
+
+![Airflow Step2c](assets/channel-graph-view.png)
+
+A few things to note about this page. Typically you would see a number of different tasks with lines drawn to represent dependencies. DAGs are a collection of tasks that can run in parallel, perform branching, etc. You may have a DAG that reads from multiple tables simultaneously in parallel but then merge together in a task that performs some data manipulation task before splitting off in a combination of sequential or parallel tasks.
+
+The middle left corner that is highlighted shows the Airflow operator(s) involved. Because this is a simple DAG, just the BashOperator is used. In more complex jobs, you may have several operators performing tasks.
+
+THe middle right portion highlighted shows the state of a particular task.
+
+*queued: the task is ready to run, but waiting for free resources from Airflow to kick off.
+*retry: the task failed. If a retry interval was configured it will attempt to retry that many times before reporting a failure.
+*skipped: the task was skipped, likely due to a condition in the DAG that was not meant and the task should not be run.
+*failed: the task failed after being unable to complete successfully after hitting the max retries.
+*running: the task is actively running.
+*success: the task finished successfully.
+
+When a DAG is running through its tasks, you can click the refresh button to see the current status of the DAG instance.
+
+Before moving onto the next step, let's take a quick look at a couple of options. The ones not covered you may explore on your own.
+
+Click the task id that is highlighted in dark green. From the pop-up, click the View Log button.
+
+![Airflow Step2d](assets/channel-log.png)
+
+As discussed before, note that the timestamps for the log entries are in CST, not UTC time. Airflow logging uses the time-zone of the server for logging purposes.
+
+You can scroll through the log to see what Airflow is doing to execute the job. Note that there are no errors in the log.
+
+Next, click the `Code` link at the top of the page.
+
+![Airflow Step2e](assets/channel-code.png)
+
+This lab won't try to explain all the various configuration of the DAG, but we will highlight a couple of things. First, Airflow is written in Python and DAG's are also Python code.
+
+The first part of the page configures imports for the various modules used. The bash command is represented by a string and becomes a parameter for the BashOperator at the bottom of the page.
+
+>Starting with line 27 you'll see code that retrieves a file list in the /staging/channel folder of the public `precocity-retail-workshop-2018-bucket`. If there were multiple files staged there, you would see a task id for each one. Airflow requires task id's to be unique in a DAG, so when it is necessary to create tasks dynmically, append some identifier to the end of the task id to ensure uniqueness.
+
+The bottom task represented by the `channel_df_task` runs a bash script that kicks off a DataFlow job. Airflow actually has a DataFlow operator, but it requires a .jar file not used as part of these Google templates, so the script was created instead.
+
+From here, you can see that a DataFlow script was executed. Now, navigate to your DataFlow page in your Google Cloud Console to see its status.
+
+![Airflow Step2f](assets/channel-df.png)
+
+Depending on how quickly you went through this step of the lab, you may see the DataFlow job running. Like task id's we chose to make the job id unique for purposes of the demo. In a production environment you might pre-preocess all the staging files and then run one DataFlow job against all of them.
+
+**Step 3:***
+Running the bq_store_sales_processing DAG
+
+In this step, you're going to run the BigQuery store sales processing DAG. This DAG runs every 10 minutes and has been implemented using both the BashOperator and a BigQueryOperator. In the next step you will configure Airflow and the DAG to use the BigQueryOperator.
+
+For now, un-pause the `bq_store_sales_processing` DAG. From the Airflow page, just click the DAGS menu item. After you un-pause the DAG, hit the refresh button quickly. If possible, click the light green icon and the `bq_stores_sales_processing` Dag Id to see the status of the task as `running`.
+
+![Airflow Step3a](assets/bq-graph.png)
+
+Click the Refresh icon until the task has successfully run. Then, select the task and click the View Log button again.
+
+![Airflow Step3b](assets/bq-init-log.png)
+
+The log contents show the `bq query` command running, with a job id and at the bottom, some BigQuery initialization that occurs since it's been run on this instance for the first time.
+
+Navigate to the BigQuery page of your Google Cloud Console to verify.
+
+![Airflow Step3c](assets/bq-query-history.png)
+
+>Click the Show queries for all users from the Query History page
+
+The screenshot above shows 2 instances have already run during the creation of this lab. The first kicked off immediately after un-pausing the DAG, the second once the next 10 minute interval was reached.
+
+Remember the airflow service account that was created earlier as part of the Terraform configuration? This same service account is used by Airflow to communicate with BigQuery.
+
+**Step 4:**
+Modifying the bq_store_sales_processing DAG to use the BigQueryOperator
+
+In this last part of the lab, you're going to finish configuring a Google Cloud Platform connection and modify the existing DAG to use the BigQueryOperator.
+
+Before getting started, click the `Code` menu item from the Airflow logs page and scroll down to the bottom.
+
+![Airflow Step4a](assets/bq-code.png)
+
+Lines 23-25 currently run the BashOperator task that you've seen in action. Lines 27-35 perform the same functionality, but using the BigQueryOperator. That's actually not totally accurate, the BigQueryOperator has additional functionality to write out the results to a destination dataset table, plus a number of other things not covered in this lab.
+
+Before you edit this DAG, first finish configuring the Google Cloud Platform connection.
+
+Click the `Admin | Connections` menu item.
+
+![Airflow Step4b](assets/airflow-connections.png)
+
+Click the pencil/Edit icon on the `google_cloud_default` connection.
+
+Fill in the following data in the fields below:
+
+*Project Id: This should be your Google Cloud Platform Project Id. It will be the same as your $GOOGLE_CLOUD_PROJECT environment variable.
+*Keyfile Path: /etc/airflow/gce-airflow-key.json
+*Scopes: https://www.googleapis.com/auth/cloud-platform
+
+When complete, your screen should look similar to this:
+
+![Airflow Step4c](assets/bq-gcp-conn.png)
+
+Click the Save button at the bottom.
+
+Now, it's time to edit the DAG. Before making any changes to the code, go to the DAGs page and pause the `bq-stores-sales-processing` DAG. We don't want it running while editing it.
+
+From your Google Cloud Console, navigate to the Compute Engine | VM instances page and click the `SSH` link on the "airflow" instance. When the SSH window appears, type the following commands:
+
+```
+sudo su airflow
+cd /etc/airflow/dags
+vi store_sales.py
+```
+
+
 
