@@ -13,7 +13,7 @@ This README documents the process to build an end-to-end ecommerce recommender w
 
 <img src="assets/three.png" width="35"/> **Model Training**: From Cloud Shell, we issue a single command that packages & zips our Python/Tensorflow trainer and starts it as a job on Cloud ML.  This job in turn consumes the implicit feedback CSV stored in GCS, uses Weighted Alternating Least Squares (WALS) model to compute the latent factors and store them back in GCS.
 
-<img src="assets/four.png" width="35"/> **Prediction Service**: A SpringBoog Java application was developed to implement the prediction service that uses the derived latent factores to generate recommendations for a given user.  This process is documented in the README in `recommender_svc/java`
+<img src="assets/four.png" width="35"/> **Prediction Service**: A SpringBoot Java application was developed to implement the prediction service that uses the derived latent factores to generate recommendations for a given user.  This process is documented in the README in `recommender_svc/java`
 
 ## Prerequisites
 
@@ -91,6 +91,12 @@ Now that the training file has been prepared and stored in GCS, we're ready to t
 	```sh
 	gcloud ml-engine jobs stream-logs $JOBNAME
 	``` 
+	
+4. **Verify Latent Factor Creation**: To list the folder contents containing the latent factors produced by the training process, issue the following command: 
+
+	```sh
+	gsutil ls -lh $BUCKET/model
+	```
 
 
 
