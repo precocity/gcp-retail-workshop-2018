@@ -375,5 +375,37 @@ cd /etc/airflow/dags
 vi store_sales.py
 ```
 
+Scroll down to line 23 and press `i` to enter INSERT mode for the vi editor. In the first character of lines 23-26 enter the `#` symbol.
+
+>The color of the lines should turn to blue.
+
+Use your arrow keys to move down to the first character of line 27. For lines 27-35, press the Del key to remove the `#` that appears with each line. Your editor screen should look as follows:
+
+![Airflow Step4d](assets/bq-vi.png)
+
+To save your changes, press the `ESC` key followed by `:wq` and Enter.
+
+When you are returned to the shell prompt, go back to your Airflow page and click the `bq_stores_sales_processing` DAG and then the `Code` page from there.
+
+>If you get an Ooops error, click the browser refresh button.
+
+You should see lines 23-25 are commented out while lines 27-36 are ready to go.
+
+Navigate to the DAGs page and un-pause the DAG you just edited.
+
+>When you navigate to the page, if you see Broken DAG error like: Broken DAG: [/etc/airflow/dags/store_sales.py] unexpected indent (store_sales.py, line 27) this means that something went wrong when you edited the DAG. Go back to your shell and run `vi store_sales.py` again and correct the error.
+>In the example given here, the `bq_store_sales_task` wasn't in the first column and Python is sensitive to indentation.
+
+Once the DAG is un-paused it should run almost immediately. As before, you can click the green running icon or wait until it completes and click the success icon.
+
+Navigate to the View Log page as you have done previously.
+
+![Airflow Step4e](assets/bq-log2.png)
+
+>The log outupt is considerably different when using the BigQueryOperator vs. the BashOperator. A number of additional INFO messages appear that are specific to that operator.
+
+Navigate to your BigQuery | Query History page to see the most recent run. The same BigQuery code is executed as before. The difference between the operators is the additional functionality built into the BigQueryOperator that would require additional scripting when using the BashOperator.
+
+Thank you for your time today. Hopefully you see the value in automating DataFlow and BigQuery tasks using Airflow.
 
 
