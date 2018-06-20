@@ -71,6 +71,6 @@ gcloud compute firewall-rules create allow-k8s-rec-svc \
 kubectl describe nodes | grep ExternalIP
 ```
 
-12.  Test the service by pastsing the following URL in your browser to retrieve the recommendations for a given customer id.  Note that using curl/wget from cloud shell will not work as there are restrictions on outgoing ports (30333 is not among the allowed ports):
+12.  Test the service by pasting the following URL in your browser to retrieve the recommendations for a given customer id.  Note that using curl/wget from cloud shell will not work as there are restrictions on outgoing ports (30333 is not among the allowed ports):
 
 `http://<EXTERNAL IP>:30333/api/customer/0010944918137684580/recs?numRecs=8`
