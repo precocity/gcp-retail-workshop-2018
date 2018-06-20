@@ -25,3 +25,4 @@ AIRFLOW_HOME={{ airflow_home }}
 PYTHONPATH={{airflow_home}}/custom_py:{{airflow_home}}/google-api-python-client
 PROJECT_NAME={GOOGLE_CLOUD_PROJECT}
 BUCKET_NAME={GOOGLE_CLOUD_PROJECT}-dataflow
+GOOGLE_APPLICATION_CREDENTIALS=$AIRFLOW_HOME/gce-airflow-key.json
