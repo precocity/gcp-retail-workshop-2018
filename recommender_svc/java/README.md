@@ -43,9 +43,11 @@ gcloud container clusters get-credentials retail-wrkshp-k8s --zone us-central1-a
 kubectl create configmap recs-svc-config --from-literal=gcp.project=$DEVSHELL_PROJECT_ID --from-literal=gcs.bucket=recommender_$DEVSHELL_PROJECT_ID
 ```
 
-8. Edit the `k8s/deployment.yml` file (using vim) to reference the correct image for your specific google project:
+8. Edit the `k8s/deployment.yml` file (using sed find/replace) to reference the correct image for your specific google project:
 
-`image: gcr.io/precocity-retail-workshop-2018/retail-wkshp-recs` should be `image: gcr.io/<YOUR PROJECT ID>/retail-wkshp-recs`
+```bash
+sed -i -e 's/MY_PROJECT_ID/$DEVSHELL_PROJECT_ID/g' k8s/deployment.yml
+```
 
 9. Deploy the application to the cluster.  You can reference the workloads tab in the console to check on the status of the deployment.  Once the service is green as per the screenshot below, you're service is up and running.  It should be noted that we are exposing the service using NodePort which means that we are exposing a specific port for each node on which a pod is running.  This is fine for simple examples that are running on a single node cluster, but production workloads should prefer the [LoadBalancer](https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types) or [Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/) methods.   
 
