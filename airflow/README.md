@@ -12,7 +12,7 @@ Precocity uses Terraform for overall infrastructure deployment and Ansible for t
 * Cloud Shell
 * `gcloud config set compute/zone us-central1-c`
 * `git clone https://github.com/precocity/gcp-retail-workshop-2018.git`
-* `cd ~gcp-retail-workshop-2018/scripts`
+* `cd ~/gcp-retail-workshop-2018/scripts`
 * `./02_variableSubstitution.sh`
 
 >Note: Unless otherwise explicitly stated, all the commands below are to be executed in Cloud Shell as-is. If you have already run the `git clone` command, it is not necessary to do it again.
@@ -59,7 +59,7 @@ Creating a Service Account
 
 In this lab You will create a service account with editor permissions that Terraform and Ansible will use to create and configure GCP resources needed for Airflow. Enter the following:
 
-`$ gcloud iam service-accounts create airflow`
+`gcloud iam service-accounts create airflow`
 
 If prompted to enable the API, press Y to continue. The output from the command should display:
 
@@ -97,7 +97,7 @@ If you're not in the `gcp-retail-workshop-2018/airflow/terraform/airflow` folder
 
 Run the init command:
 
-'./terraform init'
+`./terraform init`
 
 Your cloud shell should look similar to the screen below:
 
@@ -173,6 +173,7 @@ Installing Ansible
 The following commands will change to the Ansible folder from where you will perform the install of Ansible and the running of the playbook. A script that installs pip packages needs execute permissions set and then you will run the script to install Ansible.
 
 `cd ~/gcp-retail-workshop-2018/airflow/ansible/airflow`
+
 `. ./ansible_install.sh`
 
 > Ansible requires sudo access to install and the binaries will not survive the exiting of Google Cloud Shell.
@@ -324,6 +325,8 @@ For now, un-pause the `bq_store_sales_processing` DAG. From the Airflow page, ju
 ![Airflow Step3a](assets/bq-graph.png)
 
 Click the Refresh icon until the task has successfully run. Then, select the task and click the View Log button again.
+
+>If the task moves to retry state, it may be due to the fact that you have more than one Google cloud project registered. If this happens, deleting the task, or waiting for it to fail, should allow the second run to work correctly.
 
 ![Airflow Step3b](assets/bq-init-log.png)
 
