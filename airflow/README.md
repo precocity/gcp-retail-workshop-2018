@@ -16,7 +16,13 @@ Precocity uses Terraform for overall infrastructure deployment and Ansible for t
 * `cd ~/gcp-retail-workshop-2018/scripts`
 * `./02_variableSubstitution.sh`
 
->The first command isn't necessary unless your GOOGLE_CLOUD_PROJECT environment variable doesn't match your project name. If you do need it, substitute your project id for the [PROJECT_ID] placeholder. The third command should already have been run as part of the BigQuery lab exercises.
+>The first command isn't necessary unless your GOOGLE_CLOUD_PROJECT environment variable doesn't match your project name. If you do need it, substitute your project id for the [PROJECT_ID] placeholder.
+
+>Verify that your GOOGLE_CLOUD_PROJECT matches your project id. If it doesn't, run the following:
+
+`export GOOGLE_CLOUD_PROJECT=[PROJECT_ID]`
+
+>The third command should already have been run as part of the BigQuery lab exercises.
 
 >Note: Unless otherwise explicitly stated, all the commands below are to be executed in Cloud Shell as-is. If you have already run the `git clone` command, it is not necessary to do it again.
 
@@ -167,7 +173,7 @@ To quit the airflow instance, type:
 ---
 ### Lab 2: Installing Airflow with Ansible
 
-Expected Time: 10 mins
+Expected Time: 5 mins
 
 In this section you will configure and run Ansible to deploy the Airflow application and artifacts onto the new airflow instance you created with Terraform.
 
