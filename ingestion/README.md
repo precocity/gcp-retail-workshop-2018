@@ -249,16 +249,16 @@ outputFilenamePrefix=sales-events-,outputFilenameSuffix=.json.txt
 **Step 6:** Next step, let us start streaming some sales events to the PubSub topic so that we can see the Dataflow jobs in action. There is a helper script to accomplish this. Execute the below commands:
 
 ```
-cd ~/gcp-retail-workshop-2018
+cd ~/gcp-retail-workshop-2018/ingestion
 
 ## builds the data publisher utility
 sh scripts/01_buildApps.sh
 
 ## copies the sales events data to local
-sh ingestion/scripts/01_prepPublisher.sh
+sh scripts/02_prepPublisher.sh
 
 ## starts publishing sales events to the topic
-sh ingestion/scripts/02_runPublisher.sh
+sh scripts/03_runPublisher.sh
 ```
 
 >Leave the utility running in the Cloud Shell and proceed to the next step. This utility will be running until you terminate it.
