@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 gcloud services enable bigquery-json.googleapis.com
 gcloud services enable cloudapis.googleapis.com
 gcloud services enable cloudbuild.googleapis.com
