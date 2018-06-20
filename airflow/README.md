@@ -40,7 +40,7 @@ The following content will appear:
 
 The SSH key created here will be used by Terraform when deploying the Airflow instance. Now you can navigate to the Terraform folder.
 
-* `cd gcp-retail-workshop-2018/airflow/terraform/airflow`
+`cd ~/gcp-retail-workshop-2018/airflow/terraform/airflow`
 
 This is the folder from which you will install and configure Terraform. Run the following commands in order:
 
