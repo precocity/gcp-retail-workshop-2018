@@ -24,26 +24,26 @@ submitBatchJob customer-address
 submitBatchJob customer-employee-relationship
 submitBatchJob customer-favorites
 submitBatchJob customer-loyalty
-submitBatchJob customer-preferences
-submitBatchJob customer-relationship
 
 echo ""
 echo ""
 echo "Going to sleep for a bit to account for default quota. In production you should set quotas in advance so that you have enough headroom to run your expected number of simultaneous jobs."
 sleep 300
 
+submitBatchJob customer-preferences
+submitBatchJob customer-relationship
 submitBatchJob customer-segment
 submitBatchJob department
 submitBatchJob division
 submitBatchJob employee
-submitBatchJob item
-submitBatchJob store
-submitBatchJob style
-submitBatchJob sub-classification
 
 echo ""
 echo ""
 echo "Going to sleep for a bit to account for default quota. In production you should set quotas in advance so that you have enough headroom to run your expected number of simultaneous jobs."
 sleep 300
 
+submitBatchJob item
+submitBatchJob store
+submitBatchJob style
+submitBatchJob sub-classification
 submitBatchJob vendor

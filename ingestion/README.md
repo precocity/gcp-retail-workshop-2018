@@ -186,7 +186,10 @@ type: JOB_TYPE_BATCH
 ```
 cd ~/gcp-retail-workshop-2018/ingestion
 sh dataflow/scripts/submit-batch-jobs.sh
+tail -f nohup.out
 ```
+
+>Use the tail command to view the progress of the batch jobs being submitted. You can CTRL+C to exit the tail when you are done looking.
 
 **Step 7:** While the other jobs start to run, you can verify that the `customer` table has been successfully loaded in the BigQuery page as shown below.
 
