@@ -44,9 +44,11 @@ The SSH key created here will be used by Terraform when deploying the Airflow in
 
 This is the folder from which you will install and configure Terraform. Run the following commands in order:
 
-* `wget https://releases.hashicorp.com/terraform/0.11.7/terraform_0.11.7_linux_amd64.zip`
-* `unzip terraform_0.11.7_linux_amd64.zip -d .`
-* `./terraform -v`
+```
+wget https://releases.hashicorp.com/terraform/0.11.7/terraform_0.11.7_linux_amd64.zip
+unzip terraform_0.11.7_linux_amd64.zip -d .
+./terraform -v
+```
 
 The output from the last command should display something similar to below:
 
