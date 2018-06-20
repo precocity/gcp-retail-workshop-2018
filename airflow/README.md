@@ -82,6 +82,10 @@ Now enter:
 
 >The output displayed will be a list of members and their roles for the project.
 
+This next command will add the new service account you just created to the precocity-retail-workshop-2018 project, so we can programmatically access the public bucket to retrieve the staging files.
+
+`gcloud projects add-iam-policy-binding precocity-retail-workshop-2018  --member serviceAccount:airflow@$GOOGLE_CLOUD_PROJECT.iam.gserviceaccount.com --role roles/storage.admin`
+
 **Step 3:**
 Running Terraform
 
