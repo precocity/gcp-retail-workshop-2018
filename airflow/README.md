@@ -10,6 +10,7 @@ Precocity uses Terraform for overall infrastructure deployment and Ansible for t
 ## Hands-On
 ### Pre-Requisites
 * Cloud Shell
+* `gcloud config set compute/zone us-central1-c`
 * `git clone https://github.com/precocity/gcp-retail-workshop-2018.git`
 * `cd ~gcp-retail-workshop-2018/scripts`
 * `./02_variableSubstitution.sh`
@@ -68,12 +69,12 @@ If prompted to enable the API, press Y to continue. The output from the command 
 
 These next two commands will create the credentials needed to communicate with the Airflow instance and add the appropriate role to the service account that you just created.
 
-'gcloud iam service-accounts keys create ~/gce-airflow-key.json --iam-account=airflow@$GOOGLE_CLOUD_PROJECT.iam.gserviceaccount.com'
+`gcloud iam service-accounts keys create ~/gce-airflow-key.json --iam-account=airflow@$GOOGLE_CLOUD_PROJECT.iam.gserviceaccount.com`
 
 The output should look similar to below:
 
->`created key [230bc3e5da71391ffd8554a7f1a2a661d51a9045] of type [json] as [/home/chrisdebracy/gce-airflow-key.json] for [airflow@precocity-retail-workshop-2018.iam.gserviceaccount.c
-om]`
+>created key [230bc3e5da71391ffd8554a7f1a2a661d51a9045] of type [json] as [/home/chrisdebracy/gce-airflow-key.json] for [airflow@precocity-retail-workshop-2018.iam.gserviceaccount.c
+om]
 
 Now enter:
 
