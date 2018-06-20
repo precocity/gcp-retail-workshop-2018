@@ -181,7 +181,7 @@ type: JOB_TYPE_BATCH
 
 <img src="assets/DataFlow-CustomerLoad-JobsPage.png" width="500px"/>
 
-**Step 6:** Now, let's go ahead and kick off other Dataflow jobs to load the rest of the tables. There's a helper script which has all the `gcloud` commands to kick off the batch load process for the rest of the tables.
+**Step 6:** Now, let's go ahead and kick off other Dataflow jobs to load the rest of the tables. There's a helper script which has all the `gcloud` commands to kick off the batch load process for the rest of the tables.  The script will run in the background firing off waves of batch jobs and write output to a file named "nohup.out"
 
 ```
 cd ~/gcp-retail-workshop-2018/ingestion
@@ -192,7 +192,7 @@ sh dataflow/scripts/submit-batch-jobs.sh
 
 <img src="assets/Batch-Dataflow-Load-QuickVerification.png"/>
 
-**Step 8:** You can verify the other running jobs by navigating to the Dataflow jobs page and checking the status of each batch job.
+**Step 8:** You can verify the other running jobs by navigating to the Dataflow jobs page and checking the status of each batch job. Depending on how long you have waited between this step and step 6 you may not see all jobs listed as they are registered and run in waves.
 
 >The key takeaway with this exercise is that we only built the batch ingestion Dataflow job only once. By templatizing / parameterizing it's execution we are able to reuse the same code for ingesting multiple batch sources.
 
