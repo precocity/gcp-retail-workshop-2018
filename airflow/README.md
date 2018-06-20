@@ -172,9 +172,10 @@ Installing Ansible
 
 The following commands will change to the Ansible folder from where you will perform the install of Ansible and the running of the playbook. A script that installs pip packages needs execute permissions set and then you will run the script to install Ansible.
 
-`cd ~/gcp-retail-workshop-2018/airflow/ansible/airflow`
-
-`. ./ansible_install.sh`
+```
+cd ~/gcp-retail-workshop-2018/airflow/ansible/airflow
+. ./ansible_install.sh
+```
 
 > Ansible requires sudo access to install and the binaries will not survive the exiting of Google Cloud Shell.
 > The last command `. ./ansible_install.sh` needs the extra space between the two periods as it is setting environment variables that you want exposed to your current session.
