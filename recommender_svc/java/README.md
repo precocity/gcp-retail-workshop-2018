@@ -2,20 +2,18 @@
 
 Once a model has been trained, it can be leveraged by an API-based service to expose the recommendations to an eCommerce platform, a mobile application or, potentially partners and affiliates.   The porttion of the workshop will be focused on creating the services the will utilize the trained model generate recommendations in real-time for a specified customer id.  
 
-1. Open Cloud Shell in your project
+## Prerequisites
 
-![Cloud Shell Icon](assets/cloudshell.png)
+* Ensure you've trained the recommender by following the README in `gcp-retail-workshop-2018/recommender`
+* Open Cloud Shell in your project
+* **Ensure Cloud Build API is enabled**: `gcloud services enable cloudbuild.googleapis.com`
+* **Ensure Kubernetes Engine API is enabled**: `gcloud services enable container.googleapis.com`
+* **Clone this repo**, if you have not done so already: `git clone https://github.com/precocity/gcp-retail-workshop-2018.git`
+* **Change to recommender directory**: `cd gcp-retail-workshop-2018/recommender_svc/java`
 
+## Lab
 
-2. Clone the workshop repository if you haven't already done so:
-
-```bash
-git clone https://github.com/precocity/gcp-retail-workshop-2018.git
-```
-
-3. Switch to the directory for the recommendation service component: `cd gcp-retail-workshop-2018/recommender_svc/java`
-
-1. The next step uses Google Cloud Container builder to build the Java service and  push the containter to Google Container Repository.  The build process uses a multi-stage Dockerfile to first, compile the project in a clean and consistent environment and then create the final container image with the compiled jar file.  *Don't forget the "." at the end of the command below.*
+1. Use Google Cloud Container builder to build the Java service and  push the containter to Google Container Repository.  The build process uses a multi-stage Dockerfile to first, compile the project in a clean and consistent environment and then create the final container image with the compiled jar file.  *Don't forget the "." at the end of the command below.*
 
 ```bash
 gcloud container builds submit --tag gcr.io/$DEVSHELL_PROJECT_ID/retail-wkshp-recs .
@@ -46,7 +44,7 @@ kubectl create configmap recs-svc-config --from-literal=gcp.project=$DEVSHELL_PR
 8. Edit the `k8s/deployment.yml` file (using sed find/replace) to reference the correct image for your specific google project:
 
 ```bash
-sed -i -e 's/MY_PROJECT_ID/$DEVSHELL_PROJECT_ID/g' k8s/deployment.yml
+sed -i -e 's/MY_PROJECT_ID/'"$DEVSHELL_PROJECT_ID"'/g' k8s/deployment.yml
 ```
 
 9. Deploy the application to the cluster.  You can reference the workloads tab in the console to check on the status of the deployment.  Once the service is green as per the screenshot below, you're service is up and running.  It should be noted that we are exposing the service using NodePort which means that we are exposing a specific port for each node on which a pod is running.  This is fine for simple examples that are running on a single node cluster, but production workloads should prefer the [LoadBalancer](https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types) or [Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/) methods.   
