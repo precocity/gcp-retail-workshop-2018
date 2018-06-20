@@ -10,7 +10,7 @@ SCRIPT_DIR="$( cd "$( dirname "$0" )" && pwd )"
 
 #VARS
 JAVA=`which java`
-APPS_DIR=$SCRIPT_DIR/../../apps
+APPS_DIR=$SCRIPT_DIR/../apps
 DATA_DIR=$SCRIPT_DIR/../../data
 PUBLISHER_JAR_DIR=$APPS_DIR/Sales-Data-Publisher/target
 PUBLISHER_JAR=$PUBLISHER_JAR_DIR/Sales-Data-Publisher.jar

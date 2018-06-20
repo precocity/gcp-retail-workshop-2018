@@ -118,3 +118,23 @@
     dest: /home/airflow/.bash_profile
     owner: "{{ airflow_user }}"
     group: "{{ airflow_group }}"
+
+- name: Copy BigQuery scripts
+  copy:
+    src: ~/gcp-retail-workshop-2018/ingestion/bigquery/samples/store_sales.sql
+    dest: "{{ airflow_home }}/scripts"
+    owner: "{{ airflow_user }}"
+    group: "{{ airflow_group }}"
+
+- name: More BigQuery scripts
+  copy:
+    src: ~/gcp-retail-workshop-2018/airflow/runtime/scripts
+    dest: "{{ airflow_home }}"
+    owner: "{{ airflow_user }}"
+    group: "{{ airflow_group }}"
+    mode: 0777
+
+- name: gcloud auth activate-service-account
+  shell: gcloud auth activate-service-account airflow@{GOOGLE_CLOUD_PROJECT}.iam.gserviceaccount.com --key-file="{{ airflow_home }}/gce-airflow-key.json"
+  become: true
+  become_user: "{{ airflow_user }}"

@@ -13,13 +13,15 @@ This README documents the process to build an end-to-end ecommerce recommender w
 
 <img src="assets/three.png" width="35"/> **Model Training**: From Cloud Shell, we issue a single command that packages & zips our Python/Tensorflow trainer and starts it as a job on Cloud ML.  This job in turn consumes the implicit feedback CSV stored in GCS, uses Weighted Alternating Least Squares (WALS) model to compute the latent factors and store them back in GCS.
 
-<img src="assets/four.png" width="35"/> **Prediction Service**: A SpringBoog Java application was developed to implement the prediction service that uses the derived latent factores to generate recommendations for a given user.  This process is documented in the README in `recommender_svc/java`
+<img src="assets/four.png" width="35"/> **Prediction Service**: A SpringBoot Java application was developed to implement the prediction service that uses the derived latent factores to generate recommendations for a given user.  This process is documented in the README in `recommender_svc/java`
 
 ## Prerequisites
 
 * Cloud Shell
-* `git clone https://github.com/precocity/gcp-retail-workshop-2018.git`
-* `cd gcp-retail-workshop-2018/recommender`
+* **Ensure ML API is enabled**: `gcloud services enable ml.googleapis.com`
+* **Clone this repo**, if you have not done so already: `git clone https://github.com/precocity/gcp-retail-workshop-2018.git`
+* **Change to recommender directory**: `cd gcp-retail-workshop-2018/recommender`
+
 
 ## <img src="assets/two.png" width="40"/> Extract Data from BigQuery
 
@@ -89,6 +91,12 @@ Now that the training file has been prepared and stored in GCS, we're ready to t
 	```sh
 	gcloud ml-engine jobs stream-logs $JOBNAME
 	``` 
+	
+4. **Verify Latent Factor Creation**: To list the folder contents containing the latent factors produced by the training process, issue the following command: 
+
+	```sh
+	gsutil ls -lh $BUCKET/model
+	```
 
 
 
@@ -106,7 +114,6 @@ Note, that R is very sparse and most of the *X<sub>ui</sub>* are missing and obv
 As graphically depicted below, the cloud MLE command prepares a python trainer package using the model, task, & other .py files in the trainer directory.  It then zips it up and starts it on Cloud MLE.  The output of the training are the latent factors stored in `$BUCKET`
 
 ![image](assets/mle.png)
-		 
 		 
 			
 
