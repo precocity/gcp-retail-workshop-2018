@@ -31,7 +31,7 @@ submitBatchJob customer-segment
 echo ""
 echo ""
 echo "Going to sleep for a bit to account for default quota. In production you should set quotas in advance so that you have enough headroom to run your expected number of simultaneous jobs."
-sleep 120
+sleep 320
 
 submitBatchJob department
 submitBatchJob division
