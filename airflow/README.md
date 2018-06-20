@@ -10,11 +10,13 @@ Precocity uses Terraform for overall infrastructure deployment and Ansible for t
 ## Hands-On
 ### Pre-Requisites
 * Cloud Shell
+* `gcloud config set project [PROJECT_ID]`
 * `gcloud config set compute/zone us-central1-c`
 * `git clone https://github.com/precocity/gcp-retail-workshop-2018.git`
 * `cd ~/gcp-retail-workshop-2018/scripts`
 * `./02_variableSubstitution.sh`
 
+>The first command isn't necessary unless your GOOGLE_CLOUD_PROJECT environment variable doesn't match your project name. The third command should already have been run as part of the BigQuery lab exercises.
 >Note: Unless otherwise explicitly stated, all the commands below are to be executed in Cloud Shell as-is. If you have already run the `git clone` command, it is not necessary to do it again.
 > Any commands previously entered during the BigQuery labs can be ignored.
 
