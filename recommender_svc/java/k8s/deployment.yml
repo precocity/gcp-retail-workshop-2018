@@ -30,7 +30,7 @@ spec:
     spec:
       containers:
       - name: recs-svc
-        image: gcr.io/precocity-retail-workshop-2018/retail-wkshp-recs
+        image: gcr.io/MY_PROJECT_ID/retail-wkshp-recs
         ports:
         - containerPort: 8080
         env:
