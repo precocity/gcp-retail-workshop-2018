@@ -29,6 +29,10 @@ submitBatchJob customer-relationship
 submitBatchJob customer-segment
 submitBatchJob department
 submitBatchJob division
+
+echo "Going to sleep for a bit to account for default quota. In production you should set quotas in advance so that you have enough headroom to run your expected number of simultaneous jobs."
+sleep 120
+
 submitBatchJob employee
 submitBatchJob item
 submitBatchJob store
