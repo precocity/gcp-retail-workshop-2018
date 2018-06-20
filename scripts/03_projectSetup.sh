@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 gcloud services enable bigquery-json.googleapis.com
 gcloud services enable cloudapis.googleapis.com
 gcloud services enable cloudbuild.googleapis.com
@@ -23,12 +25,4 @@ gcloud services enable serviceusage.googleapis.com
 gcloud services enable sql-component.googleapis.com
 gcloud services enable storage-api.googleapis.com
 gcloud services enable storage-component.googleapis.com
-gcloud services enable cloudbuild.googleapis.com
-gcloud services enable compute.googleapis.com
-gcloud services enable replicapool.googleapis.com
 gcloud services enable stackdriver.googleapis.com
-gcloud services enable logging.googleapis.com
-gcloud services enable monitoring.googleapis.com
-gcloud services enable serviceusage.googleapis.com
-gcloud services enable clouddebugger.googleapis.com
-gcloud services enable cloudtrace.googleapis.com
