@@ -1,6 +1,6 @@
-# Recommendations on GCP with TensorFlow and WALS
+# eCommerce Recommender with Google Cloud Machine Learning Engine
 
-This README documents the process to build an end-to-end ecommerce recommender without spinning up any infrastructure, a completely managed solution using BigQuery & Cloud MLE.  The ingestion and training aspects of the build are documented in this README while the associated prediction service development & deployment is documented in the `recommender_svc/java` README
+This README documents the process to build an end-to-end ecommerce recommender without spinning up any infrastructure, a completely managed solution using BigQuery & Cloud MLE.  The ingestion and training aspects of the build are documented in this README while the associated prediction service development & deployment is documented in the `recommender_svc/java` README.  This work extends the great code in [this Google repo](https://github.com/GoogleCloudPlatform/tensorflow-recommendation-wals) by applying it to new a new dataset. 
 
 
 
