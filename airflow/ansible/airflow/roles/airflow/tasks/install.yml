@@ -5,6 +5,9 @@
     name: python
     path: /usr/bin/python3
 
+- name: apt-get update
+  shell: sudo apt-get update
+
 - name: Install the Python 3 version of pip
   apt:
     name: python3-pip

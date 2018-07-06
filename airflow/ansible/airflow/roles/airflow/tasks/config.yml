@@ -51,7 +51,7 @@
   shell: |
       export AIRFLOW_HOME=/etc/airflow
       airflow connections -d --conn_id google_cloud_default
-      airflow connections -a --conn_id google_cloud_default --conn_type google_cloud_platform --conn_extra '{"extra__google_cloud_platform__scope": " https://www.googleapis.com/auth/cloud-platform", "extra__google_cloud_platform__project": "{GOOGLE_CLOUD_PROJECT}", "extra__google_cloud_platform__key_path": "/etc/airflow/gce-airflow-key.json"}'
+      airflow connections -a --conn_id google_cloud_default --conn_type google_cloud_platform --conn_extra '{"extra__google_cloud_platform__scope":"https://www.googleapis.com/auth/cloud-platform", "extra__google_cloud_platform__project":"{GOOGLE_CLOUD_PROJECT}", "extra__google_cloud_platform__key_path":"/etc/airflow/gce-airflow-key.json"}'
       exit 0
   become: true
   become_user: "{{ airflow_user }}"
