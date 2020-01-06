@@ -20,7 +20,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.javadoc.skip>true</maven.javadoc.skip>
-        <log4j.version>2.7</log4j.version>
+        <log4j.version>2.13.0</log4j.version>
 
     </properties>
 
